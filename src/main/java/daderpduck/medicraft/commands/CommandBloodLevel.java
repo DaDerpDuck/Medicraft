@@ -1,8 +1,11 @@
 package daderpduck.medicraft.commands;
 
+import daderpduck.medicraft.capabilities.BloodCapability;
+import daderpduck.medicraft.capabilities.IBlood;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.text.TextComponentString;
@@ -26,11 +29,11 @@ public class CommandBloodLevel extends CommandBase {
 	@Override
 	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayerMP senderAsPlayer = getCommandSenderAsPlayer(sender);
-
-
+		IBlood bloodCap = senderAsPlayer.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
+		assert bloodCap != null;
 
 		if (args.length < 1) {
-			sender.sendMessage(new TextComponentString(sender.getName() + "has blood level of "));
+			sender.sendMessage(new TextComponentString(sender.getName() + "has blood level of " + bloodCap.getBlood()));
 		}
 
 		double amount = parseDouble(args[0]);
