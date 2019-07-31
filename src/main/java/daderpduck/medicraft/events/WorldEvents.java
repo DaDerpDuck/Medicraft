@@ -30,6 +30,7 @@ import net.minecraft.init.Items;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
@@ -85,7 +86,7 @@ public class WorldEvents {
 				} else {
 					//Player fell without broken legs
 					if (f >= 0.5F && f > rand) {
-						player.sendMessage(new TextComponentString("§cYou hear a snap from your leg"));
+						player.sendMessage(new TextComponentTranslation("injury.medicraft.broken_leg"));
 						new BrokenLeg(player, (int)(f*12000));
 
 						NetworkHandler.FireClient(new MessagePain(2), player);
@@ -100,7 +101,7 @@ public class WorldEvents {
 				} else {
 					//Player fell without sprained ankle
 					if (f < 0.5F && f > rand) {
-						player.sendMessage(new TextComponentString("§cYou feel a sharp pain in your ankle"));
+						player.sendMessage(new TextComponentTranslation("injury.medicraft.sprained_ankle"));
 						new SprainedAnkle(player, (int)(f*6000));
 
 						NetworkHandler.FireClient(new MessagePain(1.2F), player);

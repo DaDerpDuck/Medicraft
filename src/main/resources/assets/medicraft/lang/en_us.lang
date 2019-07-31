@@ -22,3 +22,7 @@ death.attack.medicraft.blood_loss=%1$s bled to death
 commands.medicraft.bloodlevel.usage=/bloodlevel [player] [amount]
 commands.medicraft.bloodlevel.success.get=%s's blood level: %s
 commands.medicraft.bloodlevel.success.set=Set %s's blood level to %s
+
+#Injuries
+injury.medicraft.broken_leg=§cYou hear a snap from your leg
+injury.medicraft.sprained_ankle=§cYou feel a sharp pain in your ankle
