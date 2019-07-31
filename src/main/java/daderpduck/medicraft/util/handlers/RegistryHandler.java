@@ -1,5 +1,6 @@
 package daderpduck.medicraft.util.handlers;
 
+import daderpduck.medicraft.commands.CommandBloodLevel;
 import daderpduck.medicraft.init.ModBlocks;
 import daderpduck.medicraft.init.ModItems;
 import daderpduck.medicraft.util.IHasModel;
@@ -8,6 +9,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @EventBusSubscriber
@@ -35,5 +37,9 @@ public class RegistryHandler {
 				((IHasModel)block).registerModels();
 			}
 		}
+	}
+
+	public static void serverRegistries(FMLServerStartingEvent event) {
+		event.registerServerCommand(new CommandBloodLevel());
 	}
 }

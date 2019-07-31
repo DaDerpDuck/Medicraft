@@ -1,11 +1,11 @@
-//Items
+#Items
 item.yogurt.name=Yogurt
 item.bandage.name=Bandage
 
-//Blocks
+#Blocks
 tile.yogurt_block.name=Yogurt Block
 
-//Potions
+#Potions
 effect.bleeding=Bleeding
 effect.broken_leg=Broken Leg
 effect.concussion=Concussion
@@ -13,10 +13,12 @@ effect.brain_swelling=Brain Swelling
 effect.brain_hemorrhage=Brain Hemorrhage
 effect.sprained_ankle=Sprained Ankle
 
-//Damage Sources
+#Damage Sources
 death.attack.medicraft.wound=%1$s neglected their injury
 death.attack.medicraft.brain_swelling=%1$s died from brain swelling
 death.attack.medicraft.blood_loss=%1$s bled to death
 
-//Commands
+#Commands
 commands.medicraft.bloodlevel.usage=/bloodlevel [player] [amount]
+commands.medicraft.bloodlevel.success.get=%s's blood level: %s
+commands.medicraft.bloodlevel.success.set=Set %s's blood level to %s

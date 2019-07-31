@@ -5,6 +5,7 @@ import daderpduck.medicraft.init.ModPotions;
 import daderpduck.medicraft.network.NetworkHandler;
 import daderpduck.medicraft.proxy.CommonProxy;
 import daderpduck.medicraft.util.Reference;
+import daderpduck.medicraft.util.handlers.RegistryHandler;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -12,6 +13,7 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS)
 public class Main {
@@ -36,5 +38,10 @@ public class Main {
 	@EventHandler
 	public static void PostInit(FMLPostInitializationEvent event) {
 		
+	}
+
+	@EventHandler
+	public static void ServerInit(FMLServerStartingEvent event) {
+		RegistryHandler.serverRegistries(event);
 	}
 }
