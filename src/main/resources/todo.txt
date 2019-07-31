@@ -1,0 +1,45 @@
+Items:
+	First aid kit
+	First aid cabinet
+	Syringe
+	Syringe Gun
+
+	Bandage
+	Splint
+	Crutches
+
+	Doctor Goggles (Sees ailments a player has)
+
+Syringe:
+
+
+Injuries:
+	Concussion
+	Brain Hemorrhage
+
+	Broken Leg
+	Broken Rib
+	Cracked Skull
+
+Conditions:
+	Convulsion
+	Bleeding
+	Internal Bleeding
+	Tinnitus
+	Double Vision
+	Drowsiness
+	Slurred Speech
+	Fatigue
+	Heat Stroke
+
+
+	Dyslexia
+
+Disease:
+	Influenza
+	Rabies
+	Pneumonic Plague
+	Malaria
+	Yellow Fever
+	Typhoid
+	Tapeworms
