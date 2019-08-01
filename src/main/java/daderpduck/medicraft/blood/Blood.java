@@ -45,7 +45,7 @@ public class Blood {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		EntityPlayer player = event.player;
-		IBlood blood = player.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
+		IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 
 		float toRegen = baseRegen;
 		for (BloodRegenModifier modifier : bloodModifiers.get(player)) {

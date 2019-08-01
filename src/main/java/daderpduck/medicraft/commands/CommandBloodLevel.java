@@ -36,7 +36,7 @@ public class CommandBloodLevel extends CommandBase {
 	@Override
 	public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, String[] args) throws CommandException {
 		EntityPlayerMP senderAsPlayer = getCommandSenderAsPlayer(sender);
-		IBlood bloodCap = senderAsPlayer.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
+		IBlood bloodCap = senderAsPlayer.getCapability(BloodCapability.CAP_BLOOD, null);
 		assert bloodCap != null;
 
 		if (args.length <= 0) {
@@ -48,7 +48,7 @@ public class CommandBloodLevel extends CommandBase {
 			try {
 				//Get blood amount of specified player
 				EntityPlayerMP target = getPlayer(server, sender, s);
-				IBlood targetBloodCap = target.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
+				IBlood targetBloodCap = target.getCapability(BloodCapability.CAP_BLOOD, null);
 				assert targetBloodCap != null;
 
 				notifyCommandListener(sender, this, GET_TRANSLATION, target.getDisplayName(), targetBloodCap.getBlood());
@@ -66,7 +66,7 @@ public class CommandBloodLevel extends CommandBase {
 			EntityPlayerMP target = getPlayer(server, sender, args[0]);
 			double amount = parseDouble(args[1]);
 
-			IBlood targetBloodCap = target.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
+			IBlood targetBloodCap = target.getCapability(BloodCapability.CAP_BLOOD, null);
 			assert targetBloodCap != null;
 
 			targetBloodCap.setBlood((float) amount);

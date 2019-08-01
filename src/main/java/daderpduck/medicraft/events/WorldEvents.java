@@ -119,7 +119,7 @@ public class WorldEvents {
 		if (event.phase == TickEvent.Phase.START) {
 			/* COMMON */
 			EntityPlayer player = event.player;
-			IBlood bloodCap = player.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
+			IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
 
 			BloodRegenModifier bloodRegenModifier = Blood.getBloodRegenModifier(player, ModBloodRegenModifier.BLEEDING_MODIFIER.getId());
 			if (bloodRegenModifier != null) {

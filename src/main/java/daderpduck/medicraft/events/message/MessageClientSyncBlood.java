@@ -34,7 +34,7 @@ public class MessageClientSyncBlood extends MessageBase<MessageClientSyncBlood> 
 	@Override
 	public void handleClientSide(MessageClientSyncBlood message) {
 		EntityPlayer player = Minecraft.getMinecraft().player;
-		IBlood blood = player.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
+		IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 		assert blood != null;
 
 		blood.setBlood(message.blood);
