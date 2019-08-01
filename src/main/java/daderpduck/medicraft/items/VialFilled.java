@@ -13,9 +13,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.awt.*;
 
-public class SyringeFilled extends Item implements IItemColor {
-
-	public SyringeFilled(String name) {
+public class VialFilled extends Item implements IItemColor {
+	public VialFilled(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setHasSubtypes(true);
@@ -54,15 +53,12 @@ public class SyringeFilled extends Item implements IItemColor {
 
 	@Override
 	public int colorMultiplier(@Nonnull ItemStack stack, int tintIndex) {
-		switch(tintIndex) {
-			case 0: return Color.WHITE.getRGB();
-			case 1: {
-				int metadata = stack.getMetadata();
-				for (Medicine medicine : ModMedicines.MEDICINES) {
-					if (medicine.getId() == metadata) return medicine.getColor();
-				}
+		if (tintIndex == 0) {
+			int metadata = stack.getMetadata();
+			for (Medicine medicine : ModMedicines.MEDICINES) {
+				if (medicine.getId() == metadata) return medicine.getColor();
 			}
-			default: return Color.BLACK.getRGB();
 		}
+		return Color.BLACK.getRGB();
 	}
 }

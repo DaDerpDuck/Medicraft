@@ -26,4 +26,6 @@ public class Medicine {
 	public int getId() {
 		return id;
 	}
+
+
 }

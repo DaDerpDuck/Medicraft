@@ -1,8 +1,7 @@
 package daderpduck.medicraft.capabilities;
 
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTPrimitive;
-import net.minecraft.nbt.NBTTagFloat;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -14,32 +13,39 @@ import javax.annotation.Nullable;
 
 public class BloodCapability {
 	public static void register(CapabilityManager INSTANCE) {
-		INSTANCE.register(IBlood.class, new BloodStorage(), DefaultImplementationBlood::new);
+		INSTANCE.register(IBlood.class, new BloodStorage(), ImplementationBlood::new);
 	}
 
-	public static class DefaultImplementationBlood implements IBlood {
-		private final float maxBloodLevel = 2000F;
+	public static class ImplementationBlood implements IBlood {
+		private float maxBloodLevel = 2000F;
 		private float bloodLevel = 2000F;
 
 		@Override
-		public void increase(float points) {
-			bloodLevel += points;
+		public void increase(float amount) {
+			bloodLevel += amount;
 			bloodLevel = Math.min(bloodLevel, maxBloodLevel);
 		}
 
 		@Override
-		public void decrease(float points) {
-			bloodLevel -= points;
+		public void decrease(float amount) {
+			bloodLevel -= amount;
+			bloodLevel = Math.min(bloodLevel, maxBloodLevel);
 		}
 
 		@Override
-		public void setBlood(float points) {
-			bloodLevel = Math.min(points, maxBloodLevel);
+		public void setBlood(float amount) {
+			bloodLevel = Math.min(amount, maxBloodLevel);
 		}
 
 		@Override
 		public float getBlood() {
 			return bloodLevel;
+		}
+
+		@Override
+		public void setMaxBlood(float amount) {
+			maxBloodLevel = amount;
+			bloodLevel = Math.min(bloodLevel, maxBloodLevel);
 		}
 
 		@Override
@@ -53,12 +59,16 @@ public class BloodCapability {
 		@Nullable
 		@Override
 		public NBTBase writeNBT(Capability<IBlood> capability, IBlood instance, EnumFacing side) {
-			return new NBTTagFloat(instance.getBlood());
+			NBTTagCompound nbt = new NBTTagCompound();
+			nbt.setFloat("bloodLevel", instance.getBlood());
+			nbt.setFloat("maxBloodLevel", instance.getMaxBlood());
+			return nbt;
 		}
 
 		@Override
 		public void readNBT(Capability<IBlood> capability, IBlood instance, EnumFacing side, NBTBase nbt) {
-			instance.setBlood(((NBTPrimitive) nbt).getFloat());
+			instance.setBlood(((NBTTagCompound) nbt).getFloat("bloodLevel"));
+			instance.setBlood(((NBTTagCompound) nbt).getFloat("maxBloodLevel"));
 		}
 	}
 

@@ -3,6 +3,7 @@ package daderpduck.medicraft.proxy;
 import daderpduck.medicraft.base.Medicine;
 import daderpduck.medicraft.init.ModMedicines;
 import daderpduck.medicraft.items.SyringeFilled;
+import daderpduck.medicraft.items.VialFilled;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
@@ -25,6 +26,12 @@ public class ClientProxy extends CommonProxy {
 			ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Objects.requireNonNull(syringe.getRegistryName()), "inventory");
 			ModelLoader.setCustomModelResourceLocation(CommonProxy.syringe, medicine.getId(), itemModelResourceLocation);
 		}
+
+		//Vial
+		for (Medicine medicine: ModMedicines.MEDICINES) {
+			ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Objects.requireNonNull(vial.getRegistryName()), "inventory");
+			ModelLoader.setCustomModelResourceLocation(CommonProxy.vial, medicine.getId(), itemModelResourceLocation);
+		}
 	}
 
 	public void Init() {
@@ -35,6 +42,7 @@ public class ClientProxy extends CommonProxy {
 	public void PostInit() {
 		super.PostInit();
 
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new SyringeFilled(), CommonProxy.syringe);
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new SyringeFilled("syringe_filled"), CommonProxy.syringe);
+		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new VialFilled("vial_filled"), CommonProxy.vial);
 	}
 }

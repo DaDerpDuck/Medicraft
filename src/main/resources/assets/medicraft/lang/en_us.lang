@@ -1,9 +1,15 @@
 #Items
 item.yogurt.name=Yogurt
 item.bandage.name=Bandage
+
 item.syringe_empty.name=Empty Syringe
 item.syringe_filled.name=Syringe
+item.syringe_filled.blood.name=Syringe of Blood
 item.syringe_filled.sufforin.name=Syringe of Sufforin
+
+item.vial_empty.name=Empty Vial
+item.vial_filled.name=Vial
+item.vial_filled.sufforin.name=Vial of Sufforin
 
 #Blocks
 tile.yogurt_block.name=Yogurt Block
@@ -25,6 +31,10 @@ death.attack.medicraft.blood_loss=%1$s bled to death
 commands.medicraft.bloodlevel.usage=/bloodlevel [player] [amount]
 commands.medicraft.bloodlevel.success.get=%s's blood level: %s
 commands.medicraft.bloodlevel.success.set=Set %s's blood level to %s
+
+commands.medicraft.maxbloodlevel.usage=/maxbloodlevel [player] [amount]
+commands.medicraft.maxbloodlevel.success.get=%s's max blood level: %s
+commands.medicraft.maxbloodlevel.success.set=Set %s's max blood level to %s
 
 #Injuries
 injury.medicraft.broken_leg=§cYou hear a snap from your leg

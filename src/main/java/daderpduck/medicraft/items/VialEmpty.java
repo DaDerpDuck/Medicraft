@@ -6,9 +6,8 @@ import daderpduck.medicraft.util.IHasModel;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
-public class SyringeEmpty extends Item implements IHasModel {
-
-	public SyringeEmpty(String name) {
+public class VialEmpty extends Item implements IHasModel {
+	public VialEmpty(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setMaxStackSize(16);

@@ -28,20 +28,20 @@ public class CapabilityHandler {
 	public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
 		IBlood blood = event.player.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
 		assert blood != null;
-		NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood()), (EntityPlayerMP) event.player);
+		NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood(), blood.getMaxBlood()), (EntityPlayerMP) event.player);
 	}
 
 	@SubscribeEvent
 	public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
 		IBlood blood = event.player.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
 		assert blood != null;
-		NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood()), (EntityPlayerMP) event.player);
+		NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood(), blood.getMaxBlood()), (EntityPlayerMP) event.player);
 	}
 
 	@SubscribeEvent
 	public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
 		IBlood blood = event.player.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
 		assert blood != null;
-		NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood()), (EntityPlayerMP) event.player);
+		NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood(), blood.getMaxBlood()), (EntityPlayerMP) event.player);
 	}
 }

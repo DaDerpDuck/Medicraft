@@ -2,7 +2,7 @@ package daderpduck.medicraft.init;
 
 import daderpduck.medicraft.base.ItemBase;
 import daderpduck.medicraft.items.SyringeEmpty;
-import daderpduck.medicraft.items.SyringeFilled;
+import daderpduck.medicraft.items.VialEmpty;
 import net.minecraft.item.Item;
 
 import java.util.ArrayList;
@@ -14,6 +14,6 @@ public class ModItems {
 	//Items
 	public static final Item YOGURT = new ItemBase("yogurt");
 	public static final Item BANDAGE = new ItemBase("bandage");
-	public static final Item SYRINGE_EMPTY = new SyringeEmpty();
-	public static final Item SYRINGE_FILLED = new SyringeFilled();
+	public static final Item SYRINGE_EMPTY = new SyringeEmpty("syringe_empty");
+	public static final Item VIAL_EMPTY = new VialEmpty("vial_empty");
 }

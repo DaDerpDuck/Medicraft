@@ -12,27 +12,33 @@ public class MessageClientSyncBlood extends MessageBase<MessageClientSyncBlood> 
 	public MessageClientSyncBlood(){}
 
 	private float blood;
+	private float maxBlood;
 
-	public MessageClientSyncBlood(float blood) {
+	public MessageClientSyncBlood(float blood, float maxBlood) {
 		this.blood = blood;
+		this.maxBlood = maxBlood;
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		blood = buf.readFloat();
+		maxBlood = buf.readFloat();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeFloat(blood);
+		buf.writeFloat(maxBlood);
 	}
 
 	@Override
 	public void handleClientSide(MessageClientSyncBlood message) {
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		IBlood blood = player.getCapability(BloodCapability.BloodProvider.CAP_BLOOD, null);
+		assert blood != null;
 
 		blood.setBlood(message.blood);
+		blood.setMaxBlood(message.maxBlood);
 	}
 
 	@Override
