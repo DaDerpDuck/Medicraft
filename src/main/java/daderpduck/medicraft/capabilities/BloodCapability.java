@@ -6,7 +6,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
+import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
 
 import javax.annotation.Nonnull;
@@ -91,14 +91,16 @@ public class BloodCapability {
 
 		@Override
 		public void readNBT(Capability<IBlood> capability, IBlood instance, EnumFacing side, NBTBase nbt) {
-
+			NBTTagCompound nbtTagCompound = (NBTTagCompound) nbt;
+			instance.setBlood(nbtTagCompound.getFloat("bloodLevel"));
+			instance.setMaxBlood(nbtTagCompound.getFloat("maxBloodLevel"));
 		}
 	}
 
 	/**
 	 * Blood provider
 	 */
-	public static class BloodProvider implements ICapabilityProvider {
+	public static class BloodProvider implements ICapabilitySerializable<NBTBase> {
 		private final IBlood instance = CAP_BLOOD.getDefaultInstance();
 
 		@Override
@@ -110,6 +112,16 @@ public class BloodCapability {
 		@Override
 		public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
 			return capability == CAP_BLOOD ? CAP_BLOOD.cast(instance) : null;
+		}
+
+		@Override
+		public NBTBase serializeNBT() {
+			return CAP_BLOOD.getStorage().writeNBT(CAP_BLOOD, instance, null);
+		}
+
+		@Override
+		public void deserializeNBT(NBTBase nbt) {
+			CAP_BLOOD.getStorage().readNBT(CAP_BLOOD, instance, null, nbt);
 		}
 	}
 }
