@@ -1,6 +1,7 @@
 Items:
 	First aid kit
 	First aid cabinet
+	Vials (Done)
 	Syringe
 	Syringe Gun
 
@@ -8,7 +9,7 @@ Items:
 	Splint
 	Crutches
 
-	Doctor Goggles (Sees ailments a player has)
+	Doctor Scanner (Sees ailments a player has)
 
 Syringe:
 
@@ -31,7 +32,6 @@ Conditions:
 	Slurred Speech
 	Fatigue
 	Heat Stroke
-
 
 	Dyslexia
 

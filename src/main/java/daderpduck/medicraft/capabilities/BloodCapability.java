@@ -68,7 +68,7 @@ public class BloodCapability {
 		@Override
 		public void readNBT(Capability<IBlood> capability, IBlood instance, EnumFacing side, NBTBase nbt) {
 			instance.setBlood(((NBTTagCompound) nbt).getFloat("bloodLevel"));
-			instance.setBlood(((NBTTagCompound) nbt).getFloat("maxBloodLevel"));
+			instance.setMaxBlood(((NBTTagCompound) nbt).getFloat("maxBloodLevel"));
 		}
 	}
 
