@@ -4,7 +4,7 @@ Items:
 	Syringe
 	Syringe Gun
 
-	Bandage
+	Bandage (Done)
 	Splint
 	Crutches
 
@@ -14,19 +14,19 @@ Syringe:
 
 
 Injuries:
-	Concussion
+	Concussion (Done)
 	Brain Hemorrhage
 
-	Broken Leg
+	Broken Leg (Done)
 	Broken Rib
 	Cracked Skull
 
 Conditions:
 	Convulsion
-	Bleeding
+	Bleeding (Done)
 	Internal Bleeding
 	Tinnitus
-	Double Vision
+	Double Vision (Done)
 	Drowsiness
 	Slurred Speech
 	Fatigue

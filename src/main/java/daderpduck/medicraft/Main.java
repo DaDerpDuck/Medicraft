@@ -25,6 +25,8 @@ public class Main {
 	
 	@EventHandler
 	public static void PreInit(FMLPreInitializationEvent event) {
+		proxy.PreInit();
+
 		NetworkHandler.init();
 		ModPotions.registerPotions();
 		ModCapabilities.registerCapabilities();
@@ -32,12 +34,12 @@ public class Main {
 	
 	@EventHandler
 	public static void Init(FMLInitializationEvent event) {
-		
+		proxy.Init();
 	}
 	
 	@EventHandler
 	public static void PostInit(FMLPostInitializationEvent event) {
-		
+		proxy.PostInit();
 	}
 
 	@EventHandler

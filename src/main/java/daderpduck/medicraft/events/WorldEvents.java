@@ -189,7 +189,7 @@ public class WorldEvents {
 					assert concussionEffect != null;
 					float f = Math.min(concussionEffect.getDuration()/8400F, 1);
 
-					ConcussionShaders.BLOBS.radius = (int)f*7;
+					ConcussionShaders.BLOBS.radius = (int) (f*7);
 					ConcussionShaders.DOUBLE_VISION.distance = f*0.2F;
 					ConcussionShaders.DOUBLE_VISION.intensity = f;
 				} else {

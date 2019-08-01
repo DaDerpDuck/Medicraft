@@ -1,6 +1,9 @@
 #Items
 item.yogurt.name=Yogurt
 item.bandage.name=Bandage
+item.syringe_empty.name=Empty Syringe
+item.syringe_filled.name=Syringe
+item.syringe_filled.sufforin.name=Syringe of Sufforin
 
 #Blocks
 tile.yogurt_block.name=Yogurt Block

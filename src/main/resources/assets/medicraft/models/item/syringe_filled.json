@@ -1,0 +1,7 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "medicraft:items/syringe_filled",
+		"layer1": "medicraft:items/syringe_overlay"
+	}
+}
