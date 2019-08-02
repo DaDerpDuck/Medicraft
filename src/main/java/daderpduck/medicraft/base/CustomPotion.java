@@ -9,6 +9,8 @@ import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CustomPotion extends Potion {
 	private boolean hideParticles = false;
@@ -101,9 +103,10 @@ public class CustomPotion extends Potion {
 		return this.attributeModifier;
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public boolean hasStatusIcon() {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Reference.MOD_ID, "textures/gui/inventory.png"));
+		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Reference.MOD_ID, "textures/gui/potion_effects.png"));
 		return true;
 	}
 }
