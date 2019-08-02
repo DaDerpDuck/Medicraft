@@ -35,7 +35,7 @@ public class BloodRegen {
 
 	@Nullable
 	public static BloodRegenModifier getBloodRegenModifier(EntityPlayer player, UUID id) {
-		System.out.println(bloodModifiers.get(player));
+		if (bloodModifiers.get(player) == null) return null;
 		for (BloodRegenModifier modifier : bloodModifiers.get(player)) {
 			if (modifier.getId() == id) {
 				return modifier;
@@ -48,7 +48,6 @@ public class BloodRegen {
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 		EntityPlayer player = event.player;
 		IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
-
 		if (bloodModifiers.get(player) == null) return;
 
 		float toRegen = baseRegen;
