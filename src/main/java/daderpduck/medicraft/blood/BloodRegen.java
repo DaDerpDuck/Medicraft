@@ -5,6 +5,7 @@ import daderpduck.medicraft.capabilities.IBlood;
 import daderpduck.medicraft.init.ModBloodRegenModifier;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -15,7 +16,7 @@ import java.util.LinkedList;
 import java.util.UUID;
 
 @Mod.EventBusSubscriber
-public class Blood {
+public class BloodRegen {
 	private static final float baseRegen = .2F;
 	private static final HashMap<EntityPlayer, LinkedList<BloodRegenModifier>> bloodModifiers = new HashMap<>();
 
@@ -34,6 +35,7 @@ public class Blood {
 
 	@Nullable
 	public static BloodRegenModifier getBloodRegenModifier(EntityPlayer player, UUID id) {
+		System.out.println(bloodModifiers.get(player));
 		for (BloodRegenModifier modifier : bloodModifiers.get(player)) {
 			if (modifier.getId() == id) {
 				return modifier;
@@ -47,6 +49,8 @@ public class Blood {
 		EntityPlayer player = event.player;
 		IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 
+		if (bloodModifiers.get(player) == null) return;
+
 		float toRegen = baseRegen;
 		for (BloodRegenModifier modifier : bloodModifiers.get(player)) {
 			toRegen += modifier.getModifier();
@@ -56,7 +60,7 @@ public class Blood {
 		blood.increase(toRegen);
 	}
 
-	@SubscribeEvent
+	@SubscribeEvent(priority = EventPriority.HIGHEST)
 	public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
 		bloodModifiers.put(event.player, ModBloodRegenModifier.MODIFIERS);
 	}

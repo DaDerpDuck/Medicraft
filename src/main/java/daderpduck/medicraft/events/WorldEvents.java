@@ -2,7 +2,7 @@ package daderpduck.medicraft.events;
 
 import daderpduck.medicraft.base.AttributeModifierBase;
 import daderpduck.medicraft.base.CustomPotion;
-import daderpduck.medicraft.blood.Blood;
+import daderpduck.medicraft.blood.BloodRegen;
 import daderpduck.medicraft.blood.BloodRegenModifier;
 import daderpduck.medicraft.capabilities.BloodCapability;
 import daderpduck.medicraft.capabilities.IBlood;
@@ -125,7 +125,7 @@ public class WorldEvents {
 			EntityPlayer player = event.player;
 			IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
 
-			BloodRegenModifier bloodRegenModifier = Blood.getBloodRegenModifier(player, ModBloodRegenModifier.BLEEDING_MODIFIER.getId());
+			BloodRegenModifier bloodRegenModifier = BloodRegen.getBloodRegenModifier(player, ModBloodRegenModifier.BLEEDING_MODIFIER.getId());
 			if (bloodRegenModifier != null) {
 				if (player.isPotionActive(ModPotions.BLEEDING)) {
 					bloodRegenModifier.setModifier(-1);
