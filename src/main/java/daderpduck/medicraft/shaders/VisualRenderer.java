@@ -3,6 +3,7 @@ package daderpduck.medicraft.shaders;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.shader.Framebuffer;
 import net.minecraftforge.fml.common.Mod;
@@ -32,6 +33,8 @@ public class VisualRenderer extends VisualHandler {
 	@SubscribeEvent
 	public static void onRenderTick(RenderTickEvent event) {
 		if (event.phase == Phase.END) {
+			if (!OpenGlHelper.areShadersSupported()) return;
+
 			if (mc.currentScreen instanceof GuiGameOver || mc.currentScreen instanceof GuiMainMenu) {
 				resetShaders();
 				return;
