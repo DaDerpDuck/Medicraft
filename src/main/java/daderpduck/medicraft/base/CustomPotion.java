@@ -13,34 +13,19 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class CustomPotion extends Potion {
-	private boolean hideParticles = false;
 	private boolean unPressKeysOnJump = false;
 	private float damageOnJump = 0;
 	private DamageSource damageSourceOnJump = ModDamageSources.WOUND;
 	private IAttribute attribute;
 	private AttributeModifier attributeModifier;
 
-	public CustomPotion(String name, boolean isBadPotion, int iconIndexX, int iconIndexY, int color) {
-		super(isBadPotion, color);
+	public CustomPotion(String name, boolean isBadPotion, int iconIndexX, int iconIndexY) {
+		super(isBadPotion, 0);
 		setPotionName("effect." + name);
 		setIconIndex(iconIndexX, iconIndexY);
 		setRegistryName(new ResourceLocation(Reference.MOD_ID, name));
 
 		ModPotions.POTIONS.add(this);
-	}
-
-	/**
-	 * Function for hiding the particles while still showing the icon
-	 * Amplifier is set to -1 in WorldEvents
-	 */
-	public CustomPotion hideParticles(boolean invisible) {
-		this.hideParticles = invisible;
-
-		return this;
-	}
-
-	public boolean isParticlesHidden() {
-		return this.hideParticles;
 	}
 
 	/**

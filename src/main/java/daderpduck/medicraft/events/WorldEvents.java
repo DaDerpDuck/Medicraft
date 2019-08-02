@@ -41,7 +41,6 @@ import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import java.lang.reflect.Field;
 import java.util.UUID;
@@ -147,13 +146,6 @@ public class WorldEvents {
 					}
 
 					if (player.isPotionActive(potion)) {
-						//Hide potion particles
-						if (potion.isParticlesHidden()) {
-							PotionEffect effect = player.getActivePotionEffect(potion);
-							ReflectionHelper.setPrivateValue(PotionEffect.class, effect, -1, "amplifier", "field_76461_c");
-
-						}
-
 						//Apply modifiers
 						if (potion.getAttribute() != null && potion.getAttributeModifier() != null) {
 							IAttributeInstance attribute = player.getEntityAttribute(potion.getAttribute());
