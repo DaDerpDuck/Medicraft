@@ -3,7 +3,6 @@ package daderpduck.medicraft.items;
 import daderpduck.medicraft.Main;
 import daderpduck.medicraft.init.ModItems;
 import daderpduck.medicraft.util.IHasModel;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 
 public class SyringeEmpty extends Item implements IHasModel {
@@ -12,7 +11,7 @@ public class SyringeEmpty extends Item implements IHasModel {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setMaxStackSize(16);
-		setCreativeTab(CreativeTabs.MATERIALS);
+		setCreativeTab(Main.MEDICRAFT_TAB);
 
 		ModItems.ITEMS.add(this);
 	}

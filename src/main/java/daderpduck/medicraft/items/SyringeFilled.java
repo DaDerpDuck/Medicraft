@@ -1,5 +1,6 @@
 package daderpduck.medicraft.items;
 
+import daderpduck.medicraft.Main;
 import daderpduck.medicraft.base.Medicine;
 import daderpduck.medicraft.init.ModMedicines;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -22,7 +23,7 @@ public class SyringeFilled extends Item implements IItemColor {
 		setMaxDamage(0);
 		setMaxStackSize(1);
 
-		setCreativeTab(CreativeTabs.MATERIALS);
+		setCreativeTab(Main.MEDICRAFT_TAB);
 	}
 
 	@SideOnly(Side.CLIENT)
