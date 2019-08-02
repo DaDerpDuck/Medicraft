@@ -42,7 +42,9 @@ public class ClientProxy extends CommonProxy {
 	public void PostInit() {
 		super.PostInit();
 
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new SyringeFilled("syringe_filled"), CommonProxy.syringe);
-		Minecraft.getMinecraft().getItemColors().registerItemColorHandler(new VialFilled("vial_filled"), CommonProxy.vial);
+		Minecraft mc = Minecraft.getMinecraft();
+
+		mc.getItemColors().registerItemColorHandler(new SyringeFilled("syringe_filled"), CommonProxy.syringe);
+		mc.getItemColors().registerItemColorHandler(new VialFilled("vial_filled"), CommonProxy.vial);
 	}
 }

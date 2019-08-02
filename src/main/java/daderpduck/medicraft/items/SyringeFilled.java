@@ -21,6 +21,7 @@ public class SyringeFilled extends Item implements IItemColor {
 		setHasSubtypes(true);
 		setMaxDamage(0);
 		setMaxStackSize(1);
+
 		setCreativeTab(CreativeTabs.MATERIALS);
 	}
 

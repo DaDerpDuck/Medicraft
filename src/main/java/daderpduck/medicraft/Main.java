@@ -4,8 +4,10 @@ import daderpduck.medicraft.init.ModCapabilities;
 import daderpduck.medicraft.init.ModPotions;
 import daderpduck.medicraft.network.NetworkHandler;
 import daderpduck.medicraft.proxy.CommonProxy;
+import daderpduck.medicraft.tabs.ModCreativeTab;
 import daderpduck.medicraft.util.Reference;
 import daderpduck.medicraft.util.handlers.RegistryHandler;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
 import net.minecraftforge.fml.common.Mod.Instance;
@@ -17,6 +19,8 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS)
 public class Main {
+	public static final CreativeTabs MEDICRAFT_TAB = new ModCreativeTab("medicrafttab","medicraft.png");
+
 	@Instance
 	public static Main instance;
 	
