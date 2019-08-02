@@ -146,7 +146,8 @@ public class WorldEvents {
 						//Hide potion particles
 						if (potion.isParticlesHidden()) {
 							PotionEffect effect = player.getActivePotionEffect(potion);
-							ReflectionHelper.setPrivateValue(PotionEffect.class, effect, -1, "amplifier");
+							ReflectionHelper.setPrivateValue(PotionEffect.class, effect, -1, "amplifier", "field_76461_c");
+
 						}
 
 						//Apply modifiers
