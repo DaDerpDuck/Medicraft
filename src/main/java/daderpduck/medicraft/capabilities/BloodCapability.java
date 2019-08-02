@@ -1,5 +1,8 @@
 package daderpduck.medicraft.capabilities;
 
+import daderpduck.medicraft.events.message.MessageClientSyncBlood;
+import daderpduck.medicraft.network.NetworkHandler;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -8,6 +11,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.common.util.INBTSerializable;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -16,8 +20,9 @@ public class BloodCapability {
 	@CapabilityInject(IBlood.class)
 	public static Capability<IBlood> CAP_BLOOD;
 
-	public static void register(CapabilityManager INSTANCE) {
-		INSTANCE.register(IBlood.class, new BloodStorage(), ImplementationBlood::new);
+	public static void register() {
+		CapabilityManager.INSTANCE.register(IBlood.class, new BloodStorage(), ImplementationBlood::new);
+		CapabilityAttach.addCapability("blood", new BloodProvider(), new BloodSyncFunction());
 	}
 
 	/**
@@ -122,6 +127,18 @@ public class BloodCapability {
 		@Override
 		public void deserializeNBT(NBTBase nbt) {
 			CAP_BLOOD.getStorage().readNBT(CAP_BLOOD, instance, null, nbt);
+		}
+	}
+
+	/**
+	 * Sync implementation of blood
+	 */
+	static class BloodSyncFunction implements CapabilityAttach.RunnableSyncFunction {
+		@Override
+		public void run(PlayerEvent event) {
+			IBlood blood = event.player.getCapability(BloodCapability.CAP_BLOOD, null);
+			assert blood != null;
+			NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood(), blood.getMaxBlood()), (EntityPlayerMP) event.player);
 		}
 	}
 }
