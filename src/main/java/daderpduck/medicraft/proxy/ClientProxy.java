@@ -44,7 +44,7 @@ public class ClientProxy extends CommonProxy {
 
 		Minecraft mc = Minecraft.getMinecraft();
 
-		mc.getItemColors().registerItemColorHandler(new SyringeFilled("syringe_filled"), CommonProxy.syringe);
-		mc.getItemColors().registerItemColorHandler(new VialFilled("vial_filled"), CommonProxy.vial);
+		mc.getItemColors().registerItemColorHandler(new SyringeFilled.liquidColor(), CommonProxy.syringe);
+		mc.getItemColors().registerItemColorHandler(new VialFilled.liquidColor(), CommonProxy.vial);
 	}
 }
