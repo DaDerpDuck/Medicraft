@@ -19,7 +19,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 @Mod(modid = Reference.MOD_ID, name = Reference.NAME, version = Reference.VERSION, acceptedMinecraftVersions = Reference.ACCEPTED_VERSIONS)
 public class Main {
-	public static final CreativeTabs MEDICRAFT_TAB = new ModCreativeTab("medicrafttab","medicraft.png");
+	public static final CreativeTabs MEDICRAFT_TAB = new ModCreativeTab("medicrafttab");
 
 	@Instance
 	public static Main instance;

@@ -30,9 +30,11 @@ public class SyringeFilled extends Item implements IItemColor {
 	@Override
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
 		for (Medicine medicine : ModMedicines.MEDICINES) {
-			int metadata = medicine.getId();
-			ItemStack subItemStack = new ItemStack(this, 1, metadata);
-			subItems.add(subItemStack);
+			if (tab == Main.MEDICRAFT_TAB || tab == CreativeTabs.SEARCH) {
+				int metadata = medicine.getId();
+				ItemStack subItemStack = new ItemStack(this, 1, metadata);
+				subItems.add(subItemStack);
+			}
 		}
 	}
 

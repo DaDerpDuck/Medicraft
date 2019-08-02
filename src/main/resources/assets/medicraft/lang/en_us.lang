@@ -12,6 +12,7 @@ item.syringe_filled.sufforin.name=Syringe of Sufforin
 
 item.vial_empty.name=Empty Vial
 item.vial_filled.name=Vial
+item.vial_filled.blood.name=Vial of Blood
 item.vial_filled.sufforin.name=Vial of Sufforin
 
 #Blocks
