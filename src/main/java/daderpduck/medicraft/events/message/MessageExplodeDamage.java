@@ -6,6 +6,8 @@ import daderpduck.medicraft.network.MessageBase;
 import daderpduck.medicraft.shaders.VisualHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MessageExplodeDamage extends MessageBase<MessageExplodeDamage> {
 	public MessageExplodeDamage() {
@@ -27,6 +29,7 @@ public class MessageExplodeDamage extends MessageBase<MessageExplodeDamage> {
 		buf.writeFloat(damage);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void handleClientSide(MessageExplodeDamage message) {
 		if (message.damage <= 2) return;
@@ -37,6 +40,7 @@ public class MessageExplodeDamage extends MessageBase<MessageExplodeDamage> {
 		VisualHandler.setSingleShader(this, new MotionBlur((int) (f * 3000), Math.min(f / 6, 1)));
 	}
 
+	@SideOnly(Side.SERVER)
 	@Override
 	public void handleServerSide(MessageExplodeDamage message, EntityPlayerMP player) {
 

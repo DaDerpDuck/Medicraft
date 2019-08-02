@@ -7,6 +7,8 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MessageClientSyncBlood extends MessageBase<MessageClientSyncBlood> {
 	public MessageClientSyncBlood() {
@@ -32,6 +34,7 @@ public class MessageClientSyncBlood extends MessageBase<MessageClientSyncBlood> 
 		buf.writeFloat(maxBlood);
 	}
 
+	@SideOnly(Side.CLIENT)
 	@Override
 	public void handleClientSide(MessageClientSyncBlood message) {
 		EntityPlayer player = Minecraft.getMinecraft().player;
@@ -42,6 +45,7 @@ public class MessageClientSyncBlood extends MessageBase<MessageClientSyncBlood> 
 		blood.setMaxBlood(message.maxBlood);
 	}
 
+	@SideOnly(Side.SERVER)
 	@Override
 	public void handleServerSide(MessageClientSyncBlood message, EntityPlayerMP player) {
 

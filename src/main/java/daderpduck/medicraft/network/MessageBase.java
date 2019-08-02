@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 //Credit to https://www.youtube.com/watch?v=DhuCk0H71Ks (MineMaarten)
 public abstract class MessageBase<REQ extends IMessage> implements IMessage, IMessageHandler<REQ, REQ> {
@@ -23,8 +24,10 @@ public abstract class MessageBase<REQ extends IMessage> implements IMessage, IMe
 	}
 
 	//Handle packet on the client side
+	@SideOnly(Side.CLIENT)
 	public abstract void handleClientSide(REQ message);
 
 	//Handle packet on the server side
+	@SideOnly(Side.SERVER)
 	public abstract void handleServerSide(REQ message, EntityPlayerMP player);
 }

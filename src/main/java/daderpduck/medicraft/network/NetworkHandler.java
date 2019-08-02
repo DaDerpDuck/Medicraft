@@ -18,8 +18,7 @@ public class NetworkHandler {
 
 	@SuppressWarnings({"unchecked", "SameParameterValue"})
 	private static void registerMessage(Class c, Side side) {
-		INSTANCE.registerMessage(c, c, id, side);
-		id++;
+		INSTANCE.registerMessage(c, c, id++, side);
 	}
 
 	public static void init() {
