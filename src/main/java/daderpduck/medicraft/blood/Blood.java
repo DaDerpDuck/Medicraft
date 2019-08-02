@@ -17,7 +17,7 @@ import java.util.UUID;
 @Mod.EventBusSubscriber
 public class Blood {
 	private static final float baseRegen = .2F;
-	private static HashMap<EntityPlayer, LinkedList<BloodRegenModifier>> bloodModifiers = new HashMap<>();
+	private static final HashMap<EntityPlayer, LinkedList<BloodRegenModifier>> bloodModifiers = new HashMap<>();
 
 	public static void addModifier(EntityPlayer player, BloodRegenModifier modifier) {
 		bloodModifiers.get(player).add(modifier);

@@ -5,11 +5,11 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class VisualHandler {
-	static List<Visual> overlayShaders = new LinkedList<>();
-	static HashMap<Object, HashMap<Class, Visual>> singleShaders = new HashMap<>();
-	static HashMap<Object, HashMap<Class, Visual>> persistentShaders = new HashMap<>();
+	static final List<Visual> overlayShaders = new LinkedList<>();
+	static final HashMap<Object, HashMap<Class, Visual>> singleShaders = new HashMap<>();
+	static final HashMap<Object, HashMap<Class, Visual>> persistentShaders = new HashMap<>();
 
-	private static List<Visual> toRemove = new LinkedList<>();
+	private final static List<Visual> toRemove = new LinkedList<>();
 
 	/**
 	 * Layers shaders on each other

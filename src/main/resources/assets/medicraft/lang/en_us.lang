@@ -6,12 +6,12 @@ item.yogurt.name=Yogurt
 item.bandage.name=Bandage
 
 item.syringe_empty.name=Empty Syringe
-item.syringe_filled.name=Syringe
+item.syringe_filled.name=Syringe of Errors
 item.syringe_filled.blood.name=Syringe of Blood
 item.syringe_filled.sufforin.name=Syringe of Sufforin
 
 item.vial_empty.name=Empty Vial
-item.vial_filled.name=Vial
+item.vial_filled.name=Vial of Errors
 item.vial_filled.blood.name=Vial of Blood
 item.vial_filled.sufforin.name=Vial of Sufforin
 

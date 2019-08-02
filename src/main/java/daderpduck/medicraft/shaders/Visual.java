@@ -17,7 +17,7 @@ import static net.minecraft.client.Minecraft.getMinecraft;
 import static net.minecraft.client.Minecraft.getSystemTime;
 
 public abstract class Visual extends VisualHandler {
-	private ResourceLocation location;
+	private final ResourceLocation location;
 	private EnhancedShaderGroup shaderGroup;
 	private boolean deleted = false;
 	private final long startTime;

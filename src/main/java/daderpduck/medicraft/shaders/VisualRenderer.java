@@ -18,7 +18,7 @@ import java.util.HashMap;
 @SideOnly(Side.CLIENT)
 @Mod.EventBusSubscriber(value = Side.CLIENT)
 public class VisualRenderer extends VisualHandler {
-	private static Minecraft mc = Minecraft.getMinecraft();
+	private static final Minecraft mc = Minecraft.getMinecraft();
 
 	private static boolean isGuiInventory(GuiScreen gui) {
 		try {

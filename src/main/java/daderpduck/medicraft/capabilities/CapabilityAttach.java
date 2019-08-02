@@ -29,9 +29,9 @@ public class CapabilityAttach {
 	}
 
 	private static class CapabilityInfo {
-		ResourceLocation resource;
-		ICapabilityProvider cap;
-		RunnableSyncFunction syncFunction;
+		final ResourceLocation resource;
+		final ICapabilityProvider cap;
+		final RunnableSyncFunction syncFunction;
 
 		CapabilityInfo(ResourceLocation resource, ICapabilityProvider cap, RunnableSyncFunction syncFunction) {
 			this.resource = resource;
