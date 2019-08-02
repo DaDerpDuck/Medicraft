@@ -43,3 +43,6 @@ commands.medicraft.maxbloodlevel.success.set=Set %s's max blood level to %s
 #Injuries
 injury.medicraft.broken_leg=§cYou hear a snap from your leg
 injury.medicraft.sprained_ankle=§cYou feel a sharp pain in your ankle
+
+#Warning
+warning.medicraft.optifine.fastrender=§cWARNING! Optifine's fast render is enabled, which will cause a black screen if any shaders are active!

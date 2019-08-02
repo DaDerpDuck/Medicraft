@@ -19,6 +19,8 @@ import daderpduck.medicraft.init.ModBloodRegenModifier;
 import daderpduck.medicraft.init.ModDamageSources;
 import daderpduck.medicraft.init.ModPotions;
 import daderpduck.medicraft.network.NetworkHandler;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -31,6 +33,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.FOVUpdateEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -40,6 +43,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
+import java.lang.reflect.Field;
 import java.util.UUID;
 
 @EventBusSubscriber
@@ -316,5 +320,20 @@ public class WorldEvents {
 		event.setNewfov(f);
 	}
 
+	/**
+	 * Sends a warning if a player has Optifine's fast render setting enabled
+	 */
+	@SubscribeEvent
+	public static void onPlayerJoinClient(EntityJoinWorldEvent event) {
+		if (event.getEntity() instanceof EntityPlayer && event.getWorld().isRemote) {
+			try {
+				@SuppressWarnings("JavaReflectionMemberAccess")
+				Field fastRender = GameSettings.class.getDeclaredField("ofFastRender");
 
+				if (fastRender.getBoolean(Minecraft.getMinecraft().gameSettings)) {
+					event.getEntity().sendMessage(new TextComponentTranslation("warning.medicraft.optifine.fastrender"));
+				}
+			} catch (NoSuchFieldException | IllegalAccessException ignored) {}
+		}
+	}
 }
