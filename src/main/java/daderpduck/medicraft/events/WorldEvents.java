@@ -55,7 +55,7 @@ public class WorldEvents {
 		float damage = event.getAmount();
 
 		if (entity instanceof EntityPlayerMP) {
-			EntityPlayerMP player = (EntityPlayerMP)entity;
+			EntityPlayerMP player = (EntityPlayerMP) entity;
 
 			//Hurt
 			NetworkHandler.FireClient(new MessageHurt(damage), player);
@@ -64,7 +64,7 @@ public class WorldEvents {
 			if (damageSource.isExplosion()) {
 				NetworkHandler.FireClient(new MessageExplodeDamage(damage), player);
 
-				float f = damage/player.getMaxHealth()/2F;
+				float f = damage / player.getMaxHealth() / 2F;
 				float rand = player.world.rand.nextFloat();
 
 				if (f > rand) {
@@ -74,19 +74,19 @@ public class WorldEvents {
 
 			//Fall damage
 			if (damageSource == DamageSource.FALL) {
-				float f = damage/player.getMaxHealth();
+				float f = damage / player.getMaxHealth();
 				float rand = player.world.rand.nextFloat();
 
 				if (player.isPotionActive(ModPotions.BROKEN_LEG)) {
 					//Player fell with broken legs (idiot)
-					event.setAmount(damage*2);
+					event.setAmount(damage * 2);
 
 					NetworkHandler.FireClient(new MessagePain(2), player);
 				} else {
 					//Player fell without broken legs
 					if (f >= 0.5F && f > rand) {
 						player.sendMessage(new TextComponentTranslation("injury.medicraft.broken_leg"));
-						new BrokenLeg(player, (int)(f*12000));
+						new BrokenLeg(player, (int) (f * 12000));
 
 						NetworkHandler.FireClient(new MessagePain(2), player);
 					}
@@ -94,14 +94,14 @@ public class WorldEvents {
 
 				if (player.isPotionActive(ModPotions.SPRAINED_ANKLE)) {
 					//Player fell with sprained ankle
-					event.setAmount(damage*1.1F);
+					event.setAmount(damage * 1.1F);
 
 					NetworkHandler.FireClient(new MessagePain(0.9F), player);
 				} else {
 					//Player fell without sprained ankle
 					if (f < 0.5F && f > rand) {
 						player.sendMessage(new TextComponentTranslation("injury.medicraft.sprained_ankle"));
-						new SprainedAnkle(player, (int)(f*6000));
+						new SprainedAnkle(player, (int) (f * 6000));
 
 						NetworkHandler.FireClient(new MessagePain(1.2F), player);
 					}
@@ -187,10 +187,10 @@ public class WorldEvents {
 					PotionEffect concussionEffect = player.getActivePotionEffect(ModPotions.CONCUSSION);
 
 					assert concussionEffect != null;
-					float f = Math.min(concussionEffect.getDuration()/8400F, 1);
+					float f = Math.min(concussionEffect.getDuration() / 8400F, 1);
 
-					ConcussionShaders.BLOBS.radius = (int) (f*7);
-					ConcussionShaders.DOUBLE_VISION.distance = f*0.2F;
+					ConcussionShaders.BLOBS.radius = (int) (f * 7);
+					ConcussionShaders.DOUBLE_VISION.distance = f * 0.2F;
 					ConcussionShaders.DOUBLE_VISION.intensity = f;
 				} else {
 					ConcussionShaders.BLOBS.radius = 0;
@@ -205,7 +205,7 @@ public class WorldEvents {
 					assert brainSwellEffect != null;
 					float f = brainSwellEffect.getDuration();
 
-					BrainSwellingShaders.VIGNETTE.strength = 250F/(2F*f + 50F); //y = a*b/(c*x+b)
+					BrainSwellingShaders.VIGNETTE.strength = 250F / (2F * f + 50F); //y = a*b/(c*x+b)
 				} else {
 					BrainSwellingShaders.VIGNETTE.strength = 0;
 				}
@@ -214,9 +214,9 @@ public class WorldEvents {
 
 				//Exsanguination (Client)
 				assert bloodCap != null;
-				float bloodRatio = bloodCap.getBlood()/bloodCap.getMaxBlood();
-				BloodLossShaders.DESATURATE.saturation = Math.min(bloodRatio*2F, 1);
-				BloodLossShaders.BLUR.radius = (int)Math.max(-10*bloodRatio + 4.5, 0);
+				float bloodRatio = bloodCap.getBlood() / bloodCap.getMaxBlood();
+				BloodLossShaders.DESATURATE.saturation = Math.min(bloodRatio * 2F, 1);
+				BloodLossShaders.BLUR.radius = (int) Math.max(-10 * bloodRatio + 4.5, 0);
 			}
 		}
 	}
@@ -292,7 +292,7 @@ public class WorldEvents {
 				modifier *= 1F + attr.getAmount();
 		}
 
-		double oldValue = movement.getAttributeValue()/modifier;
+		double oldValue = movement.getAttributeValue() / modifier;
 		f = (float) ((double) f * (((oldValue / (double) player.capabilities.getWalkSpeed()) + 1D) / 2D));
 
 		if (player.capabilities.getWalkSpeed() == 0 || Float.isNaN(f) || Float.isInfinite(f)) {
@@ -301,12 +301,12 @@ public class WorldEvents {
 
 		if (player.isHandActive() && (player.getActiveItemStack().getItem() == Items.BOW)) {
 			int i = player.getItemInUseMaxCount();
-			float f1 = (float)i/20F;
+			float f1 = (float) i / 20F;
 
 			if (f1 > 1F) {
 				f1 = 1F;
 			} else {
-				f1 = f1*f1;
+				f1 = f1 * f1;
 			}
 
 			f *= 1F - f1 * 0.15F;

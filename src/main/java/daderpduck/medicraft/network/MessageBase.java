@@ -21,9 +21,10 @@ public abstract class MessageBase<REQ extends IMessage> implements IMessage, IMe
 		}
 		return null;
 	}
-	
+
 	//Handle packet on the client side
 	public abstract void handleClientSide(REQ message);
+
 	//Handle packet on the server side
 	public abstract void handleServerSide(REQ message, EntityPlayerMP player);
 }

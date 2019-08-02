@@ -11,7 +11,9 @@ import org.lwjgl.util.vector.Vector3f;
 public class BrainSwellingShaders {
 	public static final Vignette VIGNETTE = setPersistentShader(new Vignette(-1, new Vector3f(0.9F, 0, 0), 0));
 
-	private static final Class currentClass = new Object(){}.getClass().getEnclosingClass();
+	private static final Class currentClass = new Object() {
+	}.getClass().getEnclosingClass();
+
 	private static <T extends Visual> T setPersistentShader(T shader) {
 		return VisualHandler.setPersistentShader(currentClass, shader);
 	}

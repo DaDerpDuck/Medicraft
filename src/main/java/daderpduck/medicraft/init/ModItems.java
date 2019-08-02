@@ -10,7 +10,7 @@ import java.util.List;
 
 public class ModItems {
 	public static final List<Item> ITEMS = new ArrayList<>();
-	
+
 	//Items
 	public static final Item YOGURT = new ItemBase("yogurt");
 	public static final Item BANDAGE = new ItemBase("bandage");

@@ -9,7 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 public class MessageClientSyncBlood extends MessageBase<MessageClientSyncBlood> {
-	public MessageClientSyncBlood(){}
+	public MessageClientSyncBlood() {
+	}
 
 	private float blood;
 	private float maxBlood;

@@ -12,7 +12,7 @@ public class ModPotions {
 
 	public static final Potion BLEEDING = new CustomPotion("bleeding", true, 0, 0, 0xfb1d27)
 			.hideParticles(true);
-	public static final Potion BROKEN_LEG = new CustomPotion("broken_leg", true, 1, 0,0x000000)
+	public static final Potion BROKEN_LEG = new CustomPotion("broken_leg", true, 1, 0, 0x000000)
 			.setDamageOnJump(4F)
 			.unPressKeysOnJump()
 			.setAttributeModifier(SharedMonsterAttributes.MOVEMENT_SPEED, ModAttributeModifier.BROKEN_LEG_MODIFIER)

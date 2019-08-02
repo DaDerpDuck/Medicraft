@@ -8,7 +8,7 @@ public class YogurtBlock extends BlockBase {
 
 	public YogurtBlock(String name, Material material) {
 		super(name, material);
-		
+
 		setSoundType(SoundType.SLIME);
 		setHardness(0.5F);
 		setResistance(3.0F);

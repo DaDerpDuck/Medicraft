@@ -6,7 +6,8 @@ import net.minecraft.item.Item;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class CommonProxy {
-	public void registerItemRenderer(Item item, int meta, String id) {}
+	public void registerItemRenderer(Item item, int meta, String id) {
+	}
 
 	static SyringeFilled syringe;
 	static VialFilled vial;

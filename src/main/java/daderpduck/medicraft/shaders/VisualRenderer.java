@@ -1,8 +1,5 @@
 package daderpduck.medicraft.shaders;
 
-import daderpduck.medicraft.effects.shaders.Blobs2;
-import daderpduck.medicraft.effects.shaders.Desaturate;
-import daderpduck.medicraft.effects.shaders.DoubleVision;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.*;
 import net.minecraft.client.renderer.GlStateManager;
@@ -39,13 +36,13 @@ public class VisualRenderer extends VisualHandler {
 				resetShaders();
 				return;
 			}
-			
-			if(mc.currentScreen == null || mc.currentScreen instanceof GuiChat || mc.currentScreen instanceof GuiScreenBook || isGuiInventory(mc.currentScreen)) {
+
+			if (mc.currentScreen == null || mc.currentScreen instanceof GuiChat || mc.currentScreen instanceof GuiScreenBook || isGuiInventory(mc.currentScreen)) {
 				float partialTicks = event.renderTickTime;
-				
+
 				ScaledResolution resolution = new ScaledResolution(mc);
 				Framebuffer frameBuffer = mc.getFramebuffer();
-				
+
 				GlStateManager.pushMatrix();
 
 				RenderHelper.enableStandardItemLighting();

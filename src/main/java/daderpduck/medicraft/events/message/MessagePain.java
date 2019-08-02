@@ -8,7 +8,8 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import org.lwjgl.util.vector.Vector3f;
 
 public class MessagePain extends MessageBase<MessagePain> {
-	public MessagePain(){}
+	public MessagePain() {
+	}
 
 	private float pain;
 
@@ -28,7 +29,7 @@ public class MessagePain extends MessageBase<MessagePain> {
 
 	@Override
 	public void handleClientSide(MessagePain message) {
-		VisualHandler.addShader(new Vignette((int)(message.pain*5000), new Vector3f(0.9F, 0, 0), message.pain));
+		VisualHandler.addShader(new Vignette((int) (message.pain * 5000), new Vector3f(0.9F, 0, 0), message.pain));
 	}
 
 	@Override

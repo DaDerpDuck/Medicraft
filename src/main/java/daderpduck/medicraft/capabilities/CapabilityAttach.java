@@ -18,9 +18,9 @@ public class CapabilityAttach {
 
 	static <T> void addCapability(String resourceName, ICapabilityProvider cap, RunnableSyncFunction syncFunction) {
 		capabilities.add(new CapabilityInfo(
-			new ResourceLocation(Reference.MOD_ID, resourceName),
-			cap,
-			syncFunction
+				new ResourceLocation(Reference.MOD_ID, resourceName),
+				cap,
+				syncFunction
 		));
 	}
 

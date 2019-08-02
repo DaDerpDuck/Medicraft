@@ -1,14 +1,12 @@
 package daderpduck.medicraft.events.message;
 
-import daderpduck.medicraft.effects.shaders.Blur;
-import daderpduck.medicraft.effects.shaders.MotionBlur;
 import daderpduck.medicraft.network.MessageBase;
-import daderpduck.medicraft.shaders.VisualHandler;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 public class MessageHurt extends MessageBase<MessageHurt> {
-	public MessageHurt(){}
+	public MessageHurt() {
+	}
 
 	private float damage;
 
@@ -35,5 +33,5 @@ public class MessageHurt extends MessageBase<MessageHurt> {
 	public void handleServerSide(MessageHurt message, EntityPlayerMP player) {
 
 	}
-	
+
 }

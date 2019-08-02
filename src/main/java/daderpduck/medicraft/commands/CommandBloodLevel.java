@@ -54,7 +54,8 @@ public class CommandBloodLevel extends CommandBase {
 				notifyCommandListener(sender, this, GET_TRANSLATION, target.getDisplayName(), targetBloodCap.getBlood());
 
 				return;
-			} catch (CommandException ignored) {}
+			} catch (CommandException ignored) {
+			}
 
 			//Set blood amount of sender
 			double amount = parseDouble(s);
@@ -76,21 +77,18 @@ public class CommandBloodLevel extends CommandBase {
 	}
 
 	@Override
-	public boolean isUsernameIndex(String[] args, int index)
-	{
+	public boolean isUsernameIndex(String[] args, int index) {
 		return index == 0;
 	}
 
 	@Nonnull
 	@Override
-	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos)
-	{
+	public List<String> getTabCompletions(MinecraftServer server, ICommandSender sender, String[] args, @Nullable BlockPos targetPos) {
 		return args.length == 1 ? getListOfStringsMatchingLastWord(args, server.getOnlinePlayerNames()) : Collections.emptyList();
 	}
 
 	@Override
-	public int getRequiredPermissionLevel()
-	{
+	public int getRequiredPermissionLevel() {
 		return 2;
 	}
 }

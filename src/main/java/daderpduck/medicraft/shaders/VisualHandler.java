@@ -5,20 +5,24 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class VisualHandler {
-	protected static List<Visual> overlayShaders = new LinkedList<>();
-	protected static HashMap<Object, HashMap<Class, Visual>> singleShaders = new HashMap<>();
-	protected static HashMap<Object, HashMap<Class, Visual>> persistentShaders = new HashMap<>();
+	static List<Visual> overlayShaders = new LinkedList<>();
+	static HashMap<Object, HashMap<Class, Visual>> singleShaders = new HashMap<>();
+	static HashMap<Object, HashMap<Class, Visual>> persistentShaders = new HashMap<>();
 
 	private static List<Visual> toRemove = new LinkedList<>();
 
-	/** Layers shaders on each other */
+	/**
+	 * Layers shaders on each other
+	 */
 	public static <T extends Visual> T addShader(T shader) {
 		overlayShaders.add(shader);
 
 		return shader;
 	}
 
-	/** Allows only one type of shader at a time */
+	/**
+	 * Allows only one type of shader at a time
+	 */
 	public static <T extends Visual> T setSingleShader(Object key, T shader) {
 		if (!singleShaders.containsKey(key)) {
 			singleShaders.put(key, new HashMap<>());
@@ -29,8 +33,10 @@ public class VisualHandler {
 		return shader;
 	}
 
-	/** Same as setSingleShader, but cannot be removed */
-	public static <T extends Visual>  T setPersistentShader(Object key, T shader) {
+	/**
+	 * Same as setSingleShader, but cannot be removed
+	 */
+	public static <T extends Visual> T setPersistentShader(Object key, T shader) {
 		if (!persistentShaders.containsKey(key)) {
 			persistentShaders.put(key, new HashMap<>());
 		}
@@ -42,11 +48,11 @@ public class VisualHandler {
 		return shader;
 	}
 
-	public static void removeShader(Visual shader) {
+	static void removeShader(Visual shader) {
 		toRemove.add(shader);
 	}
 
-	public static void flushShaders() {
+	static void flushShaders() {
 		for (Visual shader : toRemove) {
 			int index = overlayShaders.indexOf(shader);
 			if (index >= 0) {
@@ -65,7 +71,7 @@ public class VisualHandler {
 		toRemove.clear();
 	}
 
-	public static void resetShaders() {
+	static void resetShaders() {
 		overlayShaders.clear();
 		singleShaders.clear();
 	}

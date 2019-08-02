@@ -15,20 +15,20 @@ public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void registerItemRenderer(Item item, int meta, String id) {
-		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()),id));
+		ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(Objects.requireNonNull(item.getRegistryName()), id));
 	}
 
 	public void PreInit() {
 		super.PreInit();
 
 		//Syringe
-		for (Medicine medicine: ModMedicines.MEDICINES) {
+		for (Medicine medicine : ModMedicines.MEDICINES) {
 			ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Objects.requireNonNull(syringe.getRegistryName()), "inventory");
 			ModelLoader.setCustomModelResourceLocation(CommonProxy.syringe, medicine.getId(), itemModelResourceLocation);
 		}
 
 		//Vial
-		for (Medicine medicine: ModMedicines.MEDICINES) {
+		for (Medicine medicine : ModMedicines.MEDICINES) {
 			ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Objects.requireNonNull(vial.getRegistryName()), "inventory");
 			ModelLoader.setCustomModelResourceLocation(CommonProxy.vial, medicine.getId(), itemModelResourceLocation);
 		}

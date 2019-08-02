@@ -15,6 +15,7 @@ public class AttributeModifierBase extends AttributeModifier {
 	public AttributeModifierBase(String uuid, String name, double value) {
 		super(UUID.fromString(uuid), name, value, 2);
 	}
+
 	public AttributeModifierBase(String uuid, String name, double value, int operation) {
 		super(UUID.fromString(uuid), name, value, operation);
 	}

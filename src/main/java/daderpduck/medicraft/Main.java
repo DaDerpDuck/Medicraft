@@ -23,10 +23,10 @@ public class Main {
 
 	@Instance
 	public static Main instance;
-	
+
 	@SidedProxy(clientSide = Reference.CLIENT_PROXY_CLASS, serverSide = Reference.COMMON_PROXY_CLASS)
 	public static CommonProxy proxy;
-	
+
 	@EventHandler
 	public static void PreInit(FMLPreInitializationEvent event) {
 		proxy.PreInit();
@@ -35,12 +35,12 @@ public class Main {
 		ModPotions.registerPotions();
 		ModCapabilities.registerCapabilities();
 	}
-	
+
 	@EventHandler
 	public static void Init(FMLInitializationEvent event) {
 		proxy.Init();
 	}
-	
+
 	@EventHandler
 	public static void PostInit(FMLPostInitializationEvent event) {
 		proxy.PostInit();

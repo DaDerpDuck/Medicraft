@@ -36,6 +36,7 @@ public class CustomPotion extends Potion {
 
 		return this;
 	}
+
 	public boolean isParticlesHidden() {
 		return this.hideParticles;
 	}
@@ -49,6 +50,7 @@ public class CustomPotion extends Potion {
 
 		return this;
 	}
+
 	public boolean isUnPressKeysOnJump() {
 		return this.unPressKeysOnJump;
 	}
@@ -62,6 +64,7 @@ public class CustomPotion extends Potion {
 
 		return this;
 	}
+
 	public float getDamageOnJump() {
 		return this.damageOnJump;
 	}
@@ -75,6 +78,7 @@ public class CustomPotion extends Potion {
 
 		return this;
 	}
+
 	public DamageSource getDamageSourceOnJump() {
 		return this.damageSourceOnJump;
 	}
@@ -88,16 +92,18 @@ public class CustomPotion extends Potion {
 
 		return this;
 	}
+
 	public IAttribute getAttribute() {
 		return this.attribute;
 	}
+
 	public AttributeModifier getAttributeModifier() {
 		return this.attributeModifier;
 	}
 
 	@Override
 	public boolean hasStatusIcon() {
-		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Reference.MOD_ID,"textures/gui/inventory.png"));
+		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Reference.MOD_ID, "textures/gui/inventory.png"));
 		return true;
 	}
 }

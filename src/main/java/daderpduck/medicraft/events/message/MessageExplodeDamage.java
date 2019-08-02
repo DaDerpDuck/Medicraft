@@ -8,7 +8,8 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.entity.player.EntityPlayerMP;
 
 public class MessageExplodeDamage extends MessageBase<MessageExplodeDamage> {
-	public MessageExplodeDamage(){}
+	public MessageExplodeDamage() {
+	}
 
 	private float damage;
 
@@ -30,15 +31,15 @@ public class MessageExplodeDamage extends MessageBase<MessageExplodeDamage> {
 	public void handleClientSide(MessageExplodeDamage message) {
 		if (message.damage <= 2) return;
 
-		float f = message.damage/3F;
+		float f = message.damage / 3F;
 
-		VisualHandler.setSingleShader(this, new Blur((int)f*3000, (int)f));
-		VisualHandler.setSingleShader(this, new MotionBlur((int)(f*3000), Math.min(f/6, 1)));
+		VisualHandler.setSingleShader(this, new Blur((int) f * 3000, (int) f));
+		VisualHandler.setSingleShader(this, new MotionBlur((int) (f * 3000), Math.min(f / 6, 1)));
 	}
 
 	@Override
 	public void handleServerSide(MessageExplodeDamage message, EntityPlayerMP player) {
 
 	}
-	
+
 }

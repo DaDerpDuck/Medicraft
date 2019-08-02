@@ -10,13 +10,13 @@ public class ItemBase extends Item implements IHasModel {
 		setUnlocalizedName(name);
 		setRegistryName(name);
 		setCreativeTab(Main.MEDICRAFT_TAB);
-		
+
 		ModItems.ITEMS.add(this);
 	}
-	
+
 	@Override
 	public void registerModels() {
-		Main.proxy.registerItemRenderer(this,0,"inventory");
+		Main.proxy.registerItemRenderer(this, 0, "inventory");
 	}
-	
+
 }
