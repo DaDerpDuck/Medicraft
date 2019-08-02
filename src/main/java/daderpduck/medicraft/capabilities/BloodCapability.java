@@ -6,6 +6,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -35,18 +36,18 @@ public class BloodCapability {
 		@Override
 		public void increase(float amount) {
 			bloodLevel += amount;
-			bloodLevel = Math.min(bloodLevel, maxBloodLevel);
+			bloodLevel = MathHelper.clamp(bloodLevel, 0, maxBloodLevel);
 		}
 
 		@Override
 		public void decrease(float amount) {
 			bloodLevel -= amount;
-			bloodLevel = Math.min(bloodLevel, maxBloodLevel);
+			bloodLevel = MathHelper.clamp(bloodLevel, 0, maxBloodLevel);
 		}
 
 		@Override
 		public void setBlood(float amount) {
-			bloodLevel = Math.min(amount, maxBloodLevel);
+			bloodLevel = MathHelper.clamp(amount, 0, maxBloodLevel);
 		}
 
 		@Override
@@ -57,7 +58,7 @@ public class BloodCapability {
 		@Override
 		public void setMaxBlood(float amount) {
 			maxBloodLevel = amount;
-			bloodLevel = Math.min(bloodLevel, maxBloodLevel);
+			bloodLevel = MathHelper.clamp(bloodLevel, 0, maxBloodLevel);
 		}
 
 		@Override
