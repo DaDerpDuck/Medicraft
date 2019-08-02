@@ -56,7 +56,6 @@ public class CapabilityAttach {
 		for (CapabilityInfo Info : capabilities) {
 			Info.syncFunction.run(event);
 		}
-
 	}
 
 	@SubscribeEvent
