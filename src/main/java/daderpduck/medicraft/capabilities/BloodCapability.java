@@ -11,7 +11,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import javax.annotation.Nonnull;
@@ -29,7 +28,7 @@ public class BloodCapability {
 	/**
 	 * Default implementation of blood
 	 */
-	public static class ImplementationBlood implements IBlood, INBTSerializable<NBTTagCompound> {
+	public static class ImplementationBlood implements IBlood {
 		private float maxBloodLevel = 2000F;
 		private float bloodLevel = 2000F;
 
@@ -64,20 +63,6 @@ public class BloodCapability {
 		@Override
 		public float getMaxBlood() {
 			return maxBloodLevel;
-		}
-
-		@Override
-		public NBTTagCompound serializeNBT() {
-			NBTTagCompound nbt = new NBTTagCompound();
-			nbt.setFloat("bloodLevel", bloodLevel);
-			nbt.setFloat("maxBloodLevel", maxBloodLevel);
-			return nbt;
-		}
-
-		@Override
-		public void deserializeNBT(NBTTagCompound nbt) {
-			bloodLevel = nbt.getFloat("bloodLevel");
-			maxBloodLevel = nbt.getFloat("maxBloodLevel");
 		}
 	}
 

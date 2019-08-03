@@ -2,23 +2,23 @@ package daderpduck.medicraft.events;
 
 import daderpduck.medicraft.base.AttributeModifierBase;
 import daderpduck.medicraft.base.CustomPotion;
-import daderpduck.medicraft.blood.BloodRegen;
-import daderpduck.medicraft.blood.BloodRegenModifier;
 import daderpduck.medicraft.capabilities.BloodCapability;
 import daderpduck.medicraft.capabilities.IBlood;
+import daderpduck.medicraft.effects.injuries.BloodLoss;
 import daderpduck.medicraft.effects.injuries.BrokenLeg;
 import daderpduck.medicraft.effects.injuries.Concussion;
 import daderpduck.medicraft.effects.injuries.SprainedAnkle;
 import daderpduck.medicraft.effects.injuries.shaders.BloodLossShaders;
 import daderpduck.medicraft.effects.injuries.shaders.BrainSwellingShaders;
 import daderpduck.medicraft.effects.injuries.shaders.ConcussionShaders;
+import daderpduck.medicraft.events.message.MessageClientSyncBlood;
 import daderpduck.medicraft.events.message.MessageExplodeDamage;
 import daderpduck.medicraft.events.message.MessageHurt;
 import daderpduck.medicraft.events.message.MessagePain;
-import daderpduck.medicraft.init.ModBloodRegenModifier;
 import daderpduck.medicraft.init.ModDamageSources;
 import daderpduck.medicraft.init.ModPotions;
 import daderpduck.medicraft.network.NetworkHandler;
+import daderpduck.medicraft.poisons.Poison;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
@@ -35,6 +35,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -43,6 +44,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.lang.reflect.Field;
+import java.util.Objects;
 import java.util.UUID;
 
 @EventBusSubscriber
@@ -90,6 +92,7 @@ public class WorldEvents {
 					if (f >= 0.5F && f > rand) {
 						player.sendMessage(new TextComponentTranslation("injury.medicraft.broken_leg"));
 						new BrokenLeg(player, (int) (f * 12000));
+						new BloodLoss(player, (int) (f * 3000));
 
 						NetworkHandler.FireClient(new MessagePain(2), player);
 					}
@@ -119,18 +122,14 @@ public class WorldEvents {
 	@SubscribeEvent
 	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
 
-		if (event.phase == TickEvent.Phase.START) {
+		if (event.phase == TickEvent.Phase.END) {
 			/* COMMON */
 			EntityPlayer player = event.player;
 			IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
+			assert bloodCap != null;
 
-			BloodRegenModifier bloodRegenModifier = BloodRegen.getBloodRegenModifier(player, ModBloodRegenModifier.BLEEDING_MODIFIER.getId());
-			if (bloodRegenModifier != null) {
-				if (player.isPotionActive(ModPotions.BLEEDING)) {
-					bloodRegenModifier.setModifier(-1);
-				} else {
-					bloodRegenModifier.setModifier(0);
-				}
+			if (player.isPotionActive(ModPotions.BLEEDING)) {
+				bloodCap.decrease(0.25F* Objects.requireNonNull(player.getActivePotionEffect(ModPotions.BLEEDING)).getAmplifier());
 			}
 
 			/* SERVER */
@@ -169,8 +168,7 @@ public class WorldEvents {
 				/* OTHER */
 
 				//Exsanguination
-				assert bloodCap != null;
-				if (bloodCap.getBlood() <= 0) {
+				if (bloodCap.getBlood() <= 10) {
 					player.attackEntityFrom(ModDamageSources.BLOOD_LOSS, Float.MAX_VALUE);
 				}
 			}
@@ -210,7 +208,6 @@ public class WorldEvents {
 				/* OTHER */
 
 				//Exsanguination (Client)
-				assert bloodCap != null;
 				float bloodRatio = bloodCap.getBlood() / bloodCap.getMaxBlood();
 				BloodLossShaders.DESATURATE.saturation = Math.min(bloodRatio * 2F, 1);
 				BloodLossShaders.BLUR.radius = (int) Math.max(-10 * bloodRatio + 4.5, 0);
@@ -326,6 +323,21 @@ public class WorldEvents {
 					event.getEntity().sendMessage(new TextComponentTranslation("warning.medicraft.optifine.fastrender"));
 				}
 			} catch (NoSuchFieldException | IllegalAccessException ignored) {}
+		}
+	}
+
+	@SubscribeEvent
+	public static void onEntityDeath(LivingDeathEvent event) {
+		if (event.getEntity() instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) event.getEntity();
+
+			Poison.curePlayer(player);
+
+			IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
+			assert bloodCap != null;
+
+			bloodCap.setBlood(bloodCap.getMaxBlood());
+			NetworkHandler.FireClient(new MessageClientSyncBlood(bloodCap.getBlood(), bloodCap.getMaxBlood()), (EntityPlayerMP) player);
 		}
 	}
 }

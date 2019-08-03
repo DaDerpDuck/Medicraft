@@ -4,8 +4,6 @@ import daderpduck.medicraft.init.ModPotions;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 
-import java.util.ArrayList;
-
 public class Concussion {
 	public Concussion(EntityPlayer player, int duration) {
 		if (player.isPotionActive(ModPotions.CONCUSSION)) {
@@ -13,8 +11,7 @@ public class Concussion {
 			new BrainSwelling(player, 600);
 		}
 
-		PotionEffect concussion = new PotionEffect(ModPotions.CONCUSSION, duration, -1);
-		concussion.setCurativeItems(new ArrayList<>());
+		PotionEffect concussion = new PotionEffect(ModPotions.CONCUSSION, duration, 0);
 
 		player.addPotionEffect(concussion);
 	}

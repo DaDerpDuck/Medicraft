@@ -30,6 +30,7 @@ effect.sprained_ankle=Sprained Ankle
 death.attack.medicraft.wound=%1$s neglected their injury
 death.attack.medicraft.brain_swelling=%1$s died from brain swelling
 death.attack.medicraft.blood_loss=%1$s bled to death
+death.attack.medicraft.cyanide_poisoning=%1$s died from cyanide poisoning
 
 #Commands
 commands.medicraft.bloodlevel.usage=/bloodlevel [player] [amount]

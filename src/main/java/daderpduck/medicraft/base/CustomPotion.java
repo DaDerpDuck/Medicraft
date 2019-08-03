@@ -6,11 +6,15 @@ import daderpduck.medicraft.util.Reference;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttribute;
+import net.minecraft.item.ItemStack;
 import net.minecraft.potion.Potion;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
+import java.util.List;
 
 public class CustomPotion extends Potion {
 	private boolean unPressKeysOnJump = false;
@@ -18,6 +22,7 @@ public class CustomPotion extends Potion {
 	private DamageSource damageSourceOnJump = ModDamageSources.WOUND;
 	private IAttribute attribute;
 	private AttributeModifier attributeModifier;
+	private List<ItemStack> curativeItems;
 
 	public CustomPotion(String name, boolean isBadPotion, int iconIndexX, int iconIndexY) {
 		super(isBadPotion, 0);
@@ -26,6 +31,11 @@ public class CustomPotion extends Potion {
 		setRegistryName(new ResourceLocation(Reference.MOD_ID, name));
 
 		ModPotions.POTIONS.add(this);
+	}
+	public CustomPotion(String name, boolean isBadPotion, int iconIndexX, int iconIndexY, List<ItemStack> curativeItems) {
+		this(name, isBadPotion, iconIndexX, iconIndexY);
+
+		this.curativeItems = curativeItems;
 	}
 
 	/**
@@ -88,10 +98,22 @@ public class CustomPotion extends Potion {
 		return this.attributeModifier;
 	}
 
+	public CustomPotion setCurativeItems(List<ItemStack> curativeItems) {
+		this.curativeItems = curativeItems;
+
+		return this;
+	}
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public boolean hasStatusIcon() {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(new ResourceLocation(Reference.MOD_ID, "textures/gui/potion_effects.png"));
 		return true;
+	}
+
+	@Nonnull
+	@Override
+	public List<ItemStack> getCurativeItems() {
+		return curativeItems == null ? super.getCurativeItems() : curativeItems;
 	}
 }

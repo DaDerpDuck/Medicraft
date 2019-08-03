@@ -1,5 +1,6 @@
 package daderpduck.medicraft.blocks;
 
+import daderpduck.medicraft.Main;
 import daderpduck.medicraft.base.BlockBase;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -15,5 +16,7 @@ public class YogurtBlock extends BlockBase {
 		//setLightLevel
 		//setLightOpacity
 		//setBlockUnbreakable
+
+		setCreativeTab(Main.MEDICRAFT_TAB);
 	}
 }
