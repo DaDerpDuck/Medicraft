@@ -1,8 +1,8 @@
 package daderpduck.medicraft.items;
 
 import daderpduck.medicraft.Main;
-import daderpduck.medicraft.base.Medicine;
-import daderpduck.medicraft.init.ModMedicines;
+import daderpduck.medicraft.base.DrugType;
+import daderpduck.medicraft.init.ModDrugTypes;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -28,9 +28,9 @@ public class VialFilled extends Item {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
-		for (Medicine medicine : ModMedicines.MEDICINES) {
+		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
 			if (tab == Main.MEDICRAFT_TAB || tab == CreativeTabs.SEARCH) {
-				int metadata = medicine.getId();
+				int metadata = drugType.getId();
 				ItemStack subItemStack = new ItemStack(this, 1, metadata);
 				subItems.add(subItemStack);
 			}
@@ -42,9 +42,9 @@ public class VialFilled extends Item {
 	public String getUnlocalizedName(ItemStack stack) {
 		int metadata = stack.getMetadata();
 
-		for (Medicine medicine : ModMedicines.MEDICINES) {
-			if (medicine.getId() == metadata)
-				return super.getUnlocalizedName() + "." + medicine.getName();
+		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
+			if (drugType.getId() == metadata)
+				return super.getUnlocalizedName() + "." + drugType.getName();
 		}
 
 		return super.getUnlocalizedName();
@@ -61,8 +61,8 @@ public class VialFilled extends Item {
 		public int colorMultiplier(@Nonnull ItemStack stack, int tintIndex) {
 			if (tintIndex == 0) {
 				int metadata = stack.getMetadata();
-				for (Medicine medicine : ModMedicines.MEDICINES) {
-					if (medicine.getId() == metadata) return medicine.getColor();
+				for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
+					if (drugType.getId() == metadata) return drugType.getColor();
 				}
 			}
 			return Color.BLACK.getRGB();

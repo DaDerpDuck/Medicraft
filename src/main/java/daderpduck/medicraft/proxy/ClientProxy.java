@@ -1,7 +1,7 @@
 package daderpduck.medicraft.proxy;
 
-import daderpduck.medicraft.base.Medicine;
-import daderpduck.medicraft.init.ModMedicines;
+import daderpduck.medicraft.base.DrugType;
+import daderpduck.medicraft.init.ModDrugTypes;
 import daderpduck.medicraft.items.SyringeFilled;
 import daderpduck.medicraft.items.VialFilled;
 import net.minecraft.client.Minecraft;
@@ -22,15 +22,15 @@ public class ClientProxy extends CommonProxy {
 		super.PreInit();
 
 		//Syringe
-		for (Medicine medicine : ModMedicines.MEDICINES) {
+		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
 			ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Objects.requireNonNull(syringe.getRegistryName()), "inventory");
-			ModelLoader.setCustomModelResourceLocation(CommonProxy.syringe, medicine.getId(), itemModelResourceLocation);
+			ModelLoader.setCustomModelResourceLocation(CommonProxy.syringe, drugType.getId(), itemModelResourceLocation);
 		}
 
 		//Vial
-		for (Medicine medicine : ModMedicines.MEDICINES) {
+		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
 			ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Objects.requireNonNull(vial.getRegistryName()), "inventory");
-			ModelLoader.setCustomModelResourceLocation(CommonProxy.vial, medicine.getId(), itemModelResourceLocation);
+			ModelLoader.setCustomModelResourceLocation(CommonProxy.vial, drugType.getId(), itemModelResourceLocation);
 		}
 	}
 

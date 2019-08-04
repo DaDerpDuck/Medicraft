@@ -34,14 +34,12 @@ public class BloodCapability {
 
 		@Override
 		public void increase(float amount) {
-			bloodLevel += amount;
-			bloodLevel = MathHelper.clamp(bloodLevel, 0, maxBloodLevel);
+			bloodLevel = MathHelper.clamp(bloodLevel + amount, 0, maxBloodLevel);
 		}
 
 		@Override
 		public void decrease(float amount) {
-			bloodLevel -= amount;
-			bloodLevel = MathHelper.clamp(bloodLevel, 0, maxBloodLevel);
+			bloodLevel = MathHelper.clamp(bloodLevel - amount, 0, maxBloodLevel);
 		}
 
 		@Override

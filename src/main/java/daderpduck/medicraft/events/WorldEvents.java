@@ -4,6 +4,7 @@ import daderpduck.medicraft.base.AttributeModifierBase;
 import daderpduck.medicraft.base.CustomPotion;
 import daderpduck.medicraft.capabilities.BloodCapability;
 import daderpduck.medicraft.capabilities.IBlood;
+import daderpduck.medicraft.drugs.Drug;
 import daderpduck.medicraft.effects.injuries.BloodLoss;
 import daderpduck.medicraft.effects.injuries.BrokenLeg;
 import daderpduck.medicraft.effects.injuries.Concussion;
@@ -18,7 +19,6 @@ import daderpduck.medicraft.events.message.MessagePain;
 import daderpduck.medicraft.init.ModDamageSources;
 import daderpduck.medicraft.init.ModPotions;
 import daderpduck.medicraft.network.NetworkHandler;
-import daderpduck.medicraft.poisons.Poison;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;
 import net.minecraft.client.settings.KeyBinding;
@@ -44,7 +44,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.lang.reflect.Field;
-import java.util.Objects;
 import java.util.UUID;
 
 @EventBusSubscriber
@@ -129,7 +128,10 @@ public class WorldEvents {
 			assert bloodCap != null;
 
 			if (player.isPotionActive(ModPotions.BLEEDING)) {
-				bloodCap.decrease(0.25F* Objects.requireNonNull(player.getActivePotionEffect(ModPotions.BLEEDING)).getAmplifier());
+				PotionEffect bleedingEffect = player.getActivePotionEffect(ModPotions.BLEEDING);
+				assert bleedingEffect != null;
+
+				bloodCap.decrease(0.25F*(bleedingEffect.getAmplifier() + 1));
 			}
 
 			/* SERVER */
@@ -331,7 +333,7 @@ public class WorldEvents {
 		if (event.getEntity() instanceof EntityPlayer) {
 			EntityPlayer player = (EntityPlayer) event.getEntity();
 
-			Poison.curePlayer(player);
+			Drug.curePlayer(player);
 
 			IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
 			assert bloodCap != null;

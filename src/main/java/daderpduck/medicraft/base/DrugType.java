@@ -1,23 +1,23 @@
 package daderpduck.medicraft.base;
 
-import daderpduck.medicraft.init.ModMedicines;
-import daderpduck.medicraft.poisons.Poison;
+import daderpduck.medicraft.drugs.Drug;
+import daderpduck.medicraft.init.ModDrugTypes;
 
 import javax.annotation.Nullable;
 
-public class Medicine {
+public class DrugType {
 	private final String name;
 	private final int color;
 	private final int id;
 
-	private Poison poison;
+	private Drug drug;
 
-	public Medicine(String name, int color, int id) {
+	public DrugType(String name, int color, int id) {
 		this.name = name;
 		this.color = color;
 		this.id = id;
 
-		ModMedicines.MEDICINES.add(this);
+		ModDrugTypes.DRUG_TYPES.add(this);
 	}
 
 	public String getName() {
@@ -32,13 +32,13 @@ public class Medicine {
 		return id;
 	}
 
-	public Medicine setPoison(Poison poison) {
-		this.poison = poison;
+	public DrugType setDrug(Drug drug) {
+		this.drug = drug;
 		return this;
 	}
 
 	@Nullable
-	public Poison getPoison() {
-		return poison;
+	public Drug getDrug() {
+		return drug;
 	}
 }

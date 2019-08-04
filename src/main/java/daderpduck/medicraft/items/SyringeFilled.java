@@ -1,9 +1,9 @@
 package daderpduck.medicraft.items;
 
 import daderpduck.medicraft.Main;
-import daderpduck.medicraft.base.Medicine;
+import daderpduck.medicraft.base.DrugType;
+import daderpduck.medicraft.init.ModDrugTypes;
 import daderpduck.medicraft.init.ModItems;
-import daderpduck.medicraft.init.ModMedicines;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
@@ -37,9 +37,9 @@ public class SyringeFilled extends Item {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
-		for (Medicine medicine : ModMedicines.MEDICINES) {
+		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
 			if (tab == Main.MEDICRAFT_TAB || tab == CreativeTabs.SEARCH) {
-				int metadata = medicine.getId();
+				int metadata = drugType.getId();
 				ItemStack subItemStack = new ItemStack(this, 1, metadata);
 				subItems.add(subItemStack);
 			}
@@ -51,9 +51,9 @@ public class SyringeFilled extends Item {
 	public String getUnlocalizedName(ItemStack stack) {
 		int metadata = stack.getMetadata();
 
-		for (Medicine medicine : ModMedicines.MEDICINES) {
-			if (medicine.getId() == metadata)
-				return super.getUnlocalizedName() + "." + medicine.getName();
+		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
+			if (drugType.getId() == metadata)
+				return super.getUnlocalizedName() + "." + drugType.getName();
 		}
 
 		return super.getUnlocalizedName();
@@ -86,10 +86,10 @@ public class SyringeFilled extends Item {
 		if (!worldIn.isRemote && entityLiving instanceof EntityPlayer) {
 			stack.shrink(1);
 
-			for (Medicine medicine : ModMedicines.MEDICINES) {
-				if (medicine.getId() == metadata) {
-					if (medicine.getPoison() != null) {
-						medicine.getPoison().poisonPlayer((EntityPlayer) entityLiving);
+			for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
+				if (drugType.getId() == metadata) {
+					if (drugType.getDrug() != null) {
+						drugType.getDrug().drugPlayer((EntityPlayer) entityLiving);
 
 						break;
 					}
@@ -107,10 +107,10 @@ public class SyringeFilled extends Item {
 
 			stack.shrink(1);
 
-			for (Medicine medicine : ModMedicines.MEDICINES) {
-				if (medicine.getId() == metadata) {
-					if (medicine.getPoison() != null) {
-						medicine.getPoison().poisonPlayer((EntityPlayer) target);
+			for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
+				if (drugType.getId() == metadata) {
+					if (drugType.getDrug() != null) {
+						drugType.getDrug().drugPlayer((EntityPlayer) target);
 
 						return true;
 					}
@@ -135,8 +135,8 @@ public class SyringeFilled extends Item {
 					return Color.WHITE.getRGB();
 				case 1: {
 					int metadata = stack.getMetadata();
-					for (Medicine medicine : ModMedicines.MEDICINES) {
-						if (medicine.getId() == metadata) return medicine.getColor();
+					for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
+						if (drugType.getId() == metadata) return drugType.getColor();
 					}
 				}
 				default:
