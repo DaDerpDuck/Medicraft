@@ -10,6 +10,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
 
 import java.util.ArrayList;
 
@@ -26,7 +28,7 @@ public class CapabilityAttach {
 	}
 
 	interface RunnableSyncFunction {
-		void run(PlayerEvent event);
+		void run(EntityPlayer player);
 	}
 
 	private static class CapabilityInfo {
@@ -55,21 +57,35 @@ public class CapabilityAttach {
 	@SubscribeEvent
 	public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
 		for (CapabilityInfo Info : capabilities) {
-			Info.syncFunction.run(event);
+			Info.syncFunction.run(event.player);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
 		for (CapabilityInfo Info : capabilities) {
-			Info.syncFunction.run(event);
+			Info.syncFunction.run(event.player);
 		}
 	}
 
+	/*
 	@SubscribeEvent
 	public static void onPlayerRespawn(PlayerEvent.PlayerRespawnEvent event) {
 		for (CapabilityInfo Info : capabilities) {
-			Info.syncFunction.run(event);
+			Info.syncFunction.run(event.player);
+		}
+	}
+	 */
+
+	private static int totalTicks = 1;
+	@SubscribeEvent
+	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+		if (event.phase == TickEvent.Phase.START && event.side == Side.SERVER) {
+			if ((totalTicks++ % (5*20)) == 0) {
+				for (CapabilityInfo Info : capabilities) {
+					Info.syncFunction.run(event.player);
+				}
+			}
 		}
 	}
 }

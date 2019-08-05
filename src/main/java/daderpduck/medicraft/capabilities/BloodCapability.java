@@ -2,6 +2,7 @@ package daderpduck.medicraft.capabilities;
 
 import daderpduck.medicraft.events.message.MessageClientSyncBlood;
 import daderpduck.medicraft.network.NetworkHandler;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -11,7 +12,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -119,10 +119,10 @@ public class BloodCapability {
 	 */
 	static class BloodSyncFunction implements CapabilityAttach.RunnableSyncFunction {
 		@Override
-		public void run(PlayerEvent event) {
-			IBlood blood = event.player.getCapability(BloodCapability.CAP_BLOOD, null);
+		public void run(EntityPlayer player) {
+			IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 			assert blood != null;
-			NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood(), blood.getMaxBlood()), (EntityPlayerMP) event.player);
+			NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood(), blood.getMaxBlood()), (EntityPlayerMP) player);
 		}
 	}
 }

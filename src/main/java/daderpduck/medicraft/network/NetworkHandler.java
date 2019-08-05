@@ -1,9 +1,6 @@
 package daderpduck.medicraft.network;
 
-import daderpduck.medicraft.events.message.MessageClientSyncBlood;
-import daderpduck.medicraft.events.message.MessageExplodeDamage;
-import daderpduck.medicraft.events.message.MessageHurt;
-import daderpduck.medicraft.events.message.MessagePain;
+import daderpduck.medicraft.events.message.*;
 import daderpduck.medicraft.util.Reference;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
@@ -28,6 +25,7 @@ public class NetworkHandler {
 		registerMessage(MessageExplodeDamage.class, Side.CLIENT);
 		registerMessage(MessagePain.class, Side.CLIENT);
 		registerMessage(MessageClientSyncBlood.class, Side.CLIENT);
+		registerMessage(MessageClientSyncDrugs.class, Side.CLIENT);
 	}
 
 

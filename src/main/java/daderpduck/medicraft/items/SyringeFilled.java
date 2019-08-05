@@ -2,12 +2,17 @@ package daderpduck.medicraft.items;
 
 import daderpduck.medicraft.Main;
 import daderpduck.medicraft.base.DrugType;
+import daderpduck.medicraft.capabilities.DrugCapability;
+import daderpduck.medicraft.capabilities.IDrug;
+import daderpduck.medicraft.events.message.MessageClientSyncDrugs;
 import daderpduck.medicraft.init.ModDrugTypes;
 import daderpduck.medicraft.init.ModItems;
+import daderpduck.medicraft.network.NetworkHandler;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -29,7 +34,7 @@ public class SyringeFilled extends Item {
 		setRegistryName(name);
 		setHasSubtypes(true);
 		setMaxDamage(0);
-		setMaxStackSize(1);
+		setMaxStackSize(16);
 
 		setCreativeTab(Main.MEDICRAFT_TAB);
 	}
@@ -83,16 +88,23 @@ public class SyringeFilled extends Item {
 	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
 		int metadata = stack.getMetadata();
 
-		if (!worldIn.isRemote && entityLiving instanceof EntityPlayer) {
+		if (entityLiving instanceof EntityPlayer) {
+			EntityPlayer player = (EntityPlayer) entityLiving;
 			stack.shrink(1);
 
 			for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
 				if (drugType.getId() == metadata) {
 					if (drugType.getDrug() != null) {
-						drugType.getDrug().drugPlayer((EntityPlayer) entityLiving);
+						drugType.getDrug().drugPlayer(player);
 
 						break;
 					}
+				}
+			}
+
+			if (!stack.isEmpty()) {
+				if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.SYRINGE_EMPTY))) {
+					player.dropItem(new ItemStack(ModItems.SYRINGE_EMPTY), false);
 				}
 			}
 		}
@@ -102,15 +114,26 @@ public class SyringeFilled extends Item {
 
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-		if (attacker instanceof EntityPlayer && target instanceof EntityPlayer && !attacker.world.isRemote) {
+		if (attacker instanceof EntityPlayer && target instanceof EntityPlayer) {
 			int metadata = stack.getMetadata();
 
+			EntityPlayer attackerPlayer = (EntityPlayer) attacker;
+			EntityPlayer targetPlayer = (EntityPlayer) target;
+
 			stack.shrink(1);
+
+			if (!attackerPlayer.inventory.addItemStackToInventory(new ItemStack(ModItems.SYRINGE_EMPTY))) {
+				attackerPlayer.dropItem(new ItemStack(ModItems.SYRINGE_EMPTY), false);
+			}
 
 			for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
 				if (drugType.getId() == metadata) {
 					if (drugType.getDrug() != null) {
-						drugType.getDrug().drugPlayer((EntityPlayer) target);
+						drugType.getDrug().drugPlayer(targetPlayer);
+
+						IDrug drugCap = targetPlayer.getCapability(DrugCapability.CAP_DRUG, null);
+						assert drugCap != null;
+						NetworkHandler.FireClient(new MessageClientSyncDrugs(drugCap.getAllDrugs()), (EntityPlayerMP) targetPlayer);
 
 						return true;
 					}

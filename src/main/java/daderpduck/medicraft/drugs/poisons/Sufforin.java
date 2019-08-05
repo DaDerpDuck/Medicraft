@@ -10,7 +10,10 @@ public class Sufforin extends Drug {
 	private static final int endTime = 120000 + startDelay;
 
 	public Sufforin() {
-		super(2, 120*20, 30*20, 30*20);
+		super(2);
+		setInitialDuration(120*20);
+		setDurationIncrement(30*20);
+		setDrugDelay(30*20);
 	}
 
 	@Override

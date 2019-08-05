@@ -7,8 +7,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MessageHurt extends MessageBase<MessageHurt> {
-	public MessageHurt() {
-	}
+	public MessageHurt() {}
 
 	private float damage;
 

@@ -11,8 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MessageClientSyncBlood extends MessageBase<MessageClientSyncBlood> {
-	public MessageClientSyncBlood() {
-	}
+	public MessageClientSyncBlood() {}
 
 	private float blood;
 	private float maxBlood;

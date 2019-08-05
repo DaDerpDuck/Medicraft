@@ -9,11 +9,18 @@ item.syringe_empty.name=Empty Syringe
 item.syringe_filled.name=Syringe of Errors
 item.syringe_filled.blood.name=Syringe of Blood
 item.syringe_filled.sufforin.name=Syringe of Sufforin
+item.syringe_filled.sufforin_antidote.name=Syringe of Sufforin Antidote
 
 item.vial_empty.name=Empty Vial
 item.vial_filled.name=Vial of Errors
 item.vial_filled.blood.name=Vial of Blood
 item.vial_filled.sufforin.name=Vial of Sufforin
+item.vial_filled.sufforin_antidote.name=Vial of Sufforin Antidote
+
+#Vial Descriptions
+vial.blood.description=In case you run out
+vial.sufforin.description=Slow acting poison with minor anesthetic properties
+vial.sufforin_antidote.description=Cures sufforin
 
 #Blocks
 tile.yogurt_block.name=Yogurt Block
@@ -29,7 +36,7 @@ effect.sprained_ankle=Sprained Ankle
 #Damage Sources
 death.attack.medicraft.wound=%1$s neglected their injury
 death.attack.medicraft.brain_swelling=%1$s died from brain swelling
-death.attack.medicraft.blood_loss=%1$s bled to death
+death.attack.medicraft.blood_loss=%1$s ran out of blood
 death.attack.medicraft.cyanide_poisoning=%1$s died from cyanide poisoning
 
 #Commands

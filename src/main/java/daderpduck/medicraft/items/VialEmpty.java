@@ -9,7 +9,7 @@ public class VialEmpty extends Item implements IHasModel {
 	public VialEmpty(String name) {
 		setUnlocalizedName(name);
 		setRegistryName(name);
-		setMaxStackSize(16);
+		setMaxStackSize(64);
 		setCreativeTab(Main.MEDICRAFT_TAB);
 
 		ModItems.ITEMS.add(this);

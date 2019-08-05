@@ -14,9 +14,9 @@ public class DrugHandler {
 			IDrug drugCap = event.player.getCapability(DrugCapability.CAP_DRUG, null);
 			assert drugCap != null;
 
-			for (Drug.DrugEffect drugEffect : drugCap.getDrugs()) {
+			for (Drug.DrugEffect drugEffect : drugCap.getAllDrugs()) {
 				if (drugEffect.drugDelay >= 0) {
-					drugEffect.drugDelay--;
+					drugEffect.drug.preDrugEffect(event.player, drugEffect.drugDelay--, drugEffect.amplifier);
 					continue;
 				}
 

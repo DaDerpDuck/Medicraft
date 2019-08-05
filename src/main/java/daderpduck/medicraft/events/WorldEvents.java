@@ -3,7 +3,9 @@ package daderpduck.medicraft.events;
 import daderpduck.medicraft.base.AttributeModifierBase;
 import daderpduck.medicraft.base.CustomPotion;
 import daderpduck.medicraft.capabilities.BloodCapability;
+import daderpduck.medicraft.capabilities.DrugCapability;
 import daderpduck.medicraft.capabilities.IBlood;
+import daderpduck.medicraft.capabilities.IDrug;
 import daderpduck.medicraft.drugs.Drug;
 import daderpduck.medicraft.effects.injuries.BloodLoss;
 import daderpduck.medicraft.effects.injuries.BrokenLeg;
@@ -17,6 +19,7 @@ import daderpduck.medicraft.events.message.MessageExplodeDamage;
 import daderpduck.medicraft.events.message.MessageHurt;
 import daderpduck.medicraft.events.message.MessagePain;
 import daderpduck.medicraft.init.ModDamageSources;
+import daderpduck.medicraft.init.ModDrugs;
 import daderpduck.medicraft.init.ModPotions;
 import daderpduck.medicraft.network.NetworkHandler;
 import net.minecraft.client.Minecraft;
@@ -31,6 +34,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -127,6 +131,9 @@ public class WorldEvents {
 			IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
 			assert bloodCap != null;
 
+			IDrug drugCap = player.getCapability(DrugCapability.CAP_DRUG, null);
+			assert drugCap != null;
+
 			if (player.isPotionActive(ModPotions.BLEEDING)) {
 				PotionEffect bleedingEffect = player.getActivePotionEffect(ModPotions.BLEEDING);
 				assert bleedingEffect != null;
@@ -170,7 +177,7 @@ public class WorldEvents {
 				/* OTHER */
 
 				//Exsanguination
-				if (bloodCap.getBlood() <= 10) {
+				if (bloodCap.getBlood() <= 1) {
 					player.attackEntityFrom(ModDamageSources.BLOOD_LOSS, Float.MAX_VALUE);
 				}
 			}
@@ -211,8 +218,17 @@ public class WorldEvents {
 
 				//Exsanguination (Client)
 				float bloodRatio = bloodCap.getBlood() / bloodCap.getMaxBlood();
-				BloodLossShaders.DESATURATE.saturation = Math.min(bloodRatio * 2F, 1);
-				BloodLossShaders.BLUR.radius = (int) Math.max(-10 * bloodRatio + 4.5, 0);
+				float fBloodRatio = bloodRatio;
+
+				//Sufforin effect
+				Drug.DrugEffect sufforinEffect = drugCap.getActiveDrug(ModDrugs.SUFFORIN);
+				if (sufforinEffect != null && sufforinEffect.drugDelay <= 0) {
+					fBloodRatio = (float) MathHelper.clampedLerp(bloodRatio, 1, sufforinEffect.drugDuration/100D);
+				}
+
+				BloodLossShaders.DESATURATE.saturation = Math.min(fBloodRatio * 2F, 1);
+				BloodLossShaders.BLUR.radius = (int) Math.max(-10 * fBloodRatio + 4.5, 0);
+				BloodLossShaders.TINT.opacity = MathHelper.clamp(bloodRatio*-12.5F + 1,0,1);
 			}
 		}
 	}

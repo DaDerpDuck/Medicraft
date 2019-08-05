@@ -10,8 +10,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.util.vector.Vector3f;
 
 public class MessagePain extends MessageBase<MessagePain> {
-	public MessagePain() {
-	}
+	public MessagePain() {}
 
 	private float pain;
 

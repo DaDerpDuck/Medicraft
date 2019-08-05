@@ -1,6 +1,10 @@
 package daderpduck.medicraft.capabilities;
 
 import daderpduck.medicraft.drugs.Drug;
+import daderpduck.medicraft.events.message.MessageClientSyncDrugs;
+import daderpduck.medicraft.network.NetworkHandler;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
@@ -9,7 +13,6 @@ import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
-import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -32,12 +35,12 @@ public class DrugCapability {
 		private List<Drug.DrugEffect> drugEffects = new LinkedList<>();
 
 		@Override
-		public void setDrugs(List<Drug.DrugEffect> drugEffects) {
+		public void setDrugs(@Nonnull List<Drug.DrugEffect> drugEffects) {
 			this.drugEffects = drugEffects;
 		}
 
 		@Override
-		public List<Drug.DrugEffect> getDrugs() {
+		public List<Drug.DrugEffect> getAllDrugs() {
 			return drugEffects;
 		}
 
@@ -49,6 +52,16 @@ public class DrugCapability {
 			}
 
 			drugEffects.add(drugEffect);
+		}
+
+		@Nullable
+		@Override
+		public Drug.DrugEffect getActiveDrug(Drug drug) {
+			for (Drug.DrugEffect drugEffect : drugEffects) {
+				if (drugEffect.drug == drug) return drugEffect;
+			}
+
+			return null;
 		}
 
 		@Override
@@ -67,7 +80,7 @@ public class DrugCapability {
 		public NBTBase writeNBT(Capability<IDrug> capability, IDrug instance, EnumFacing side) {
 			NBTTagList nbtTagList = new NBTTagList();
 
-			for (Drug.DrugEffect drugEffect : instance.getDrugs()) {
+			for (Drug.DrugEffect drugEffect : instance.getAllDrugs()) {
 				NBTTagCompound nbtTagCompound = new NBTTagCompound();
 				nbtTagCompound.setInteger("drugId", drugEffect.drug.id);
 				nbtTagCompound.setInteger("drugDuration", drugEffect.drugDuration);
@@ -133,8 +146,10 @@ public class DrugCapability {
 	 */
 	static class DrugSyncFunction implements CapabilityAttach.RunnableSyncFunction {
 		@Override
-		public void run(PlayerEvent event) {
-
+		public void run(EntityPlayer player) {
+			IDrug drug = player.getCapability(DrugCapability.CAP_DRUG, null);
+			assert drug != null;
+			NetworkHandler.FireClient(new MessageClientSyncDrugs(drug.getAllDrugs()), (EntityPlayerMP) player);
 		}
 	}
 }

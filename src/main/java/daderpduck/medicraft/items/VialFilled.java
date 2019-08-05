@@ -4,15 +4,20 @@ import daderpduck.medicraft.Main;
 import daderpduck.medicraft.base.DrugType;
 import daderpduck.medicraft.init.ModDrugTypes;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.TextComponentTranslation;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.awt.*;
+import java.util.List;
 
 public class VialFilled extends Item {
 	public VialFilled(String name) {
@@ -20,7 +25,7 @@ public class VialFilled extends Item {
 		setRegistryName(name);
 		setHasSubtypes(true);
 		setMaxDamage(0);
-		setMaxStackSize(1);
+		setMaxStackSize(64);
 
 		setCreativeTab(Main.MEDICRAFT_TAB);
 	}
@@ -48,6 +53,18 @@ public class VialFilled extends Item {
 		}
 
 		return super.getUnlocalizedName();
+	}
+
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+		int metadata = stack.getMetadata();
+		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
+			if (drugType.getId() == metadata) {
+				TextComponentTranslation textComponent = new TextComponentTranslation("vial."+drugType.getName()+".description");
+				tooltip.add(textComponent.getFormattedText());
+			}
+		}
 	}
 
 	@Override

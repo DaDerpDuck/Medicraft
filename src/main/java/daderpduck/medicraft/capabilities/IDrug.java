@@ -2,12 +2,19 @@ package daderpduck.medicraft.capabilities;
 
 import daderpduck.medicraft.drugs.Drug;
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.List;
 
 public interface IDrug {
-	void setDrugs(List<Drug.DrugEffect> drugEffects);
-	List<Drug.DrugEffect> getDrugs();
+	void setDrugs(@Nonnull List<Drug.DrugEffect> drugEffects);
+
+	List<Drug.DrugEffect> getAllDrugs();
 
 	void addDrug(Drug.DrugEffect drugEffect);
+
+	@Nullable
+	Drug.DrugEffect getActiveDrug(Drug drug);
+
 	void removeDrug(Drug.DrugEffect drugEffect);
 }

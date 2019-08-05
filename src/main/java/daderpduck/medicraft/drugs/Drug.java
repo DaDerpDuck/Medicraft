@@ -16,9 +16,9 @@ public class Drug {
 
 	public final int id;
 	public final int maxAmplifier;
-	private final int initialDuration;
-	private final int durationIncrement;
-	private final int drugDelay;
+	private int initialDuration;
+	private int durationIncrement;
+	private int drugDelay;
 
 	/**
 	 * Constructs a drug
@@ -37,11 +37,27 @@ public class Drug {
 		DRUG_LIST.add(this);
 	}
 
+	public Drug(int maxAmplifier) {
+		this(maxAmplifier, 0, 0, 0);
+	}
+
 	/**
 	 * Constructs a drug that acts instantly
 	 */
 	public Drug() {
 		this(0, 0, 0, 0);
+	}
+
+	protected void setDrugDelay(int drugDelay) {
+		this.drugDelay = drugDelay;
+	}
+
+	protected void setInitialDuration(int initialDuration) {
+		this.initialDuration = initialDuration;
+	}
+
+	protected void setDurationIncrement(int durationIncrement) {
+		this.durationIncrement = durationIncrement;
 	}
 
 	public static class DrugEffect {
@@ -98,7 +114,7 @@ public class Drug {
 		IDrug drugCap = player.getCapability(DrugCapability.CAP_DRUG, null);
 		assert drugCap != null;
 
-		for (Drug.DrugEffect drugEffect : drugCap.getDrugs()) {
+		for (Drug.DrugEffect drugEffect : drugCap.getAllDrugs()) {
 			if (drugEffect.drug == this) {
 				drugEffect.incrementDuration(durationIncrement);
 				drugEffect.drugDelay /= 2;
@@ -129,7 +145,7 @@ public class Drug {
 		IDrug drugCap = player.getCapability(DrugCapability.CAP_DRUG, null);
 		assert drugCap != null;
 
-		for (Drug.DrugEffect drugEffect : new LinkedList<>(drugCap.getDrugs())) {
+		for (Drug.DrugEffect drugEffect : new LinkedList<>(drugCap.getAllDrugs())) {
 			if (drugEffect.drug == this) {
 				drugCap.removeDrug(drugEffect);
 			}
@@ -137,10 +153,18 @@ public class Drug {
 	}
 
 	/**
-	 * Fires every PlayerTick
-	 * @param player The player that has been poisoned
+	 * Fires every PlayerTick after drug delay has passed
+	 * @param player The player that has been drugged
 	 * @param drugDuration Current duration of drug
 	 * @param amplifier Current amplifier
 	 */
 	public void drugEffect(EntityPlayer player, int drugDuration, int amplifier) {}
+
+	/**
+	 * Fires every PlayerTick  before drug delay has passed
+	 * @param player The player that has been drugged
+	 * @param drugDelay Current drug delay
+	 * @param amplifier Current amplifier
+	 */
+	public void preDrugEffect(EntityPlayer player, int drugDelay, int amplifier) {}
 }

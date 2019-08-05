@@ -10,8 +10,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class MessageExplodeDamage extends MessageBase<MessageExplodeDamage> {
-	public MessageExplodeDamage() {
-	}
+	public MessageExplodeDamage() {}
 
 	private float damage;
 
