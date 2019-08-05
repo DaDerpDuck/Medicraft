@@ -1,4 +1,4 @@
-package daderpduck.medicraft.drugs.medicines;
+package daderpduck.medicraft.drugs.antidotes;
 
 import daderpduck.medicraft.capabilities.DrugCapability;
 import daderpduck.medicraft.capabilities.IDrug;

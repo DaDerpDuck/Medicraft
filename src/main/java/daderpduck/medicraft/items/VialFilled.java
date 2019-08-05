@@ -3,6 +3,7 @@ package daderpduck.medicraft.items;
 import daderpduck.medicraft.Main;
 import daderpduck.medicraft.base.DrugType;
 import daderpduck.medicraft.init.ModDrugTypes;
+import daderpduck.medicraft.init.ModItems;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
@@ -28,6 +29,7 @@ public class VialFilled extends Item {
 		setMaxStackSize(64);
 
 		setCreativeTab(Main.MEDICRAFT_TAB);
+		ModItems.ITEMS.add(this);
 	}
 
 	@SideOnly(Side.CLIENT)

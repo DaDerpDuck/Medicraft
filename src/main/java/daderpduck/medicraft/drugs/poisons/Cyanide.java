@@ -5,12 +5,12 @@ import daderpduck.medicraft.capabilities.IBlood;
 import daderpduck.medicraft.drugs.Drug;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class Sufforin extends Drug {
-	public Sufforin() {
+public class Cyanide extends Drug {
+	public Cyanide() {
 		super(2);
-		setInitialDuration(120*20);
-		setDurationIncrement(30*20);
-		setDrugDelay(30*20);
+		setInitialDuration(60*20);
+		setDurationIncrement(20*20);
+		setDrugDelay(5*20);
 	}
 
 	@Override
@@ -18,6 +18,6 @@ public class Sufforin extends Drug {
 		IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 		assert blood != null;
 
-		blood.decrease(0.8F + (0.2F*amplifier));
+		blood.decrease(1.2F + (0.4F*amplifier));
 	}
 }

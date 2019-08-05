@@ -2,6 +2,7 @@ package daderpduck.medicraft.proxy;
 
 import daderpduck.medicraft.base.DrugType;
 import daderpduck.medicraft.init.ModDrugTypes;
+import daderpduck.medicraft.init.ModItems;
 import daderpduck.medicraft.items.SyringeFilled;
 import daderpduck.medicraft.items.VialFilled;
 import net.minecraft.client.Minecraft;
@@ -21,16 +22,14 @@ public class ClientProxy extends CommonProxy {
 	public void PreInit() {
 		super.PreInit();
 
-		//Syringe
 		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-			ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Objects.requireNonNull(syringe.getRegistryName()), "inventory");
-			ModelLoader.setCustomModelResourceLocation(CommonProxy.syringe, drugType.getId(), itemModelResourceLocation);
-		}
+			//Syringe
+			ModelResourceLocation syringeModelResourceLocation = new ModelResourceLocation(Objects.requireNonNull(ModItems.SYRINGE_FILLED.getRegistryName()), "inventory");
+			ModelLoader.setCustomModelResourceLocation(ModItems.SYRINGE_FILLED, drugType.getId(), syringeModelResourceLocation);
 
-		//Vial
-		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-			ModelResourceLocation itemModelResourceLocation = new ModelResourceLocation(Objects.requireNonNull(vial.getRegistryName()), "inventory");
-			ModelLoader.setCustomModelResourceLocation(CommonProxy.vial, drugType.getId(), itemModelResourceLocation);
+			//Vial
+			ModelResourceLocation vialModelResourceLocation = new ModelResourceLocation(Objects.requireNonNull(ModItems.VIAL_FILLED.getRegistryName()), "inventory");
+			ModelLoader.setCustomModelResourceLocation(ModItems.VIAL_FILLED, drugType.getId(), vialModelResourceLocation);
 		}
 	}
 
@@ -44,7 +43,7 @@ public class ClientProxy extends CommonProxy {
 
 		Minecraft mc = Minecraft.getMinecraft();
 
-		mc.getItemColors().registerItemColorHandler(new SyringeFilled.liquidColor(), CommonProxy.syringe);
-		mc.getItemColors().registerItemColorHandler(new VialFilled.liquidColor(), CommonProxy.vial);
+		mc.getItemColors().registerItemColorHandler(new SyringeFilled.liquidColor(), ModItems.SYRINGE_FILLED);
+		mc.getItemColors().registerItemColorHandler(new VialFilled.liquidColor(), ModItems.VIAL_FILLED);
 	}
 }

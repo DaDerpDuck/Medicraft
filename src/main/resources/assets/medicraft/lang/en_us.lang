@@ -10,17 +10,26 @@ item.syringe_filled.name=Syringe of Errors
 item.syringe_filled.blood.name=Syringe of Blood
 item.syringe_filled.sufforin.name=Syringe of Sufforin
 item.syringe_filled.sufforin_antidote.name=Syringe of Sufforin Antidote
+item.syringe_filled.hemostasin.name=Syringe of Hemostasin
+item.syringe_filled.cyanide.name=Syringe of Cyanide
+item.syringe_filled.cyanide_antidote.name=Syringe of Cyanide Antidote
 
 item.vial_empty.name=Empty Vial
 item.vial_filled.name=Vial of Errors
 item.vial_filled.blood.name=Vial of Blood
 item.vial_filled.sufforin.name=Vial of Sufforin
 item.vial_filled.sufforin_antidote.name=Vial of Sufforin Antidote
+item.vial_filled.hemostasin.name=Vial of Hemostasin
+item.vial_filled.cyanide.name=Vial of Cyanide
+item.vial_filled.cyanide_antidote.name=Vial of Cyanide Antidote
 
 #Vial Descriptions
 vial.blood.description=In case you run out
 vial.sufforin.description=Slow acting poison with minor anesthetic properties
 vial.sufforin_antidote.description=Cures sufforin
+vial.hemostasin.description=Accelerates healing of bleeds
+vial.cyanide.description=Will not give happiness
+vial.cyanide_antidote.description=Cures cyanide
 
 #Blocks
 tile.yogurt_block.name=Yogurt Block

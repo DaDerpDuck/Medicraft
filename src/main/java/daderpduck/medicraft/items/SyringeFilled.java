@@ -37,6 +37,7 @@ public class SyringeFilled extends Item {
 		setMaxStackSize(16);
 
 		setCreativeTab(Main.MEDICRAFT_TAB);
+		ModItems.ITEMS.add(this);
 	}
 
 	@SideOnly(Side.CLIENT)
