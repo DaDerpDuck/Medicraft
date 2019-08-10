@@ -16,14 +16,12 @@ import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-@Mod.EventBusSubscriber
 public class PlayerTick {
 	@SubscribeEvent
-	public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
 
 		if (event.phase == TickEvent.Phase.END) {
 			onCommonPlayerTick(event);
@@ -40,7 +38,7 @@ public class PlayerTick {
 	 * Called on client and server
 	 * Currently only used for decreasing blood for bleeding effect
 	 */
-	private static void onCommonPlayerTick(TickEvent.PlayerTickEvent event) {
+	private void onCommonPlayerTick(TickEvent.PlayerTickEvent event) {
 		EntityPlayer player = event.player;
 
 		IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
@@ -58,9 +56,9 @@ public class PlayerTick {
 
 	/**
 	 * Called on server
-	 * Applies modifiers and damages players from injuries
+	 * Applies modifiers to injuries, damages player from stuff
 	 */
-	private static void onServerPlayerTick(TickEvent.PlayerTickEvent event) {
+	private void onServerPlayerTick(TickEvent.PlayerTickEvent event) {
 		EntityPlayer player = event.player;
 
 		IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
@@ -104,9 +102,8 @@ public class PlayerTick {
 		/* OTHER */
 
 		//Exsanguination
-		System.out.println(bloodRatio);
 		if (bloodRatio <= 0) {
-			player.attackEntityFrom(ModDamageSources.BLOOD_LOSS, Float.MAX_VALUE);
+			player.attackEntityFrom(ModDamageSources.BLOOD_LOSS, 2);
 		}
 	}
 
@@ -114,7 +111,7 @@ public class PlayerTick {
 	 * Called on client
 	 * Activates shaders
 	 */
-	private static void onClientPlayerTick(TickEvent.PlayerTickEvent event) {
+	private void onClientPlayerTick(TickEvent.PlayerTickEvent event) {
 		EntityPlayer player = event.player;
 
 		IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);

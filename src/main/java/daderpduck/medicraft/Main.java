@@ -1,8 +1,5 @@
 package daderpduck.medicraft;
 
-import daderpduck.medicraft.init.ModCapabilities;
-import daderpduck.medicraft.init.ModPotions;
-import daderpduck.medicraft.network.NetworkHandler;
 import daderpduck.medicraft.proxy.CommonProxy;
 import daderpduck.medicraft.tabs.ModCreativeTab;
 import daderpduck.medicraft.util.Reference;
@@ -31,9 +28,7 @@ public class Main {
 	public static void PreInit(FMLPreInitializationEvent event) {
 		proxy.PreInit();
 
-		NetworkHandler.init();
-		ModPotions.registerPotions();
-		ModCapabilities.registerCapabilities();
+
 	}
 
 	@EventHandler

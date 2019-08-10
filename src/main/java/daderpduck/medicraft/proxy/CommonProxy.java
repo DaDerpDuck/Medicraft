@@ -1,15 +1,19 @@
 package daderpduck.medicraft.proxy;
 
 import daderpduck.medicraft.base.DrugType;
-import daderpduck.medicraft.init.ModBlocks;
-import daderpduck.medicraft.init.ModDrugTypes;
-import daderpduck.medicraft.init.ModItems;
+import daderpduck.medicraft.events.DamageEvent;
+import daderpduck.medicraft.events.EntityJoinEvent;
+import daderpduck.medicraft.events.InjuryHandler;
+import daderpduck.medicraft.events.PlayerTick;
+import daderpduck.medicraft.init.*;
+import daderpduck.medicraft.network.NetworkHandler;
 import daderpduck.medicraft.util.Reference;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -21,6 +25,14 @@ public class CommonProxy {
 		ForgeRegistries.BLOCKS.registerAll(ModBlocks.BLOCKS.toArray(new Block[0]));
 		ForgeRegistries.ITEMS.registerAll(ModItems.ITEMS.toArray(new Item[0]));
 
+		NetworkHandler.init();
+		ModPotions.registerPotions();
+		ModCapabilities.registerCapabilities();
+
+		MinecraftForge.EVENT_BUS.register(new DamageEvent());
+		MinecraftForge.EVENT_BUS.register(new EntityJoinEvent());
+		MinecraftForge.EVENT_BUS.register(new InjuryHandler());
+		MinecraftForge.EVENT_BUS.register(new PlayerTick());
 	}
 
 	public void Init() {

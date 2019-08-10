@@ -14,17 +14,15 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
 public class DamageEvent {
 	/**
 	 * Deals with damage..
 	 */
 	@SubscribeEvent(priority = EventPriority.LOWEST)
-	public static void onDamageEvent(LivingDamageEvent event) {
+	public void onDamageEvent(LivingDamageEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
 		float damage = event.getAmount();
 
@@ -40,7 +38,15 @@ public class DamageEvent {
 	/**
 	 * TODO: Simulate unconsciousness
 	 */
-	private static boolean onFatalDamage(LivingDamageEvent event) {
+	private boolean onFatalDamage(LivingDamageEvent event) {
+		EntityLivingBase entity = event.getEntityLiving();
+		float damage = event.getAmount();
+
+		//Damage was too much, let them rest in peace
+		if (entity.getHealth() - damage <= -20) return false;
+
+
+
 		return false;
 	}
 

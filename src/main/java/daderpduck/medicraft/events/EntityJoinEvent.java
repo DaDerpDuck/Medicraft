@@ -5,18 +5,16 @@ import net.minecraft.client.settings.GameSettings;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.lang.reflect.Field;
 
-@Mod.EventBusSubscriber
 public class EntityJoinEvent {
 	/**
 	 * Sends a warning if a player has Optifine's fast render setting enabled
 	 */
 	@SubscribeEvent
-	public static void onPlayerJoinClient(EntityJoinWorldEvent event) {
+	public void onPlayerJoinClient(EntityJoinWorldEvent event) {
 		if (event.getEntity() instanceof EntityPlayer && event.getWorld().isRemote) {
 			try {
 				@SuppressWarnings("JavaReflectionMemberAccess")

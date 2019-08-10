@@ -15,18 +15,16 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Items;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.UUID;
 
-@Mod.EventBusSubscriber
 public class InjuryHandler {
 	/**
 	 * Jumping penalty if player has some leg/foot injury
 	 */
 	@SubscribeEvent
-	public static void onJumpEvent(LivingEvent.LivingJumpEvent event) {
+	public void onJumpEvent(LivingEvent.LivingJumpEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
 
 		if (entity instanceof EntityPlayerMP) {
@@ -67,7 +65,7 @@ public class InjuryHandler {
 	 * Cancels FOV change from various injuries
 	 */
 	@SubscribeEvent
-	public static void onFovUpdate(FOVUpdateEvent event) {
+	public void onFovUpdate(FOVUpdateEvent event) {
 		EntityPlayer player = event.getEntity();
 
 		float f = 1F;
