@@ -36,7 +36,7 @@ public class BloodCapability {
 
 		@Override
 		public void setBlood(float amount) {
-			bloodLevel = MathHelper.clamp(amount, 0, maxBloodLevel);
+			bloodLevel = MathHelper.clamp(amount, -1, maxBloodLevel);
 		}
 
 		@Override
@@ -46,18 +46,18 @@ public class BloodCapability {
 
 		@Override
 		public void increaseBlood(float amount) {
-			bloodLevel = MathHelper.clamp(bloodLevel + amount, 0, maxBloodLevel);
+			bloodLevel = MathHelper.clamp(bloodLevel + amount, -1, maxBloodLevel);
 		}
 
 		@Override
 		public void decreaseBlood(float amount) {
-			bloodLevel = MathHelper.clamp(bloodLevel - amount, 0, maxBloodLevel);
+			bloodLevel = MathHelper.clamp(bloodLevel - amount, -1, maxBloodLevel);
 		}
 
 		@Override
 		public void setMaxBlood(float amount) {
 			maxBloodLevel = amount;
-			bloodLevel = MathHelper.clamp(bloodLevel, 0, maxBloodLevel);
+			bloodLevel = MathHelper.clamp(bloodLevel, -1, maxBloodLevel);
 		}
 
 		@Override
@@ -67,7 +67,7 @@ public class BloodCapability {
 
 		@Override
 		public void setOxygen(double amount) {
-			oxygenLevel = MathHelper.clamp(amount, 0, maxOxygenLevel);
+			oxygenLevel = MathHelper.clamp(amount, -1, maxOxygenLevel);
 		}
 
 		@Override
@@ -77,12 +77,12 @@ public class BloodCapability {
 
 		@Override
 		public void increaseOxygen(double amount) {
-			oxygenLevel = MathHelper.clamp(oxygenLevel + amount, 0, maxOxygenLevel);
+			oxygenLevel = MathHelper.clamp(oxygenLevel + amount, -1, maxOxygenLevel);
 		}
 
 		@Override
 		public void decreaseOxygen(double amount) {
-			oxygenLevel = MathHelper.clamp(oxygenLevel - amount, 0, maxOxygenLevel);
+			oxygenLevel = MathHelper.clamp(oxygenLevel - amount, -1, maxOxygenLevel);
 		}
 
 		@Override
