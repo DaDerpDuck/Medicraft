@@ -1,3 +1,4 @@
+//Taken from Psychedelicaft
 #version 120
 
 uniform sampler2D DiffuseSampler;
