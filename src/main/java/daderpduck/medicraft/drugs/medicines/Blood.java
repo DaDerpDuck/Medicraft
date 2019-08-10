@@ -15,6 +15,6 @@ public class Blood extends Drug {
 		IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 		assert blood != null;
 
-		blood.increase(200);
+		blood.increaseBlood(200);
 	}
 }

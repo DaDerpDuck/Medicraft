@@ -2,8 +2,10 @@ package daderpduck.medicraft.base;
 
 import daderpduck.medicraft.drugs.Drug;
 import daderpduck.medicraft.init.ModDrugTypes;
+import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nullable;
+import java.util.Objects;
 
 public class DrugType {
 	private final String name;
@@ -40,5 +42,18 @@ public class DrugType {
 	@Nullable
 	public Drug getDrug() {
 		return drug;
+	}
+
+	@Nullable
+	public static DrugType getDrugTypeFromNBT(ItemStack stack) {
+		if (stack.hasTagCompound()) {
+			if (Objects.requireNonNull(stack.getTagCompound()).hasKey("DrugId")) {
+				int drugId = stack.getTagCompound().getInteger("DrugId");
+				for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
+					if (drugType.getId() == drugId) return drugType;
+				}
+			}
+		}
+		return null;
 	}
 }

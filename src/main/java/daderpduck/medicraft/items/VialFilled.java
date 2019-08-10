@@ -9,6 +9,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -35,11 +36,15 @@ public class VialFilled extends Item {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
-		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-			if (tab == Main.MEDICRAFT_TAB || tab == CreativeTabs.SEARCH) {
-				int metadata = drugType.getId();
-				ItemStack subItemStack = new ItemStack(this, 1, metadata);
-				subItems.add(subItemStack);
+		if (tab == Main.MEDICRAFT_TAB || tab == CreativeTabs.SEARCH) {
+			for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
+				NBTTagCompound tag = new NBTTagCompound();
+				tag.setInteger("DrugId", drugType.getId());
+
+				ItemStack subStack = new ItemStack(this);
+				subStack.setTagCompound(tag);
+
+				subItems.add(subStack);
 			}
 		}
 	}
@@ -47,11 +52,10 @@ public class VialFilled extends Item {
 	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		int metadata = stack.getMetadata();
+		DrugType drugType = DrugType.getDrugTypeFromNBT(stack);
 
-		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-			if (drugType.getId() == metadata)
-				return super.getUnlocalizedName() + "." + drugType.getName();
+		if (drugType != null) {
+			return super.getUnlocalizedName() + "." + drugType.getName();
 		}
 
 		return super.getUnlocalizedName();
@@ -60,12 +64,11 @@ public class VialFilled extends Item {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-		int metadata = stack.getMetadata();
-		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-			if (drugType.getId() == metadata) {
-				TextComponentTranslation textComponent = new TextComponentTranslation("vial."+drugType.getName()+".description");
-				tooltip.add(textComponent.getFormattedText());
-			}
+		DrugType drugType = DrugType.getDrugTypeFromNBT(stack);
+
+		if (drugType != null) {
+			TextComponentTranslation textComponent = new TextComponentTranslation("vial."+drugType.getName()+".description");
+			tooltip.add(textComponent.getFormattedText());
 		}
 	}
 
@@ -79,9 +82,10 @@ public class VialFilled extends Item {
 		@Override
 		public int colorMultiplier(@Nonnull ItemStack stack, int tintIndex) {
 			if (tintIndex == 0) {
-				int metadata = stack.getMetadata();
-				for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-					if (drugType.getId() == metadata) return drugType.getColor();
+				DrugType drugType = DrugType.getDrugTypeFromNBT(stack);
+
+				if (drugType != null) {
+					return drugType.getColor();
 				}
 			}
 			return Color.BLACK.getRGB();

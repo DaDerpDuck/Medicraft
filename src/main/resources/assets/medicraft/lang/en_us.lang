@@ -6,13 +6,14 @@ item.yogurt.name=Yogurt
 item.bandage.name=Bandage
 
 item.syringe_empty.name=Empty Syringe
-item.syringe_filled.name=Syringe of Errors
-item.syringe_filled.blood.name=Syringe of Blood
-item.syringe_filled.sufforin.name=Syringe of Sufforin
-item.syringe_filled.sufforin_antidote.name=Syringe of Sufforin Antidote
-item.syringe_filled.hemostasin.name=Syringe of Hemostasin
-item.syringe_filled.cyanide.name=Syringe of Cyanide
-item.syringe_filled.cyanide_antidote.name=Syringe of Cyanide Antidote
+item.syringe_filled.name=Errors Syringe
+item.syringe_filled.blood.name=Blood Syringe
+item.syringe_filled.sufforin.name=Sufforin Syringe
+item.syringe_filled.sufforin_antidote.name=Sufforin Antidote Syringe
+item.syringe_filled.hemostasin.name=Hemostasin Syringe
+item.syringe_filled.cyanide.name=Cyanide Syringe
+item.syringe_filled.cyanide_antidote.name=Hydroxocobalamin Syringe
+item.syringe_filled.oxygen_microparticles.name=Oxygen Microparticles Syringe
 
 item.vial_empty.name=Empty Vial
 item.vial_filled.name=Vial of Errors
@@ -21,15 +22,17 @@ item.vial_filled.sufforin.name=Vial of Sufforin
 item.vial_filled.sufforin_antidote.name=Vial of Sufforin Antidote
 item.vial_filled.hemostasin.name=Vial of Hemostasin
 item.vial_filled.cyanide.name=Vial of Cyanide
-item.vial_filled.cyanide_antidote.name=Vial of Cyanide Antidote
+item.vial_filled.cyanide_antidote.name=Vial of Hydroxocobalamin
+item.vial_filled.oxygen_microparticles.name=Vial of Oxygen Microparticles
 
 #Vial Descriptions
 vial.blood.description=In case you run out
 vial.sufforin.description=Slow acting poison with minor anesthetic properties
 vial.sufforin_antidote.description=Cures sufforin
 vial.hemostasin.description=Accelerates healing of bleeds
-vial.cyanide.description=Will not give happiness
-vial.cyanide_antidote.description=Cures cyanide
+vial.cyanide.description=Prevents cells from using oxygen
+vial.cyanide_antidote.description=Starves blood cells of oxygen
+vial.oxygen_microparticles.description=Reoxygenates blood cells
 
 #Blocks
 tile.yogurt_block.name=Yogurt Block
@@ -45,7 +48,7 @@ effect.sprained_ankle=Sprained Ankle
 #Damage Sources
 death.attack.medicraft.wound=%1$s neglected their injury
 death.attack.medicraft.brain_swelling=%1$s died from brain swelling
-death.attack.medicraft.blood_loss=%1$s ran out of blood
+death.attack.medicraft.blood_loss=%1$s ran out of oxygenated blood
 death.attack.medicraft.cyanide_poisoning=%1$s died from cyanide poisoning
 
 #Commands
@@ -56,6 +59,10 @@ commands.medicraft.bloodlevel.success.set=Set %s's blood level to %s
 commands.medicraft.maxbloodlevel.usage=/maxbloodlevel [player] [amount]
 commands.medicraft.maxbloodlevel.success.get=%s's max blood level: %s
 commands.medicraft.maxbloodlevel.success.set=Set %s's max blood level to %s
+
+commands.medicraft.oxygenlevel.usage=/oxygenlevel [player] [amount]
+commands.medicraft.oxygenlevel.success.get=%s's oxygen level: %s
+commands.medicraft.oxygenlevel.success.set=Set %s's oxygen level to %s
 
 #Injuries
 injury.medicraft.broken_leg=§cYou hear a snap from your leg

@@ -131,6 +131,8 @@ public class WorldEvents {
 			IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
 			assert bloodCap != null;
 
+			double bloodRatio = (bloodCap.getBlood()/bloodCap.getMaxBlood())*(bloodCap.getOxygen()/bloodCap.getMaxOxygen());
+
 			IDrug drugCap = player.getCapability(DrugCapability.CAP_DRUG, null);
 			assert drugCap != null;
 
@@ -138,7 +140,7 @@ public class WorldEvents {
 				PotionEffect bleedingEffect = player.getActivePotionEffect(ModPotions.BLEEDING);
 				assert bleedingEffect != null;
 
-				bloodCap.decrease(0.25F*(bleedingEffect.getAmplifier() + 1));
+				bloodCap.decreaseBlood(0.5F*(bleedingEffect.getAmplifier() + 1));
 			}
 
 			/* SERVER */
@@ -177,7 +179,8 @@ public class WorldEvents {
 				/* OTHER */
 
 				//Exsanguination
-				if (bloodCap.getBlood() <= 1) {
+				System.out.println(bloodRatio);
+				if (bloodRatio <= 0) {
 					player.attackEntityFrom(ModDamageSources.BLOOD_LOSS, Float.MAX_VALUE);
 				}
 			}
@@ -215,10 +218,7 @@ public class WorldEvents {
 				}
 
 				/* OTHER */
-
-				//Exsanguination (Client)
-				float bloodRatio = bloodCap.getBlood() / bloodCap.getMaxBlood();
-				float fBloodRatio = bloodRatio;
+				double fBloodRatio = bloodRatio;
 
 				//Sufforin effect
 				Drug.DrugEffect sufforinEffect = drugCap.getActiveDrug(ModDrugs.SUFFORIN);
@@ -226,9 +226,9 @@ public class WorldEvents {
 					fBloodRatio = (float) MathHelper.clampedLerp(bloodRatio, 1, sufforinEffect.drugDuration/100D);
 				}
 
-				BloodLossShaders.DESATURATE.saturation = Math.min(fBloodRatio * 2F, 1);
+				BloodLossShaders.DESATURATE.saturation = (float) Math.min(fBloodRatio * 2F, 1);
 				BloodLossShaders.BLUR.radius = (int) Math.max(-10 * fBloodRatio + 4.5, 0);
-				BloodLossShaders.TINT.opacity = MathHelper.clamp(bloodRatio*-12.5F + 1,0,1);
+				BloodLossShaders.TINT.opacity = (float) MathHelper.clamp(bloodRatio*-12.5F + 1,0,1);
 			}
 		}
 	}
@@ -355,7 +355,8 @@ public class WorldEvents {
 			assert bloodCap != null;
 
 			bloodCap.setBlood(bloodCap.getMaxBlood());
-			NetworkHandler.FireClient(new MessageClientSyncBlood(bloodCap.getBlood(), bloodCap.getMaxBlood()), (EntityPlayerMP) player);
+			bloodCap.setOxygen(bloodCap.getMaxOxygen());
+			NetworkHandler.FireClient(new MessageClientSyncBlood(bloodCap.getBlood(), bloodCap.getMaxBlood(), bloodCap.getOxygen()), (EntityPlayerMP) player);
 		}
 	}
 }

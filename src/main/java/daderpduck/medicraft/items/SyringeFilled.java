@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
@@ -40,14 +41,17 @@ public class SyringeFilled extends Item {
 		ModItems.ITEMS.add(this);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
-		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-			if (tab == Main.MEDICRAFT_TAB || tab == CreativeTabs.SEARCH) {
-				int metadata = drugType.getId();
-				ItemStack subItemStack = new ItemStack(this, 1, metadata);
-				subItems.add(subItemStack);
+		if (tab == Main.MEDICRAFT_TAB || tab == CreativeTabs.SEARCH) {
+			for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
+				NBTTagCompound tag = new NBTTagCompound();
+				tag.setInteger("DrugId", drugType.getId());
+
+				ItemStack subStack = new ItemStack(this);
+				subStack.setTagCompound(tag);
+
+				subItems.add(subStack);
 			}
 		}
 	}
@@ -55,11 +59,9 @@ public class SyringeFilled extends Item {
 	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack stack) {
-		int metadata = stack.getMetadata();
-
-		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-			if (drugType.getId() == metadata)
-				return super.getUnlocalizedName() + "." + drugType.getName();
+		DrugType drugType = DrugType.getDrugTypeFromNBT(stack);
+		if (drugType != null) {
+			return super.getUnlocalizedName() + "." + drugType.getName();
 		}
 
 		return super.getUnlocalizedName();
@@ -87,20 +89,14 @@ public class SyringeFilled extends Item {
 	@Nonnull
 	@Override
 	public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
-		int metadata = stack.getMetadata();
+		DrugType drugType = DrugType.getDrugTypeFromNBT(stack);
 
-		if (entityLiving instanceof EntityPlayer) {
+		if (entityLiving instanceof EntityPlayer && drugType != null) {
 			EntityPlayer player = (EntityPlayer) entityLiving;
 			stack.shrink(1);
 
-			for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-				if (drugType.getId() == metadata) {
-					if (drugType.getDrug() != null) {
-						drugType.getDrug().drugPlayer(player);
-
-						break;
-					}
-				}
+			if (drugType.getDrug() != null) {
+				drugType.getDrug().drugPlayer(player);
 			}
 
 			if (!stack.isEmpty()) {
@@ -115,9 +111,9 @@ public class SyringeFilled extends Item {
 
 	@Override
 	public boolean hitEntity(ItemStack stack, EntityLivingBase target, EntityLivingBase attacker) {
-		if (attacker instanceof EntityPlayer && target instanceof EntityPlayer) {
-			int metadata = stack.getMetadata();
+		DrugType drugType = DrugType.getDrugTypeFromNBT(stack);
 
+		if (attacker instanceof EntityPlayer && target instanceof EntityPlayer && drugType != null) {
 			EntityPlayer attackerPlayer = (EntityPlayer) attacker;
 			EntityPlayer targetPlayer = (EntityPlayer) target;
 
@@ -127,27 +123,18 @@ public class SyringeFilled extends Item {
 				attackerPlayer.dropItem(new ItemStack(ModItems.SYRINGE_EMPTY), false);
 			}
 
-			for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-				if (drugType.getId() == metadata) {
-					if (drugType.getDrug() != null) {
-						drugType.getDrug().drugPlayer(targetPlayer);
+			if (drugType.getDrug() != null) {
+				drugType.getDrug().drugPlayer(targetPlayer);
 
-						IDrug drugCap = targetPlayer.getCapability(DrugCapability.CAP_DRUG, null);
-						assert drugCap != null;
-						NetworkHandler.FireClient(new MessageClientSyncDrugs(drugCap.getAllDrugs()), (EntityPlayerMP) targetPlayer);
+				IDrug drugCap = targetPlayer.getCapability(DrugCapability.CAP_DRUG, null);
+				assert drugCap != null;
+				NetworkHandler.FireClient(new MessageClientSyncDrugs(drugCap.getAllDrugs()), (EntityPlayerMP) targetPlayer);
 
-						return true;
-					}
-				}
+				return true;
 			}
 		}
 
 		return false;
-	}
-
-	@Override
-	public int getMetadata(int damage) {
-		return damage;
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -158,9 +145,10 @@ public class SyringeFilled extends Item {
 				case 0:
 					return Color.WHITE.getRGB();
 				case 1: {
-					int metadata = stack.getMetadata();
-					for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-						if (drugType.getId() == metadata) return drugType.getColor();
+					DrugType drugType = DrugType.getDrugTypeFromNBT(stack);
+
+					if (drugType != null) {
+						return drugType.getColor();
 					}
 				}
 				default:

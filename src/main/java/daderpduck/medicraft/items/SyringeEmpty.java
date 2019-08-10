@@ -57,7 +57,7 @@ public class SyringeEmpty extends Item implements IHasModel {
 			IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
 			assert bloodCap != null;
 
-			bloodCap.decrease(100);
+			bloodCap.decreaseBlood(200);
 
 			stack.shrink(1);
 

@@ -18,6 +18,6 @@ public class Cyanide extends Drug {
 		IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 		assert blood != null;
 
-		blood.decrease(1.2F + (0.4F*amplifier));
+		blood.decreaseOxygen(.045D + (.07D*amplifier));
 	}
 }

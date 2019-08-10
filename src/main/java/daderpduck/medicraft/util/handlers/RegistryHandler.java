@@ -2,6 +2,7 @@ package daderpduck.medicraft.util.handlers;
 
 import daderpduck.medicraft.commands.CommandBloodLevel;
 import daderpduck.medicraft.commands.CommandMaxBloodLevel;
+import daderpduck.medicraft.commands.CommandOxygenLevel;
 import daderpduck.medicraft.init.ModBlocks;
 import daderpduck.medicraft.init.ModItems;
 import daderpduck.medicraft.util.IHasModel;
@@ -32,5 +33,6 @@ public class RegistryHandler {
 	public static void serverRegistries(FMLServerStartingEvent event) {
 		event.registerServerCommand(new CommandBloodLevel());
 		event.registerServerCommand(new CommandMaxBloodLevel());
+		event.registerServerCommand(new CommandOxygenLevel());
 	}
 }

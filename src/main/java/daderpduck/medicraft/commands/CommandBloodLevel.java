@@ -10,6 +10,7 @@ import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -41,7 +42,7 @@ public class CommandBloodLevel extends CommandBase {
 
 		if (args.length <= 0) {
 			//Get blood amount
-			notifyCommandListener(sender, this, GET_TRANSLATION, sender.getDisplayName(), bloodCap.getBlood());
+			senderAsPlayer.sendMessage(new TextComponentTranslation(GET_TRANSLATION, senderAsPlayer.getDisplayName(), bloodCap.getBlood()));
 		} else if (args.length == 1) {
 			String s = args[0];
 
@@ -51,7 +52,7 @@ public class CommandBloodLevel extends CommandBase {
 				IBlood targetBloodCap = target.getCapability(BloodCapability.CAP_BLOOD, null);
 				assert targetBloodCap != null;
 
-				notifyCommandListener(sender, this, GET_TRANSLATION, target.getDisplayName(), targetBloodCap.getBlood());
+				senderAsPlayer.sendMessage(new TextComponentTranslation(GET_TRANSLATION, target.getDisplayName(), targetBloodCap.getBlood()));
 
 				return;
 			} catch (CommandException ignored) {
@@ -62,7 +63,7 @@ public class CommandBloodLevel extends CommandBase {
 
 			bloodCap.setBlood((float) amount);
 			notifyCommandListener(sender, this, SET_TRANSLATION, sender.getDisplayName(), bloodCap.getBlood());
-			NetworkHandler.FireClient(new MessageClientSyncBlood(bloodCap.getBlood(), bloodCap.getMaxBlood()), senderAsPlayer);
+			NetworkHandler.FireClient(new MessageClientSyncBlood(bloodCap.getBlood(), bloodCap.getMaxBlood(), bloodCap.getOxygen()), senderAsPlayer);
 		} else {
 			EntityPlayerMP target = getPlayer(server, sender, args[0]);
 			double amount = parseDouble(args[1]);
@@ -72,7 +73,7 @@ public class CommandBloodLevel extends CommandBase {
 
 			targetBloodCap.setBlood((float) amount);
 			notifyCommandListener(sender, this, SET_TRANSLATION, target.getDisplayName(), targetBloodCap.getBlood());
-			NetworkHandler.FireClient(new MessageClientSyncBlood(bloodCap.getBlood(), bloodCap.getMaxBlood()), target);
+			NetworkHandler.FireClient(new MessageClientSyncBlood(bloodCap.getBlood(), bloodCap.getMaxBlood(), bloodCap.getOxygen()), target);
 		}
 	}
 

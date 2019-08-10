@@ -17,15 +17,15 @@ import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-public class CommandMaxBloodLevel extends CommandBase {
-	private static final String USAGE_TRANSLATION = "commands.medicraft.maxbloodlevel.usage";
-	private static final String GET_TRANSLATION = "commands.medicraft.maxbloodlevel.success.get";
-	private static final String SET_TRANSLATION = "commands.medicraft.maxbloodlevel.success.set";
+public class CommandOxygenLevel extends CommandBase {
+	private static final String USAGE_TRANSLATION = "commands.medicraft.oxygenlevel.usage";
+	private static final String GET_TRANSLATION = "commands.medicraft.oxygenlevel.success.get";
+	private static final String SET_TRANSLATION = "commands.medicraft.oxygenlevel.success.set";
 
 	@Nonnull
 	@Override
 	public String getName() {
-		return "maxbloodlevel";
+		return "oxygenlevel";
 	}
 
 	@Nonnull
@@ -41,39 +41,38 @@ public class CommandMaxBloodLevel extends CommandBase {
 		assert bloodCap != null;
 
 		if (args.length <= 0) {
-			//Get max blood amount
-			senderAsPlayer.sendMessage(new TextComponentTranslation(GET_TRANSLATION, senderAsPlayer.getDisplayName(), bloodCap.getMaxBlood()));
+			//Get blood amount
+			senderAsPlayer.sendMessage(new TextComponentTranslation(GET_TRANSLATION, senderAsPlayer.getDisplayName(), bloodCap.getOxygen()));
 		} else if (args.length == 1) {
 			String s = args[0];
 
 			try {
-				//Get max blood amount of specified player
+				//Get blood amount of specified player
 				EntityPlayerMP target = getPlayer(server, sender, s);
 				IBlood targetBloodCap = target.getCapability(BloodCapability.CAP_BLOOD, null);
 				assert targetBloodCap != null;
 
-				senderAsPlayer.sendMessage(new TextComponentTranslation(GET_TRANSLATION, target.getDisplayName(), targetBloodCap.getMaxBlood()));
+				senderAsPlayer.sendMessage(new TextComponentTranslation(GET_TRANSLATION, target.getDisplayName(), targetBloodCap.getOxygen()));
 
 				return;
 			} catch (CommandException ignored) {
 			}
 
-			//Set max blood amount of sender
+			//Set blood amount of sender
 			double amount = parseDouble(s);
 
-			bloodCap.setMaxBlood((float) amount);
-			notifyCommandListener(sender, this, SET_TRANSLATION, sender.getDisplayName(), bloodCap.getMaxBlood());
+			bloodCap.setOxygen((float) amount);
+			notifyCommandListener(sender, this, SET_TRANSLATION, sender.getDisplayName(), bloodCap.getOxygen());
 			NetworkHandler.FireClient(new MessageClientSyncBlood(bloodCap.getBlood(), bloodCap.getMaxBlood(), bloodCap.getOxygen()), senderAsPlayer);
 		} else {
-			//Set max blood amount of specified player
 			EntityPlayerMP target = getPlayer(server, sender, args[0]);
 			double amount = parseDouble(args[1]);
 
 			IBlood targetBloodCap = target.getCapability(BloodCapability.CAP_BLOOD, null);
 			assert targetBloodCap != null;
 
-			targetBloodCap.setMaxBlood((float) amount);
-			notifyCommandListener(sender, this, SET_TRANSLATION, target.getDisplayName(), targetBloodCap.getMaxBlood());
+			targetBloodCap.setOxygen((float) amount);
+			notifyCommandListener(sender, this, SET_TRANSLATION, target.getDisplayName(), targetBloodCap.getOxygen());
 			NetworkHandler.FireClient(new MessageClientSyncBlood(bloodCap.getBlood(), bloodCap.getMaxBlood(), bloodCap.getOxygen()), target);
 		}
 	}

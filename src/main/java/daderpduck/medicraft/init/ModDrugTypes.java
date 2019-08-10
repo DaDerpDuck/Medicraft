@@ -15,4 +15,5 @@ public class ModDrugTypes {
 	public static final DrugType HEMOSTASIN = new DrugType("hemostasin", 0xBD9058, id++).setDrug(ModDrugs.HEMOSTASIN);
 	public static final DrugType CYANIDE = new DrugType("cyanide", 0x115DD5, id++).setDrug(ModDrugs.CYANIDE);
 	public static final DrugType CYANIDE_ANTIDOTE = new DrugType("cyanide_antidote", 0x48ACF0, id++).setDrug(ModDrugs.CYANIDE_ANTIDOTE);
+	public static final DrugType OXYGEN_MICROPARTICLES = new DrugType("oxygen_microparticles", 0x8CA6B9, id++).setDrug(ModDrugs.OXYGEN_MICROPARTICLES);
 }

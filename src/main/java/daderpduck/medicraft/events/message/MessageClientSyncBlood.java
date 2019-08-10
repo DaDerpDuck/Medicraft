@@ -15,22 +15,26 @@ public class MessageClientSyncBlood extends MessageBase<MessageClientSyncBlood> 
 
 	private float blood;
 	private float maxBlood;
+	private double oxygenLevel;
 
-	public MessageClientSyncBlood(float blood, float maxBlood) {
+	public MessageClientSyncBlood(float blood, float maxBlood, double oxygenLevel) {
 		this.blood = blood;
 		this.maxBlood = maxBlood;
+		this.oxygenLevel = oxygenLevel;
 	}
 
 	@Override
 	public void fromBytes(ByteBuf buf) {
 		blood = buf.readFloat();
 		maxBlood = buf.readFloat();
+		oxygenLevel = buf.readDouble();
 	}
 
 	@Override
 	public void toBytes(ByteBuf buf) {
 		buf.writeFloat(blood);
 		buf.writeFloat(maxBlood);
+		buf.writeDouble(oxygenLevel);
 	}
 
 	@SideOnly(Side.CLIENT)
@@ -42,6 +46,7 @@ public class MessageClientSyncBlood extends MessageBase<MessageClientSyncBlood> 
 
 		blood.setBlood(message.blood);
 		blood.setMaxBlood(message.maxBlood);
+		blood.setOxygen(message.oxygenLevel);
 	}
 
 	@SideOnly(Side.SERVER)

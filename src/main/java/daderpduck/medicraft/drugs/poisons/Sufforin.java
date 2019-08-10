@@ -18,6 +18,6 @@ public class Sufforin extends Drug {
 		IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 		assert blood != null;
 
-		blood.decrease(0.8F + (0.2F*amplifier));
+		blood.decreaseBlood(0.8F + (0.2F*amplifier));
 	}
 }

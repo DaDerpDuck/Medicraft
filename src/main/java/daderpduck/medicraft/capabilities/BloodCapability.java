@@ -31,16 +31,8 @@ public class BloodCapability {
 	public static class ImplementationBlood implements IBlood {
 		private float maxBloodLevel = 2000F;
 		private float bloodLevel = 2000F;
-
-		@Override
-		public void increase(float amount) {
-			bloodLevel = MathHelper.clamp(bloodLevel + amount, 0, maxBloodLevel);
-		}
-
-		@Override
-		public void decrease(float amount) {
-			bloodLevel = MathHelper.clamp(bloodLevel - amount, 0, maxBloodLevel);
-		}
+		private double oxygenLevel = 100D;
+		private final double maxOxygenLevel = 100D;
 
 		@Override
 		public void setBlood(float amount) {
@@ -53,6 +45,16 @@ public class BloodCapability {
 		}
 
 		@Override
+		public void increaseBlood(float amount) {
+			bloodLevel = MathHelper.clamp(bloodLevel + amount, 0, maxBloodLevel);
+		}
+
+		@Override
+		public void decreaseBlood(float amount) {
+			bloodLevel = MathHelper.clamp(bloodLevel - amount, 0, maxBloodLevel);
+		}
+
+		@Override
 		public void setMaxBlood(float amount) {
 			maxBloodLevel = amount;
 			bloodLevel = MathHelper.clamp(bloodLevel, 0, maxBloodLevel);
@@ -61,6 +63,31 @@ public class BloodCapability {
 		@Override
 		public float getMaxBlood() {
 			return maxBloodLevel;
+		}
+
+		@Override
+		public void setOxygen(double amount) {
+			oxygenLevel = MathHelper.clamp(amount, 0, maxOxygenLevel);
+		}
+
+		@Override
+		public double getOxygen() {
+			return oxygenLevel;
+		}
+
+		@Override
+		public void increaseOxygen(double amount) {
+			oxygenLevel = MathHelper.clamp(oxygenLevel + amount, 0, maxOxygenLevel);
+		}
+
+		@Override
+		public void decreaseOxygen(double amount) {
+			oxygenLevel = MathHelper.clamp(oxygenLevel - amount, 0, maxOxygenLevel);
+		}
+
+		@Override
+		public double getMaxOxygen() {
+			return maxOxygenLevel;
 		}
 	}
 
@@ -75,6 +102,7 @@ public class BloodCapability {
 			NBTTagCompound nbt = new NBTTagCompound();
 			nbt.setFloat("bloodLevel", instance.getBlood());
 			nbt.setFloat("maxBloodLevel", instance.getMaxBlood());
+			nbt.setDouble("oxygenLevel", instance.getOxygen());
 			return nbt;
 		}
 
@@ -83,6 +111,7 @@ public class BloodCapability {
 			NBTTagCompound nbtTagCompound = (NBTTagCompound) nbt;
 			instance.setBlood(nbtTagCompound.getFloat("bloodLevel"));
 			instance.setMaxBlood(nbtTagCompound.getFloat("maxBloodLevel"));
+			instance.setOxygen(nbtTagCompound.getDouble("oxygenLevel"));
 		}
 	}
 
@@ -122,7 +151,7 @@ public class BloodCapability {
 		public void run(EntityPlayer player) {
 			IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 			assert blood != null;
-			NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood(), blood.getMaxBlood()), (EntityPlayerMP) player);
+			NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood(), blood.getMaxBlood(), blood.getOxygen()), (EntityPlayerMP) player);
 		}
 	}
 }
