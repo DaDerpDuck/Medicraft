@@ -2,7 +2,6 @@ package daderpduck.medicraft.capabilities;
 
 import daderpduck.medicraft.network.NetworkHandler;
 import daderpduck.medicraft.network.message.MessageClientSyncBlood;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -89,6 +88,11 @@ public class BloodCapability {
 		public double getMaxOxygen() {
 			return maxOxygenLevel;
 		}
+
+		@Override
+		public void sync(EntityPlayerMP player) {
+			(new BloodSyncFunction()).run(player);
+		}
 	}
 
 	/**
@@ -148,10 +152,10 @@ public class BloodCapability {
 	 */
 	static class BloodSyncFunction implements CapabilityAttach.RunnableSyncFunction {
 		@Override
-		public void run(EntityPlayer player) {
+		public void run(EntityPlayerMP player) {
 			IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 			assert blood != null;
-			NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood(), blood.getMaxBlood(), blood.getOxygen()), (EntityPlayerMP) player);
+			NetworkHandler.FireClient(new MessageClientSyncBlood(blood.getBlood(), blood.getMaxBlood(), blood.getOxygen()), player);
 		}
 	}
 }

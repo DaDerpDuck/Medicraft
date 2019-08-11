@@ -1,6 +1,7 @@
 package daderpduck.medicraft.capabilities;
 
 import daderpduck.medicraft.drugs.Drug;
+import net.minecraft.entity.player.EntityPlayerMP;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -17,4 +18,6 @@ public interface IDrug {
 	Drug.DrugEffect getActiveDrug(Drug drug);
 
 	void removeDrug(Drug.DrugEffect drugEffect);
+
+	void sync(EntityPlayerMP player);
 }

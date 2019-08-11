@@ -2,10 +2,9 @@ package daderpduck.medicraft.capabilities;
 
 import daderpduck.medicraft.network.NetworkHandler;
 import daderpduck.medicraft.network.message.MessageClientSyncUnconscious;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagInt;
+import net.minecraft.nbt.NBTTagByte;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
@@ -39,6 +38,11 @@ public class UnconsciousCapability {
 		public boolean getUnconscious() {
 			return unconscious;
 		}
+
+		@Override
+		public void sync(EntityPlayerMP player) {
+			(new UnconsciousSyncFunction()).run(player);
+		}
 	}
 
 	/**
@@ -49,12 +53,12 @@ public class UnconsciousCapability {
 		@Nullable
 		@Override
 		public NBTBase writeNBT(Capability<IUnconscious> capability, IUnconscious instance, EnumFacing side) {
-			return new NBTTagInt(instance.getUnconscious() ? 1 : 0);
+			return new NBTTagByte((byte) (instance.getUnconscious() ? 1 : 0));
 		}
 
 		@Override
 		public void readNBT(Capability<IUnconscious> capability, IUnconscious instance, EnumFacing side, NBTBase nbt) {
-			instance.setUnconscious(((NBTTagInt) nbt).getInt() == 1);
+			instance.setUnconscious(((NBTTagByte) nbt).getByte() == 1);
 		}
 	}
 
@@ -91,10 +95,10 @@ public class UnconsciousCapability {
 	 */
 	static class UnconsciousSyncFunction implements CapabilityAttach.RunnableSyncFunction {
 		@Override
-		public void run(EntityPlayer player) {
+		public void run(EntityPlayerMP player) {
 			IUnconscious unconscious = player.getCapability(UnconsciousCapability.CAP_UNCONSCIOUS, null);
 			assert unconscious != null;
-			NetworkHandler.FireClient(new MessageClientSyncUnconscious(unconscious.getUnconscious()), (EntityPlayerMP) player);
+			NetworkHandler.FireClient(new MessageClientSyncUnconscious(unconscious.getUnconscious()), player);
 		}
 	}
 }

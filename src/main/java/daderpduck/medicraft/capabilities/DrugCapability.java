@@ -3,7 +3,6 @@ package daderpduck.medicraft.capabilities;
 import daderpduck.medicraft.drugs.Drug;
 import daderpduck.medicraft.network.NetworkHandler;
 import daderpduck.medicraft.network.message.MessageClientSyncDrugs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -67,6 +66,11 @@ public class DrugCapability {
 		@Override
 		public void removeDrug(Drug.DrugEffect drugEffect) {
 			drugEffects.remove(drugEffect);
+		}
+
+		@Override
+		public void sync(EntityPlayerMP player) {
+			(new DrugSyncFunction()).run(player);
 		}
 	}
 
@@ -146,10 +150,10 @@ public class DrugCapability {
 	 */
 	static class DrugSyncFunction implements CapabilityAttach.RunnableSyncFunction {
 		@Override
-		public void run(EntityPlayer player) {
+		public void run(EntityPlayerMP player) {
 			IDrug drug = player.getCapability(DrugCapability.CAP_DRUG, null);
 			assert drug != null;
-			NetworkHandler.FireClient(new MessageClientSyncDrugs(drug.getAllDrugs()), (EntityPlayerMP) player);
+			NetworkHandler.FireClient(new MessageClientSyncDrugs(drug.getAllDrugs()), player);
 		}
 	}
 }

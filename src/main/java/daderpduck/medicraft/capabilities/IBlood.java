@@ -1,5 +1,7 @@
 package daderpduck.medicraft.capabilities;
 
+import net.minecraft.entity.player.EntityPlayerMP;
+
 public interface IBlood {
 	void setBlood(float amount);
 	float getBlood();
@@ -17,4 +19,6 @@ public interface IBlood {
 	void decreaseOxygen(double amount);
 
 	double getMaxOxygen();
+
+	void sync(EntityPlayerMP player);
 }

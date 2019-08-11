@@ -3,6 +3,7 @@ package daderpduck.medicraft.capabilities;
 import daderpduck.medicraft.util.Reference;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.ICapabilityProvider;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
@@ -28,7 +29,7 @@ public class CapabilityAttach {
 	}
 
 	interface RunnableSyncFunction {
-		void run(EntityPlayer player);
+		void run(EntityPlayerMP player);
 	}
 
 	private static class CapabilityInfo {
@@ -57,14 +58,14 @@ public class CapabilityAttach {
 	@SubscribeEvent
 	public static void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
 		for (CapabilityInfo Info : capabilities) {
-			Info.syncFunction.run(event.player);
+			Info.syncFunction.run((EntityPlayerMP) event.player);
 		}
 	}
 
 	@SubscribeEvent
 	public static void onPlayerChangedDimension(PlayerEvent.PlayerChangedDimensionEvent event) {
 		for (CapabilityInfo Info : capabilities) {
-			Info.syncFunction.run(event.player);
+			Info.syncFunction.run((EntityPlayerMP) event.player);
 		}
 	}
 
@@ -83,7 +84,7 @@ public class CapabilityAttach {
 		if (event.phase == TickEvent.Phase.START && event.side == Side.SERVER) {
 			if ((totalTicks++ % (5*20)) == 0) {
 				for (CapabilityInfo Info : capabilities) {
-					Info.syncFunction.run(event.player);
+					Info.syncFunction.run((EntityPlayerMP) event.player);
 				}
 			}
 		}

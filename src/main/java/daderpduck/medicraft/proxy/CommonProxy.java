@@ -1,10 +1,7 @@
 package daderpduck.medicraft.proxy;
 
 import daderpduck.medicraft.base.DrugType;
-import daderpduck.medicraft.events.DamageEvent;
-import daderpduck.medicraft.events.EntityJoinEvent;
-import daderpduck.medicraft.events.InjuryHandler;
-import daderpduck.medicraft.events.PlayerTick;
+import daderpduck.medicraft.events.*;
 import daderpduck.medicraft.init.*;
 import daderpduck.medicraft.network.NetworkHandler;
 import daderpduck.medicraft.util.Reference;
@@ -33,6 +30,8 @@ public class CommonProxy {
 		MinecraftForge.EVENT_BUS.register(new EntityJoinEvent());
 		MinecraftForge.EVENT_BUS.register(new InjuryHandler());
 		MinecraftForge.EVENT_BUS.register(new PlayerTick());
+		MinecraftForge.EVENT_BUS.register(new SyringeAttack());
+		MinecraftForge.EVENT_BUS.register(new RespawnEvent());
 	}
 
 	public void Init() {
