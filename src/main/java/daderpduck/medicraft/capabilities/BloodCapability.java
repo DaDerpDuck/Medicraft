@@ -1,7 +1,7 @@
 package daderpduck.medicraft.capabilities;
 
-import daderpduck.medicraft.events.message.MessageClientSyncBlood;
 import daderpduck.medicraft.network.NetworkHandler;
+import daderpduck.medicraft.network.message.MessageClientSyncBlood;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;

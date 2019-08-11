@@ -2,9 +2,9 @@ package daderpduck.medicraft.events;
 
 import daderpduck.medicraft.base.AttributeModifierBase;
 import daderpduck.medicraft.base.CustomPotion;
-import daderpduck.medicraft.events.message.MessagePain;
 import daderpduck.medicraft.init.ModPotions;
 import daderpduck.medicraft.network.NetworkHandler;
+import daderpduck.medicraft.network.message.MessagePain;
 import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;

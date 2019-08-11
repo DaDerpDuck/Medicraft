@@ -2,17 +2,12 @@ package daderpduck.medicraft.items;
 
 import daderpduck.medicraft.Main;
 import daderpduck.medicraft.base.DrugType;
-import daderpduck.medicraft.capabilities.DrugCapability;
-import daderpduck.medicraft.capabilities.IDrug;
-import daderpduck.medicraft.events.message.MessageClientSyncDrugs;
 import daderpduck.medicraft.init.ModDrugTypes;
 import daderpduck.medicraft.init.ModItems;
-import daderpduck.medicraft.network.NetworkHandler;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -115,22 +110,11 @@ public class SyringeFilled extends Item {
 
 		if (attacker instanceof EntityPlayer && target instanceof EntityPlayer && drugType != null) {
 			EntityPlayer attackerPlayer = (EntityPlayer) attacker;
-			EntityPlayer targetPlayer = (EntityPlayer) target;
 
 			stack.shrink(1);
 
 			if (!attackerPlayer.inventory.addItemStackToInventory(new ItemStack(ModItems.SYRINGE_EMPTY))) {
 				attackerPlayer.dropItem(new ItemStack(ModItems.SYRINGE_EMPTY), false);
-			}
-
-			if (drugType.getDrug() != null) {
-				drugType.getDrug().drugPlayer(targetPlayer);
-
-				IDrug drugCap = targetPlayer.getCapability(DrugCapability.CAP_DRUG, null);
-				assert drugCap != null;
-				NetworkHandler.FireClient(new MessageClientSyncDrugs(drugCap.getAllDrugs()), (EntityPlayerMP) targetPlayer);
-
-				return true;
 			}
 		}
 

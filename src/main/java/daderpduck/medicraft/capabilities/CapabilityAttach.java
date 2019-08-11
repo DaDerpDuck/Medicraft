@@ -19,7 +19,7 @@ import java.util.ArrayList;
 public class CapabilityAttach {
 	private static final ArrayList<CapabilityInfo> capabilities = new ArrayList<>();
 
-	static <T> void addCapability(String resourceName, ICapabilityProvider cap, RunnableSyncFunction syncFunction) {
+	static void addCapability(String resourceName, ICapabilityProvider cap, RunnableSyncFunction syncFunction) {
 		capabilities.add(new CapabilityInfo(
 				new ResourceLocation(Reference.MOD_ID, resourceName),
 				cap,

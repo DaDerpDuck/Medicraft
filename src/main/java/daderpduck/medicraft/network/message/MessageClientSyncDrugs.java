@@ -1,4 +1,4 @@
-package daderpduck.medicraft.events.message;
+package daderpduck.medicraft.network.message;
 
 import daderpduck.medicraft.capabilities.DrugCapability;
 import daderpduck.medicraft.capabilities.IDrug;

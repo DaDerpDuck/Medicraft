@@ -1,10 +1,7 @@
 package daderpduck.medicraft.events;
 
 import daderpduck.medicraft.base.CustomPotion;
-import daderpduck.medicraft.capabilities.BloodCapability;
-import daderpduck.medicraft.capabilities.DrugCapability;
-import daderpduck.medicraft.capabilities.IBlood;
-import daderpduck.medicraft.capabilities.IDrug;
+import daderpduck.medicraft.capabilities.*;
 import daderpduck.medicraft.drugs.Drug;
 import daderpduck.medicraft.effects.injuries.shaders.BloodLossShaders;
 import daderpduck.medicraft.effects.injuries.shaders.BrainSwellingShaders;
@@ -23,14 +20,12 @@ public class PlayerTick {
 	@SubscribeEvent
 	public void onPlayerTick(TickEvent.PlayerTickEvent event) {
 
-		if (event.phase == TickEvent.Phase.END) {
-			onCommonPlayerTick(event);
+		onCommonPlayerTick(event);
 
-			if (event.side.isServer()) {
-				onServerPlayerTick(event);
-			} else if (event.side.isClient()) {
-				onClientPlayerTick(event);
-			}
+		if (event.side.isServer()) {
+			onServerPlayerTick(event);
+		} else if (event.side.isClient()) {
+			onClientPlayerTick(event);
 		}
 	}
 
@@ -39,6 +34,8 @@ public class PlayerTick {
 	 * Currently only used for decreasing blood for bleeding effect
 	 */
 	private void onCommonPlayerTick(TickEvent.PlayerTickEvent event) {
+		if (event.phase != TickEvent.Phase.END) return;
+
 		EntityPlayer player = event.player;
 
 		IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
@@ -59,6 +56,8 @@ public class PlayerTick {
 	 * Applies modifiers to injuries, damages player from stuff
 	 */
 	private void onServerPlayerTick(TickEvent.PlayerTickEvent event) {
+		if (event.phase != TickEvent.Phase.END) return;
+
 		EntityPlayer player = event.player;
 
 		IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
@@ -112,12 +111,16 @@ public class PlayerTick {
 	 * Activates shaders
 	 */
 	private void onClientPlayerTick(TickEvent.PlayerTickEvent event) {
+		if (event.phase != TickEvent.Phase.END) return;
+
 		EntityPlayer player = event.player;
 
 		IBlood bloodCap = player.getCapability(BloodCapability.CAP_BLOOD, null);
 		assert bloodCap != null;
 		IDrug drugCap = player.getCapability(DrugCapability.CAP_DRUG, null);
 		assert drugCap != null;
+		IUnconscious unconscious = player.getCapability(UnconsciousCapability.CAP_UNCONSCIOUS, null);
+		assert unconscious != null;
 
 		double bloodRatio = (bloodCap.getBlood()/bloodCap.getMaxBlood())*(bloodCap.getOxygen()/bloodCap.getMaxOxygen());
 

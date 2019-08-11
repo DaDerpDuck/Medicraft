@@ -1,4 +1,4 @@
-package daderpduck.medicraft.events.message;
+package daderpduck.medicraft.network.message;
 
 import daderpduck.medicraft.capabilities.BloodCapability;
 import daderpduck.medicraft.capabilities.IBlood;

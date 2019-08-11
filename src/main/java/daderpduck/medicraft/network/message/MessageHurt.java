@@ -1,4 +1,4 @@
-package daderpduck.medicraft.events.message;
+package daderpduck.medicraft.network.message;
 
 import daderpduck.medicraft.network.MessageBase;
 import io.netty.buffer.ByteBuf;

@@ -1,14 +1,17 @@
 package daderpduck.medicraft.events;
 
+import daderpduck.medicraft.capabilities.IUnconscious;
+import daderpduck.medicraft.capabilities.UnconsciousCapability;
 import daderpduck.medicraft.effects.injuries.BloodLoss;
 import daderpduck.medicraft.effects.injuries.BrokenLeg;
 import daderpduck.medicraft.effects.injuries.Concussion;
 import daderpduck.medicraft.effects.injuries.SprainedAnkle;
-import daderpduck.medicraft.events.message.MessageExplodeDamage;
-import daderpduck.medicraft.events.message.MessageHurt;
-import daderpduck.medicraft.events.message.MessagePain;
 import daderpduck.medicraft.init.ModPotions;
 import daderpduck.medicraft.network.NetworkHandler;
+import daderpduck.medicraft.network.message.MessageClientSyncUnconscious;
+import daderpduck.medicraft.network.message.MessageExplodeDamage;
+import daderpduck.medicraft.network.message.MessageHurt;
+import daderpduck.medicraft.network.message.MessagePain;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.DamageSource;
@@ -21,14 +24,15 @@ public class DamageEvent {
 	/**
 	 * Deals with damage..
 	 */
-	@SubscribeEvent(priority = EventPriority.LOWEST)
+	@SubscribeEvent(priority = EventPriority.LOW)
 	public void onDamageEvent(LivingDamageEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
 		float damage = event.getAmount();
 
 		if (entity instanceof EntityPlayerMP) {
 			if (entity.getHealth() - damage <= 0) {
-				if (onFatalDamage(event)) return;
+				onFatalDamage(event);
+				return;
 			}
 
 			calculateInjury(event);
@@ -38,16 +42,22 @@ public class DamageEvent {
 	/**
 	 * TODO: Simulate unconsciousness
 	 */
-	private boolean onFatalDamage(LivingDamageEvent event) {
+	private void onFatalDamage(LivingDamageEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
 		float damage = event.getAmount();
 
-		//Damage was too much, let them rest in peace
-		if (entity.getHealth() - damage <= -20) return false;
+		//Damage was too much; let them rest in peace
+		if (entity.getHealth() - damage <= -20) return;
 
+		IUnconscious unconscious = entity.getCapability(UnconsciousCapability.CAP_UNCONSCIOUS, null);
+		assert unconscious != null;
 
+		unconscious.setUnconscious(true);
+		NetworkHandler.FireClient(new MessageClientSyncUnconscious(unconscious.getUnconscious()), (EntityPlayerMP) entity);
 
-		return false;
+		entity.setHealth(entity.getMaxHealth());
+
+		event.setCanceled(true);
 	}
 
 	/**

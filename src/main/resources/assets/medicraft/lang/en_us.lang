@@ -6,7 +6,7 @@ item.yogurt.name=Yogurt
 item.bandage.name=Bandage
 
 item.syringe_empty.name=Empty Syringe
-item.syringe_filled.name=Errors Syringe
+item.syringe_filled.name=Useless Syringe
 item.syringe_filled.blood.name=Blood Syringe
 item.syringe_filled.sufforin.name=Sufforin Syringe
 item.syringe_filled.sufforin_antidote.name=Sufforin Antidote Syringe
@@ -16,7 +16,7 @@ item.syringe_filled.cyanide_antidote.name=Hydroxocobalamin Syringe
 item.syringe_filled.oxygen_microparticles.name=Oxygen Microparticles Syringe
 
 item.vial_empty.name=Empty Vial
-item.vial_filled.name=Vial of Errors
+item.vial_filled.name=Vial of Uselessness
 item.vial_filled.blood.name=Vial of Blood
 item.vial_filled.sufforin.name=Vial of Sufforin
 item.vial_filled.sufforin_antidote.name=Vial of Sufforin Antidote
@@ -30,8 +30,8 @@ vial.blood.description=In case you run out
 vial.sufforin.description=Slow acting poison with minor anesthetic properties
 vial.sufforin_antidote.description=Cures sufforin
 vial.hemostasin.description=Accelerates healing of bleeds
-vial.cyanide.description=Prevents cells from using oxygen
-vial.cyanide_antidote.description=Starves blood cells of oxygen
+vial.cyanide.description=Starves blood cells of oxygen
+vial.cyanide_antidote.description=Treates cyanide
 vial.oxygen_microparticles.description=Reoxygenates blood cells
 
 #Blocks
@@ -49,7 +49,6 @@ effect.sprained_ankle=Sprained Ankle
 death.attack.medicraft.wound=%1$s neglected their injury
 death.attack.medicraft.brain_swelling=%1$s died from brain swelling
 death.attack.medicraft.blood_loss=%1$s ran out of oxygenated blood
-death.attack.medicraft.cyanide_poisoning=%1$s died from cyanide poisoning
 
 #Commands
 commands.medicraft.bloodlevel.usage=/bloodlevel [player] [amount]

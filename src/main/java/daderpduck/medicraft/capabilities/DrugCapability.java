@@ -1,8 +1,8 @@
 package daderpduck.medicraft.capabilities;
 
 import daderpduck.medicraft.drugs.Drug;
-import daderpduck.medicraft.events.message.MessageClientSyncDrugs;
 import daderpduck.medicraft.network.NetworkHandler;
+import daderpduck.medicraft.network.message.MessageClientSyncDrugs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
@@ -29,7 +29,7 @@ public class DrugCapability {
 	}
 
 	/**
-	 * Default implementation of blood
+	 * Default implementation of drug
 	 */
 	public static class ImplementationPoison implements IDrug {
 		private List<Drug.DrugEffect> drugEffects = new LinkedList<>();
@@ -114,7 +114,7 @@ public class DrugCapability {
 	}
 
 	/**
-	 * Poison provider
+	 * Drug provider (lol)
 	 */
 	public static class DrugProvider implements ICapabilitySerializable<NBTBase> {
 		private final IDrug instance = CAP_DRUG.getDefaultInstance();
@@ -142,7 +142,7 @@ public class DrugCapability {
 	}
 
 	/**
-	 * Sync implementation of poison
+	 * Sync implementation of drug
 	 */
 	static class DrugSyncFunction implements CapabilityAttach.RunnableSyncFunction {
 		@Override

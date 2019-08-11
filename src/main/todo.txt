@@ -2,10 +2,10 @@ Items:
 	First aid kit
 	First aid cabinet
 	Vials (Done)
-	Syringe
+	Syringe (Done)
 	Syringe Gun
 
-	Bandage (Done)
+	Bandage
 	Splint
 	Crutches
 

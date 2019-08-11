@@ -2,8 +2,8 @@ package daderpduck.medicraft.commands;
 
 import daderpduck.medicraft.capabilities.BloodCapability;
 import daderpduck.medicraft.capabilities.IBlood;
-import daderpduck.medicraft.events.message.MessageClientSyncBlood;
 import daderpduck.medicraft.network.NetworkHandler;
+import daderpduck.medicraft.network.message.MessageClientSyncBlood;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;

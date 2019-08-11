@@ -1,4 +1,4 @@
-package daderpduck.medicraft.events.message;
+package daderpduck.medicraft.network.message;
 
 import daderpduck.medicraft.effects.shaders.Blur;
 import daderpduck.medicraft.effects.shaders.MotionBlur;
