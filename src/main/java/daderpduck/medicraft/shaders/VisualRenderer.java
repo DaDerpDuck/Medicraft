@@ -78,6 +78,8 @@ public class VisualRenderer extends VisualHandler {
 					shaderGroup.render(partialTicks);
 					GlStateManager.popMatrix();
 
+					if (shaderGroup.getShaderGroup() == null) continue;
+
 					shaderGroup.getShaderGroup().createBindFramebuffers(frameBuffer.framebufferWidth, frameBuffer.framebufferHeight);
 				}
 				for (HashMap<Class, Visual> map : VisualHandler.singleShaders.values()) {
@@ -88,6 +90,8 @@ public class VisualRenderer extends VisualHandler {
 						GlStateManager.pushMatrix();
 						shaderGroup.render(partialTicks);
 						GlStateManager.popMatrix();
+
+						if (shaderGroup.getShaderGroup() == null) continue;
 
 						shaderGroup.getShaderGroup().createBindFramebuffers(frameBuffer.framebufferWidth, frameBuffer.framebufferHeight);
 					}
@@ -100,6 +104,8 @@ public class VisualRenderer extends VisualHandler {
 						GlStateManager.pushMatrix();
 						shaderGroup.render(partialTicks);
 						GlStateManager.popMatrix();
+
+						if (shaderGroup.getShaderGroup() == null) continue;
 
 						shaderGroup.getShaderGroup().createBindFramebuffers(frameBuffer.framebufferWidth, frameBuffer.framebufferHeight);
 					}

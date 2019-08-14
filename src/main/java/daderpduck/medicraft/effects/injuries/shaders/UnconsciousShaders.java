@@ -1,17 +1,18 @@
 package daderpduck.medicraft.effects.injuries.shaders;
 
-import daderpduck.medicraft.effects.shaders.Vignette;
+import daderpduck.medicraft.effects.shaders.Desaturate;
+import daderpduck.medicraft.effects.shaders.StaticOverlay;
 import daderpduck.medicraft.shaders.Visual;
 import daderpduck.medicraft.shaders.VisualHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import org.lwjgl.util.vector.Vector3f;
 
 @SideOnly(Side.CLIENT)
-public class BrainSwellingShaders {
-	public static final Vignette VIGNETTE = setPersistentShader(new Vignette(-1, new Vector3f(0.9F, 0, 0), 0));
+public class UnconsciousShaders {
+	public static final StaticOverlay STATIC_OVERLAY = setPersistentShader(new StaticOverlay(-1, 0));
+	public static final Desaturate DESATURATE = setPersistentShader(new Desaturate(-1, 1));
 
-	private static final int id = 1;
+	private static final int id = 3;
 
 	private static <T extends Visual> T setPersistentShader(T shader) {
 		return VisualHandler.setPersistentShader(id, shader);

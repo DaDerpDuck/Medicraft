@@ -4,12 +4,12 @@ import daderpduck.medicraft.Main;
 import daderpduck.medicraft.base.DrugType;
 import daderpduck.medicraft.init.ModDrugTypes;
 import daderpduck.medicraft.init.ModItems;
+import daderpduck.medicraft.util.DrugUtil;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
@@ -28,6 +28,7 @@ public class VialFilled extends Item {
 		setHasSubtypes(true);
 		setMaxDamage(0);
 		setMaxStackSize(64);
+		setContainerItem(ModItems.VIAL_EMPTY);
 
 		setCreativeTab(Main.MEDICRAFT_TAB);
 		ModItems.ITEMS.add(this);
@@ -38,13 +39,8 @@ public class VialFilled extends Item {
 	public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> subItems) {
 		if (tab == Main.MEDICRAFT_TAB || tab == CreativeTabs.SEARCH) {
 			for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
-				NBTTagCompound tag = new NBTTagCompound();
-				tag.setInteger("DrugId", drugType.getId());
-
-				ItemStack subStack = new ItemStack(this);
-				subStack.setTagCompound(tag);
-
-				subItems.add(subStack);
+				if (drugType.getDrug() == null) continue;
+				subItems.add(DrugUtil.getVialFromDrug(drugType.getDrug(), 1));
 			}
 		}
 	}

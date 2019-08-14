@@ -12,10 +12,9 @@ public class ConcussionShaders {
 	public static final Blobs2 BLOBS = setPersistentShader(new Blobs2(-1, 0));
 	public static final DoubleVision DOUBLE_VISION = setPersistentShader(new DoubleVision(-1, 0, 0));
 
-	private static final Class currentClass = new Object() {
-	}.getClass().getEnclosingClass();
+	private static final int id = 0;
 
 	private static <T extends Visual> T setPersistentShader(T shader) {
-		return VisualHandler.setPersistentShader(currentClass, shader);
+		return VisualHandler.setPersistentShader(id, shader);
 	}
 }

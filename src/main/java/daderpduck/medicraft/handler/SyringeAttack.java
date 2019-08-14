@@ -1,4 +1,4 @@
-package daderpduck.medicraft.events;
+package daderpduck.medicraft.handler;
 
 import daderpduck.medicraft.base.DrugType;
 import daderpduck.medicraft.capabilities.DrugCapability;

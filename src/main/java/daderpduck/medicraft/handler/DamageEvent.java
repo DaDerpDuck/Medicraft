@@ -1,4 +1,4 @@
-package daderpduck.medicraft.events;
+package daderpduck.medicraft.handler;
 
 import daderpduck.medicraft.capabilities.IUnconscious;
 import daderpduck.medicraft.capabilities.UnconsciousCapability;
@@ -8,7 +8,6 @@ import daderpduck.medicraft.effects.injuries.Concussion;
 import daderpduck.medicraft.effects.injuries.SprainedAnkle;
 import daderpduck.medicraft.init.ModPotions;
 import daderpduck.medicraft.network.NetworkHandler;
-import daderpduck.medicraft.network.message.MessageClientSyncUnconscious;
 import daderpduck.medicraft.network.message.MessageExplodeDamage;
 import daderpduck.medicraft.network.message.MessageHurt;
 import daderpduck.medicraft.network.message.MessagePain;
@@ -21,41 +20,38 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class DamageEvent {
-	/**
-	 * Deals with damage..
-	 */
-	@SubscribeEvent(priority = EventPriority.LOW)
+	@SubscribeEvent(priority = EventPriority.LOWEST)
 	public void onDamageEvent(LivingDamageEvent event) {
 		EntityLivingBase entity = event.getEntityLiving();
 		float damage = event.getAmount();
 
 		if (entity instanceof EntityPlayerMP) {
+			/*
 			if (entity.getHealth() - damage <= 0) {
 				onFatalDamage(event);
 				return;
 			}
+			 */
 
 			calculateInjury(event);
 		}
 	}
 
-	/**
-	 * TODO: Simulate unconsciousness
-	 */
 	private void onFatalDamage(LivingDamageEvent event) {
-		EntityLivingBase entity = event.getEntityLiving();
+		EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
 		float damage = event.getAmount();
 
 		//Damage was too much; let them rest in peace
-		if (entity.getHealth() - damage <= -20) return;
+		if (player.getHealth() - damage <= -20) return;
 
-		IUnconscious unconscious = entity.getCapability(UnconsciousCapability.CAP_UNCONSCIOUS, null);
+		IUnconscious unconscious = player.getCapability(UnconsciousCapability.CAP_UNCONSCIOUS, null);
 		assert unconscious != null;
 
-		unconscious.setUnconscious(true);
-		NetworkHandler.FireClient(new MessageClientSyncUnconscious(unconscious.getUnconscious()), (EntityPlayerMP) entity);
+		if (unconscious.getUnconscious()) {
+			return;
+		}
 
-		entity.setHealth(entity.getMaxHealth());
+		UnconsciousHandler.setUnconscious(player);
 
 		event.setCanceled(true);
 	}

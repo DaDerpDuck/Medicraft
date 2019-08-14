@@ -9,6 +9,7 @@ import net.minecraft.client.shader.ShaderUniform;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.util.vector.Matrix4f;
 
+import javax.annotation.Nullable;
 import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
@@ -80,6 +81,7 @@ public abstract class Visual extends VisualHandler {
 		}
 	}
 
+	@Nullable
 	public EnhancedShaderGroup getShaderGroup() {
 		return shaderGroup;
 	}

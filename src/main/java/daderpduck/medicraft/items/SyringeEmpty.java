@@ -5,6 +5,7 @@ import daderpduck.medicraft.capabilities.BloodCapability;
 import daderpduck.medicraft.capabilities.IBlood;
 import daderpduck.medicraft.init.ModDrugs;
 import daderpduck.medicraft.init.ModItems;
+import daderpduck.medicraft.util.DrugUtil;
 import daderpduck.medicraft.util.IHasModel;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -61,14 +62,18 @@ public class SyringeEmpty extends Item implements IHasModel {
 
 			stack.shrink(1);
 
+			ItemStack bloodSyringe = DrugUtil.getSyringeFromDrug(ModDrugs.BLOOD, 1);
 			if (!stack.isEmpty()) {
-				if (!player.inventory.addItemStackToInventory(new ItemStack(ModItems.SYRINGE_FILLED, 1, ModDrugs.BLOOD.id))) {
-					player.dropItem(new ItemStack(ModItems.SYRINGE_FILLED, 1, ModDrugs.BLOOD.id), false);
+				if (!player.inventory.addItemStackToInventory(bloodSyringe)) {
+					player.dropItem(bloodSyringe, true);
 				}
+				return stack;
+			} else {
+				return bloodSyringe;
 			}
 		}
 
-		return stack.isEmpty() ? new ItemStack(ModItems.SYRINGE_FILLED, 1, ModDrugs.BLOOD.id) : stack;
+		return stack;
 	}
 
 	@Override

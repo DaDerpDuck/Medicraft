@@ -4,12 +4,12 @@
 	],
 	"passes": [
 		{
-			"name": "medicraft:colorconvolve",
+			"name": "medicraft:staticoverlay",
 			"intarget": "minecraft:main",
 			"outtarget": "swap",
 			"uniforms": [
 				{
-					"name": "Saturation",
+					"name": "Opacity",
 					"values": [ 0.2 ]
 				}
 			]

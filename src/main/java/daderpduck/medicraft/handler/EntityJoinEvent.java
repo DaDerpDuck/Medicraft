@@ -1,4 +1,4 @@
-package daderpduck.medicraft.events;
+package daderpduck.medicraft.handler;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.settings.GameSettings;

@@ -1,4 +1,4 @@
-package daderpduck.medicraft.events;
+package daderpduck.medicraft.handler;
 
 import daderpduck.medicraft.base.CustomPotion;
 import daderpduck.medicraft.capabilities.*;
@@ -102,7 +102,7 @@ public class PlayerTick {
 
 		//Exsanguination
 		if (bloodRatio <= 0) {
-			player.attackEntityFrom(ModDamageSources.BLOOD_LOSS, 2);
+			player.attackEntityFrom(ModDamageSources.BLOOD_LOSS, player.getMaxHealth() + 1);
 		}
 	}
 

@@ -5,7 +5,7 @@
 		"dstrgb": "zero"
 	},
 	"vertex": "sobel",
-	"fragment": "color_convolve",
+	"fragment": "medicraft:colorconvolve",
 	"attributes": [ "Position" ],
 	"samplers": [
 		{ "name": "DiffuseSampler" }

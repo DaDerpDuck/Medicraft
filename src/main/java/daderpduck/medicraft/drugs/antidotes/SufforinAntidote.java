@@ -9,7 +9,6 @@ import net.minecraft.entity.player.EntityPlayer;
 public class SufforinAntidote extends Drug {
 	public SufforinAntidote() {
 		super();
-		setDrugDelay(2*20);
 		setInitialDuration(10*20);
 		setDurationIncrement(10*20);
 	}

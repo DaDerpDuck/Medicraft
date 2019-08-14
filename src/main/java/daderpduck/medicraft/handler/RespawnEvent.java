@@ -1,4 +1,4 @@
-package daderpduck.medicraft.events;
+package daderpduck.medicraft.handler;
 
 import daderpduck.medicraft.capabilities.*;
 import net.minecraft.entity.player.EntityPlayerMP;

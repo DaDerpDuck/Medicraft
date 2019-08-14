@@ -31,6 +31,7 @@ public class SyringeFilled extends Item {
 		setHasSubtypes(true);
 		setMaxDamage(0);
 		setMaxStackSize(16);
+		setContainerItem(ModItems.SYRINGE_EMPTY);
 
 		setCreativeTab(Main.MEDICRAFT_TAB);
 		ModItems.ITEMS.add(this);
@@ -88,7 +89,10 @@ public class SyringeFilled extends Item {
 
 		if (entityLiving instanceof EntityPlayer && drugType != null) {
 			EntityPlayer player = (EntityPlayer) entityLiving;
-			stack.shrink(1);
+
+			if (!player.isCreative()) {
+				stack.shrink(1);
+			}
 
 			if (drugType.getDrug() != null) {
 				drugType.getDrug().drugPlayer(player);
@@ -111,10 +115,12 @@ public class SyringeFilled extends Item {
 		if (attacker instanceof EntityPlayer && target instanceof EntityPlayer && drugType != null) {
 			EntityPlayer attackerPlayer = (EntityPlayer) attacker;
 
-			stack.shrink(1);
+			if (!attackerPlayer.isCreative()) {
+				stack.shrink(1);
 
-			if (!attackerPlayer.inventory.addItemStackToInventory(new ItemStack(ModItems.SYRINGE_EMPTY))) {
-				attackerPlayer.dropItem(new ItemStack(ModItems.SYRINGE_EMPTY), false);
+				if (!attackerPlayer.inventory.addItemStackToInventory(new ItemStack(ModItems.SYRINGE_EMPTY))) {
+					attackerPlayer.dropItem(new ItemStack(ModItems.SYRINGE_EMPTY), false);
+				}
 			}
 		}
 

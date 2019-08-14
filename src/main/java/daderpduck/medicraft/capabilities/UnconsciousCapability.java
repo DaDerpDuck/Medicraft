@@ -4,8 +4,11 @@ import daderpduck.medicraft.network.NetworkHandler;
 import daderpduck.medicraft.network.message.MessageClientSyncUnconscious;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagByte;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTTagDouble;
+import net.minecraft.nbt.NBTTagList;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -28,6 +31,7 @@ public class UnconsciousCapability {
 	 */
 	public static class ImplementationUnconscious implements IUnconscious {
 		boolean unconscious = false;
+		Vec3d lastPos = new Vec3d(0, 0, 0);
 
 		@Override
 		public void setUnconscious(boolean flag) {
@@ -38,6 +42,17 @@ public class UnconsciousCapability {
 		public boolean getUnconscious() {
 			return unconscious;
 		}
+
+		@Override
+		public void setLastPos(double posX, double posY, double posZ) {
+			lastPos = new Vec3d(posX, posY, posZ);
+		}
+
+		@Override
+		public Vec3d getLastPos() {
+			return lastPos;
+		}
+
 
 		@Override
 		public void sync(EntityPlayerMP player) {
@@ -53,12 +68,27 @@ public class UnconsciousCapability {
 		@Nullable
 		@Override
 		public NBTBase writeNBT(Capability<IUnconscious> capability, IUnconscious instance, EnumFacing side) {
-			return new NBTTagByte((byte) (instance.getUnconscious() ? 1 : 0));
+			NBTTagCompound nbt = new NBTTagCompound();
+			nbt.setByte("unconscious", (byte) (instance.getUnconscious() ? 1 : 0));
+
+			NBTTagList nbtLastPos = new NBTTagList();
+			Vec3d pos = instance.getLastPos();
+			nbtLastPos.appendTag(new NBTTagDouble(pos.x));
+			nbtLastPos.appendTag(new NBTTagDouble(pos.y));
+			nbtLastPos.appendTag(new NBTTagDouble(pos.z));
+
+			nbt.setTag("lastPos", nbtLastPos);
+
+			return nbt;
 		}
 
 		@Override
 		public void readNBT(Capability<IUnconscious> capability, IUnconscious instance, EnumFacing side, NBTBase nbt) {
-			instance.setUnconscious(((NBTTagByte) nbt).getByte() == 1);
+			NBTTagCompound nbtTagCompound = (NBTTagCompound) nbt;
+			instance.setUnconscious(nbtTagCompound.getByte("unconscious") == 1);
+
+			NBTTagList lastPos = (NBTTagList) nbtTagCompound.getTag("lastPos");
+			instance.setLastPos(lastPos.getDoubleAt(0), lastPos.getDoubleAt(1), lastPos.getDoubleAt(2));
 		}
 	}
 

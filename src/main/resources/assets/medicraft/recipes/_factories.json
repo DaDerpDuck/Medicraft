@@ -1,0 +1,6 @@
+{
+	"recipes": {
+		"fill_syringe": "daderpduck.medicraft.crafting.recipe.FillSyringeRecipe$Factory",
+		"fill_vial": "daderpduck.medicraft.crafting.recipe.FillVialRecipe$Factory"
+	}
+}

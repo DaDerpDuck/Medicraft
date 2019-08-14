@@ -1,4 +1,4 @@
-package daderpduck.medicraft.events;
+package daderpduck.medicraft.handler;
 
 import daderpduck.medicraft.base.AttributeModifierBase;
 import daderpduck.medicraft.base.CustomPotion;

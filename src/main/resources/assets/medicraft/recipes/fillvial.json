@@ -1,0 +1,23 @@
+{
+	"type": "medicraft:fill_vial",
+	"group": "medicraft:fill_vial_group",
+	"ingredients": [
+		{
+			"item": "medicraft:syringe_filled",
+			"data": 0,
+			"nbt": {
+				"DrugId": 0
+			}
+		},
+		{
+			"item": "medicraft:vial_empty"
+		}
+	],
+	"result": {
+		"item": "medicraft:vial_filled",
+		"data": 0,
+		"nbt": {
+			"DrugId": 0
+		}
+	}
+}

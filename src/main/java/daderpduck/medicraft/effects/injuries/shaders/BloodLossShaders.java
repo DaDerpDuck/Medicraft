@@ -15,10 +15,9 @@ public class BloodLossShaders {
 	public static final Blur BLUR = setPersistentShader(new Blur(-1, 0));
 	public static final Tint TINT = setPersistentShader(new Tint(-1, new Vector3f(0,0,0), 0));
 
-	private static final Class currentClass = new Object() {
-	}.getClass().getEnclosingClass();
+	private static final int id = 2;
 
 	private static <T extends Visual> T setPersistentShader(T shader) {
-		return VisualHandler.setPersistentShader(currentClass, shader);
+		return VisualHandler.setPersistentShader(id, shader);
 	}
 }
