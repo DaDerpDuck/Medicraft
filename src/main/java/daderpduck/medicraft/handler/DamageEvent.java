@@ -26,12 +26,10 @@ public class DamageEvent {
 		float damage = event.getAmount();
 
 		if (entity instanceof EntityPlayerMP) {
-			/*
 			if (entity.getHealth() - damage <= 0) {
 				onFatalDamage(event);
 				return;
 			}
-			 */
 
 			calculateInjury(event);
 		}

@@ -1,14 +1,20 @@
 package daderpduck.medicraft.proxy;
 
+import daderpduck.medicraft.Main;
+import daderpduck.medicraft.entities.EntityUnconsciousBody;
 import daderpduck.medicraft.handler.*;
 import daderpduck.medicraft.init.ModBlocks;
 import daderpduck.medicraft.init.ModCapabilities;
 import daderpduck.medicraft.init.ModItems;
 import daderpduck.medicraft.init.ModPotions;
 import daderpduck.medicraft.network.NetworkHandler;
+import daderpduck.medicraft.util.Reference;
 import net.minecraft.block.Block;
+import net.minecraft.entity.Entity;
 import net.minecraft.item.Item;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 public class CommonProxy {
@@ -33,9 +39,16 @@ public class CommonProxy {
 	}
 
 	public void Init() {
+		registerEntity(EntityUnconsciousBody.class);
 	}
 
 	public void PostInit() {
 
+	}
+
+	private static int entityIndex = 0;
+	private void registerEntity(Class<? extends Entity> entityClass){
+		String idName = "unconsciousbody";
+		EntityRegistry.registerModEntity(new ResourceLocation(Reference.MOD_ID, idName), entityClass, idName, entityIndex++, Main.instance, 32, 1, true);
 	}
 }

@@ -1,12 +1,17 @@
 package daderpduck.medicraft.handler;
 
+import daderpduck.medicraft.base.CustomPotion;
 import daderpduck.medicraft.capabilities.*;
 import daderpduck.medicraft.effects.injuries.shaders.UnconsciousShaders;
+import daderpduck.medicraft.entities.EntityUnconsciousBody;
+import daderpduck.medicraft.init.ModPotions;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.FoodStats;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.player.AttackEntityEvent;
@@ -54,8 +59,29 @@ public class UnconsciousHandler {
 		MinecraftServer server = player.getServer();
 		assert server != null;
 
+		for (CustomPotion potion : ModPotions.POTIONS) {
+
+			//Remove modifiers
+			if (potion.getAttribute() != null && potion.getAttributeModifier() != null) {
+				IAttributeInstance attribute = player.getEntityAttribute(potion.getAttribute());
+
+				if (attribute.getModifier(potion.getAttributeModifier().getID()) != null)
+					attribute.removeModifier(potion.getAttributeModifier());
+			}
+		}
+
+		World world = player.getEntityWorld();
+
 		player.setHealth(player.getMaxHealth());
 		player.clearActivePotions();
+		player.setEntityInvulnerable(true);
+
+		EntityUnconsciousBody unconsciousBody = new EntityUnconsciousBody(player);
+		unconsciousBody.forceSpawn = true;
+		unconsciousBody.rotationYaw = player.rotationYaw;
+		unconsciousBody.setCustomNameTag(player.getName());
+		world.spawnEntity(unconsciousBody);
+		world.updateEntityWithOptionalForce(unconsciousBody, false);
 
 		player.getServerWorld().getEntityTracker().removePlayerFromTrackers(player);
 		player.getServerWorld().getEntityTracker().untrack(player);

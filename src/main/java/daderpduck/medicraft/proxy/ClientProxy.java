@@ -1,14 +1,17 @@
 package daderpduck.medicraft.proxy;
 
 import daderpduck.medicraft.base.DrugType;
+import daderpduck.medicraft.entities.EntityUnconsciousBody;
 import daderpduck.medicraft.init.ModDrugTypes;
 import daderpduck.medicraft.init.ModItems;
 import daderpduck.medicraft.items.SyringeFilled;
 import daderpduck.medicraft.items.VialFilled;
+import daderpduck.medicraft.util.BodyRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 
 import java.util.Objects;
 
@@ -21,6 +24,8 @@ public class ClientProxy extends CommonProxy {
 
 	public void PreInit() {
 		super.PreInit();
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityUnconsciousBody.class, BodyRenderer::new);
 
 		for (DrugType drugType : ModDrugTypes.DRUG_TYPES) {
 			//Syringe
