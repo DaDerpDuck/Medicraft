@@ -14,9 +14,6 @@ import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
 
-import static net.minecraft.client.Minecraft.getMinecraft;
-import static net.minecraft.client.Minecraft.getSystemTime;
-
 public abstract class Visual extends VisualHandler {
 	private final ResourceLocation location;
 	private EnhancedShaderGroup shaderGroup;
@@ -27,10 +24,10 @@ public abstract class Visual extends VisualHandler {
 
 	public Visual(String name, int lifeTime) {
 		this.location = new ResourceLocation(Reference.MOD_ID, "shaders/post/" + name + ".json");
-		this.startTime = getSystemTime();
+		this.startTime = Minecraft.getSystemTime();
 		this.lifeTime = lifeTime;
 
-		this.mc = getMinecraft();
+		this.mc = Minecraft.getMinecraft();
 	}
 
 	protected float lerp(float a, float b, float t) {
@@ -42,7 +39,7 @@ public abstract class Visual extends VisualHandler {
 			return 0;
 		}
 
-		return (getSystemTime() - this.startTime) / (float) this.lifeTime;
+		return (Minecraft.getSystemTime() - this.startTime) / (float) this.lifeTime;
 	}
 
 
