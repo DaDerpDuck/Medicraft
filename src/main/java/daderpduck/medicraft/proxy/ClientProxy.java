@@ -16,6 +16,7 @@ import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import java.util.Objects;
 
 public class ClientProxy extends CommonProxy {
+	private static final Minecraft mc = Minecraft.getMinecraft();
 
 	@Override
 	public void registerItemRenderer(Item item, int meta, String id) {
@@ -45,8 +46,6 @@ public class ClientProxy extends CommonProxy {
 
 	public void PostInit() {
 		super.PostInit();
-
-		Minecraft mc = Minecraft.getMinecraft();
 
 		mc.getItemColors().registerItemColorHandler(new SyringeFilled.liquidColor(), ModItems.SYRINGE_FILLED);
 		mc.getItemColors().registerItemColorHandler(new VialFilled.liquidColor(), ModItems.VIAL_FILLED);
