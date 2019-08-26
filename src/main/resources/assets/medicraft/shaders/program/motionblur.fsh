@@ -9,12 +9,12 @@ varying vec2 oneTexel;
 uniform float Intensity;
 
 void main() {
-    vec4 CurrTexel = texture2D(DiffuseSampler, texCoord);
-    vec4 PrevTexel = texture2D(PrevSampler, texCoord);
+	vec4 CurrTexel = texture2D(DiffuseSampler, texCoord);
+	vec4 PrevTexel = texture2D(PrevSampler, texCoord);
 
-    if (PrevTexel.a == 0) {
-        PrevTexel = CurrTexel;
-    }
+	if (PrevTexel.a == 0) {
+		PrevTexel = CurrTexel;
+	}
 
-    gl_FragColor = vec4(mix(CurrTexel.rgb, PrevTexel.rgb, Intensity), 1.0);
+	gl_FragColor = vec4(mix(CurrTexel.rgb, PrevTexel.rgb, Intensity), 1.0);
 }

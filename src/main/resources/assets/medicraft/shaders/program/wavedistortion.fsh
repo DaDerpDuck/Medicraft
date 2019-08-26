@@ -11,11 +11,11 @@ uniform vec2 Frequency;
 uniform vec2 Amplitude;
 
 void main() {
-    float xOffset = cos(texCoord.y*Frequency.x + Time*PI*2.0)*Amplitude.x;
-    float yOffset = cos(texCoord.x*Frequency.y + Time*PI*2.0)*Amplitude.y;
-    vec2 offset = vec2(xOffset, yOffset);
+	float xOffset = cos(texCoord.y*Frequency.x + Time*PI*2.0)*Amplitude.x;
+	float yOffset = cos(texCoord.x*Frequency.y + Time*PI*2.0)*Amplitude.y;
+	vec2 offset = vec2(xOffset, yOffset);
 
-    vec4 color = texture2D(DiffuseSampler, texCoord + offset);
+	vec4 color = texture2D(DiffuseSampler, texCoord + offset);
 
-    gl_FragColor = vec4(color.rgb, 1.0);
+	gl_FragColor = vec4(color.rgb, 1.0);
 }

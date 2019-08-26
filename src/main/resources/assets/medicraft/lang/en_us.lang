@@ -15,6 +15,7 @@ item.syringe_filled.cyanide.name=Cyanide Syringe
 item.syringe_filled.cyanide_antidote.name=Cyanide Antidote Syringe
 item.syringe_filled.oxygen_microparticles.name=Oxygen Microparticles Syringe
 item.syringe_filled.deliriozine.name=Deliriozine Syringe
+item.syringe_filled.crack.name=Crack Syringe
 
 item.vial_empty.name=Empty Vial
 item.vial_filled.name=Vial of Invalidness
@@ -26,6 +27,7 @@ item.vial_filled.cyanide.name=Vial of Cyanide
 item.vial_filled.cyanide_antidote.name=Vial of Cyanide Antidote
 item.vial_filled.oxygen_microparticles.name=Vial of Oxygen Microparticles
 item.vial_filled.deliriozine.name=Vial of Deliriozine
+item.vial_filled.crack.name=Vial of Crack
 
 #Vial Descriptions
 vial.blood.description=In case you run out
@@ -36,6 +38,7 @@ vial.cyanide.description=Starves blood cells of oxygen
 vial.cyanide_antidote.description=Treats cyanide
 vial.oxygen_microparticles.description=Reoxygenates blood cells
 vial.deliriozine.description=Causes mental confusion
+vial.crack.description=Probably not what you're thinking about
 
 #Blocks
 tile.yogurt_block.name=Yogurt Block

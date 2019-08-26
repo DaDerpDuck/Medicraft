@@ -9,7 +9,7 @@ import net.minecraft.entity.player.EntityPlayer;
 public class CyanideAntidote extends Drug {
 	public CyanideAntidote() {
 		super();
-		setInitialDuration(10*20);
+		setInitialDuration(12*20);
 		setDurationIncrement(10*20);
 	}
 
@@ -20,7 +20,7 @@ public class CyanideAntidote extends Drug {
 
 		DrugEffect cyanideEffect = drugCap.getActiveDrug(ModDrugs.CYANIDE);
 		if (cyanideEffect != null) {
-			cyanideEffect.drugDuration -= 4;
+			cyanideEffect.drugDuration -= 8;
 		}
 	}
 }

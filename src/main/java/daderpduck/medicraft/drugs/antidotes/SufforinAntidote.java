@@ -9,8 +9,8 @@ import net.minecraft.entity.player.EntityPlayer;
 public class SufforinAntidote extends Drug {
 	public SufforinAntidote() {
 		super();
-		setInitialDuration(10*20);
-		setDurationIncrement(10*20);
+		setInitialDuration(35*20);
+		setDurationIncrement(30*20);
 	}
 
 	@Override
@@ -19,8 +19,8 @@ public class SufforinAntidote extends Drug {
 		assert drugCap != null;
 
 		DrugEffect sufforinEffect = drugCap.getActiveDrug(ModDrugs.SUFFORIN);
-		if (sufforinEffect != null && sufforinEffect.drugDuration >= 10) {
-			sufforinEffect.drugDuration -= 4;
+		if (sufforinEffect != null) {
+			sufforinEffect.drugDuration -= 10;
 		}
 	}
 }

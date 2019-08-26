@@ -15,14 +15,17 @@ public class DrugHandler {
 			assert drugCap != null;
 
 			for (Drug.DrugEffect drugEffect : drugCap.getAllDrugs().toArray(new Drug.DrugEffect[0])) {
-				if (drugEffect.drugDelay >= 0) {
-					drugEffect.drug.preDrugEffect(event.player, drugEffect.drugDelay--, drugEffect.amplifier);
+				if (drugEffect.drugDuration <= 0) {
+					drugEffect.drug.removeDrugFromPlayer(event.player);
 					continue;
 				}
 
-				drugEffect.drug.drugEffect(event.player, drugEffect.drugDuration--, drugEffect.amplifier);
+				if (drugEffect.drugDelay >= 0) {
+					drugEffect.drug.preDrugEffect(event.player, Math.max(drugEffect.drugDelay--, 0), drugEffect.amplifier);
+					continue;
+				}
 
-				if (drugEffect.drugDuration <= 0) drugEffect.drug.removeDrugFromPlayer(event.player);
+				drugEffect.drug.drugEffect(event.player, Math.max(drugEffect.drugDuration--, 0), drugEffect.amplifier);
 			}
 		}
 	}

@@ -8,7 +8,7 @@ uniform float Opacity;
 uniform vec3 Color;
 
 void main() {
-    vec4 tex = texture2D(DiffuseSampler, texCoord);
+	vec4 tex = texture2D(DiffuseSampler, texCoord);
 
-    gl_FragColor = vec4(mix(tex.rgb, Color, Opacity), 1.0);
+	gl_FragColor = vec4(mix(tex.rgb, Color, Opacity), 1.0);
 }

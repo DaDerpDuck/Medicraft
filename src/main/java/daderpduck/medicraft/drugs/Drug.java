@@ -76,7 +76,11 @@ public class Drug {
 		}
 
 		void incrementAmplifier(int increment) {
-			amplifier = MathHelper.clamp(amplifier + increment, 0, maxAmplifier);
+			if (maxAmplifier < 0) {
+				amplifier = Math.max(amplifier + increment, 0);
+			} else {
+				amplifier = MathHelper.clamp(amplifier + increment, 0, maxAmplifier);
+			}
 		}
 
 		void incrementDuration(int poisonDuration) {
@@ -115,11 +119,15 @@ public class Drug {
 		assert drugCap != null;
 
 		for (Drug.DrugEffect drugEffect : drugCap.getAllDrugs()) {
+			if (!drugEffect.drug.otherDrugEffect(player, this)) return;
+		}
+
+		for (Drug.DrugEffect drugEffect : drugCap.getAllDrugs()) {
 			if (drugEffect.drug == this) {
 				drugEffect.incrementDuration(durationIncrement);
 				drugEffect.drugDelay /= 2;
 
-				//If player was poisoned, increment amplifier (if <= 0, increase amplifier by 1)
+				//If player was poisoned, increment amplifier
 				drugEffect.incrementAmplifier(Math.max(amplifier, 1));
 				drugCap.addDrug(drugEffect);
 				return;
@@ -161,10 +169,20 @@ public class Drug {
 	public void drugEffect(EntityPlayer player, int drugDuration, int amplifier) {}
 
 	/**
-	 * Fires every PlayerTick  before drug delay has passed
+	 * Fires every PlayerTick before drug delay has passed
 	 * @param player The player that has been drugged
 	 * @param drugDelay Current drug delay
 	 * @param amplifier Current amplifier
 	 */
 	public void preDrugEffect(EntityPlayer player, int drugDelay, int amplifier) {}
+
+	/**
+	 * Fires when another drug is injected
+	 * @param player The player that has been drugged
+	 * @param drug The other drug
+	 * @return Boolean to determine if other drug effect is not cancelled
+	 */
+	public boolean otherDrugEffect(EntityPlayer player, Drug drug) {
+		return true;
+	}
 }

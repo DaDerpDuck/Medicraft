@@ -6,6 +6,7 @@ import daderpduck.medicraft.drugs.antidotes.SufforinAntidote;
 import daderpduck.medicraft.drugs.medicines.Blood;
 import daderpduck.medicraft.drugs.medicines.Hemostasin;
 import daderpduck.medicraft.drugs.medicines.OxygenMicroparticles;
+import daderpduck.medicraft.drugs.poisons.Crack;
 import daderpduck.medicraft.drugs.poisons.Cyanide;
 import daderpduck.medicraft.drugs.poisons.Deliriozine;
 import daderpduck.medicraft.drugs.poisons.Sufforin;
@@ -19,4 +20,5 @@ public class ModDrugs {
 	public static final Drug CYANIDE_ANTIDOTE = new CyanideAntidote();
 	public static final Drug OXYGEN_MICROPARTICLES = new OxygenMicroparticles();
 	public static final Drug DELIRIOZINE = new Deliriozine();
+	public static final Drug CRACK = new Crack();
 }

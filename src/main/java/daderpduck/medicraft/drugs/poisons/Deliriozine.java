@@ -20,18 +20,11 @@ import java.util.Map;
 public class Deliriozine extends Drug {
 	public Deliriozine() {
 		super(0);
-		setInitialDuration(120*20);
+		setInitialDuration(240*20);
+		setDurationIncrement(60*20);
 	}
 
 	private static boolean active = false;
-
-	@Override
-	public void drugEffect(EntityPlayer player, int drugDuration, int amplifier) {
-		if (player.world.isRemote) {
-			active = drugDuration > 20;
-		}
-	}
-
 	private final static Map<KeyBinding, KeyBinding> SWAP_KEYS_MAP = new HashMap<>();
 	static {
 		GameSettings gameSettings = Minecraft.getMinecraft().gameSettings;
@@ -41,11 +34,20 @@ public class Deliriozine extends Drug {
 		SWAP_KEYS_MAP.put(gameSettings.keyBindLeft, gameSettings.keyBindRight);
 		SWAP_KEYS_MAP.put(gameSettings.keyBindRight, gameSettings.keyBindLeft);
 
-		SWAP_KEYS_MAP.put(gameSettings.keyBindInventory, gameSettings.keyBindDrop);
-		SWAP_KEYS_MAP.put(gameSettings.keyBindDrop, gameSettings.keyBindInventory);
-
 		SWAP_KEYS_MAP.put(gameSettings.keyBindAttack, gameSettings.keyBindUseItem);
 		SWAP_KEYS_MAP.put(gameSettings.keyBindUseItem, gameSettings.keyBindAttack);
+	}
+
+	@Override
+	public void preDrugEffect(EntityPlayer player, int drugDelay, int amplifier) {
+
+	}
+
+	@Override
+	public void drugEffect(EntityPlayer player, int drugDuration, int amplifier) {
+		if (player.world.isRemote) {
+			active = drugDuration > 20;
+		}
 	}
 
 	@SideOnly(Side.CLIENT)

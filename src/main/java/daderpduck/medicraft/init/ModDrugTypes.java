@@ -18,5 +18,6 @@ public class ModDrugTypes {
 		new DrugType("cyanide_antidote", 0x48ACF0, id++).setDrug(ModDrugs.CYANIDE_ANTIDOTE);
 		new DrugType("oxygen_microparticles", 0x8CA6B9, id++).setDrug(ModDrugs.OXYGEN_MICROPARTICLES);
 		new DrugType("deliriozine", 0xB4ADEA, id++).setDrug(ModDrugs.DELIRIOZINE);
+		new DrugType("crack", 0xFEFFFE, id++).setDrug(ModDrugs.CRACK);
 	}
 }

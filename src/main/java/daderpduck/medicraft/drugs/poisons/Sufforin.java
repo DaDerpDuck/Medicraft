@@ -7,10 +7,10 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class Sufforin extends Drug {
 	public Sufforin() {
-		super(2);
-		setInitialDuration(120*20);
+		super(0);
+		setInitialDuration(300*20);
 		setDurationIncrement(30*20);
-		setDrugDelay(30*20);
+		setDrugDelay(300*20);
 	}
 
 	@Override
@@ -18,6 +18,7 @@ public class Sufforin extends Drug {
 		IBlood blood = player.getCapability(BloodCapability.CAP_BLOOD, null);
 		assert blood != null;
 
-		blood.decreaseBlood(0.8F + (0.2F*amplifier));
+		//Injection kills in 319 seconds
+		blood.decreaseOxygen(1/3D);
 	}
 }
