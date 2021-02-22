@@ -1,3 +1,7 @@
+# Abandoned Project
+
+I plan to resume this later
+
 # Medicraft
 
 A (developing) mod that adds syringes, injuries, disease, and poisons. <br>
